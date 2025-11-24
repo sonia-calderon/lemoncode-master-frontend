@@ -1,0 +1,90 @@
+@use "sass:color";
+
+$bg-color01: #EC4899;
+$txt-color01: #FCE7F3;
+$bg-color02: #EA580C;
+$txt-color02: #FFEDD5;
+$bg-color03: #EF4444;
+$txt-color03: #FEE2E2;
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+    padding: 32px 24px;
+    background-color: #F5F5F5;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+}
+
+.box {
+    width: 100px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin container-color($bg-color, $txt-color) {
+    .darken-4 {
+        background-color: color.adjust($bg-color, $lightness: -20%);
+        color: color.adjust($txt-color, $lightness: -10%);
+    }
+    .darken-3 {
+        background-color: color.adjust($bg-color, $lightness: -15%);
+        color: color.adjust($txt-color, $lightness: -8%);
+    }
+    .darken-2 {
+        background-color: color.adjust($bg-color, $lightness: -10%);
+        color: color.adjust($txt-color, $lightness: -6%);
+    }
+    .darken-1 {
+        background-color: color.adjust($bg-color, $lightness: -5%);
+        color: color.adjust($txt-color, $lightness: -4%);
+    }
+    .base-color {
+        background-color: $bg-color;
+        color: $txt-color;
+    }
+    .lighten-1 {
+        background-color: color.adjust($bg-color, $lightness: 5%);
+        color: color.adjust($txt-color, $lightness: 5%);
+    }
+    .lighten-2 {
+        background-color: color.adjust($bg-color, $lightness: 10%);
+        color: color.adjust($txt-color, $lightness: 10%);
+    }
+    .lighten-3 {
+        background-color: color.adjust($bg-color, $lightness: 15%);
+        color: color.adjust($txt-color, $lightness: 15%);
+    }
+    .lighten-4 {
+        background-color: color.adjust($bg-color, $lightness: 20%);
+        color: color.adjust($txt-color, $lightness: 20%);
+    }
+}
+
+.container-1 {
+   @include container-color($bg-color01, $txt-color01);
+}
+
+.container-2 {
+   @include container-color($bg-color02, $txt-color02);
+}
+
+.container-3 {
+   @include container-color($bg-color03, $txt-color03);
+}

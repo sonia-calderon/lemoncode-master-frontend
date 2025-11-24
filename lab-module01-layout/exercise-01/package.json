@@ -1,0 +1,14 @@
+{
+  "name": "exercise-01",
+  "version": "1.0.0",
+  "description": "Usar el lenguaje Sass para crear distintos temas de paletas de colores.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "sass": "^1.94.2"
+  }
+}
