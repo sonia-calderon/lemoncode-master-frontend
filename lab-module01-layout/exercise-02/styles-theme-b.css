@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Girassol&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    --color-base: #444444;
+    --color-important: #121212;
+    --color-warning: #FF6F61;
+    --font-principal: "Girassol", serif;
+    --font-secondary: "Roboto", sans-serif;
+    --font-color-light: #FFFFFF;
+    --font-color-dark: #3F3E3F;
+    --box-bckg: #E0E0E0;
+    --box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
