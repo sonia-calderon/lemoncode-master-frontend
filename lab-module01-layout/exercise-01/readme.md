@@ -21,3 +21,23 @@ Para comprobar que todo está funcionando como se espera utilizar el siguiente h
 
 > NOTA: Para este ejercicio se puede utilizar cualquier estructura de Sass que se considere necesaria. El html para mostrar resultados deberá será modificado
 con clases.
+
+# Cómo ver el proyecto
+## Requisitos
+- Node.js
+- npm
+- Parcel instalado globalmente
+```bash
+  npm install -g parcel-bundler
+```
+
+## Cómo ejecutar
+1. Clonar el repositorio
+2. Instalar dependencias
+```bash
+npm install
+```
+3. Ejecutar el proyecto con Parcel
+```bash
+parcel src/index.html
+```
