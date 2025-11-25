@@ -30,7 +30,7 @@ button {
     padding: 12px 16px;
     font-size: 20px;
     color: var(--font-color-light);
-    border-radius: 8px;
+    border-radius: var(--border-radius);
     max-width: 200px;
 }
 
@@ -68,7 +68,6 @@ button {
     justify-content: center;
     background-color: var(--box-bckg);
     color: var(--font-color-dark);
-    box-shadow: var(--box-shadow);
-         
-         
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);    
 }

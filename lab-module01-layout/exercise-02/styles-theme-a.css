@@ -8,6 +8,7 @@
     --font-secondary: "Montserrat", sans-serif;
     --font-color-light: #FFFFFF;
     --font-color-dark: #3F3E3F;
+    --border-radius: 0px;
     --box-bckg: #d6eab2;
     --box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
