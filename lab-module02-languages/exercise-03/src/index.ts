@@ -1,14 +1,20 @@
 ///// Clone
 console.log('///////////////////////////////////////////// CLONE - MAIN SOLUTION');
 
-const person = {
+interface Person {
+    name: string;
+    surname: string;
+    city: string;
+};
+
+const person: Person = {
     "name": "Sonia",
     "surname": "Calderón",
     "city": "Madrid"
 };
 
-function clone (source) {
-    const newObject = {...source};
+function clone (source: object): void {
+    const newObject: object = {...source};
     console.log(`Clone - Resultado del nuevo objeto: `);
     console.log(newObject);
 };
@@ -18,15 +24,22 @@ clone(person);
 ///// Merge
 console.log('///////////////////////////////////////////// MERGE - MAIN SOLUTION');
 
-const lemoncodeStudent = {
+interface Student {
+    name: string;
+    surname: string;
+    type: string;
+    master: string;
+}
+
+const lemoncodeStudent: Student = {
     "name": "Sonia",
     "surname": "Calderón",
     "type": "online",
     "master": "frontend"
 };
 
-function merge (source, target) {
-    const mergedObject = {...source, ...target};
+function merge (source: object, target: object): void {
+    const mergedObject: object = {...source, ...target};
     console.log(`Merge - Resultado del nuevo objeto: `);
     console.log(mergedObject)
 };
