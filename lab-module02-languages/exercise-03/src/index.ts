@@ -32,14 +32,14 @@ interface Student {
 }
 
 const lemoncodeStudent: Student = {
-    "name": "Sonia",
+    "name": "Test",
     "surname": "Calderón",
     "type": "online",
     "master": "frontend"
 };
 
 function merge (source: object, target: object): void {
-    const mergedObject: object = {...source, ...target};
+    const mergedObject: object = {...target, ...source};
     console.log(`Merge - Resultado del nuevo objeto: `);
     console.log(mergedObject)
 };

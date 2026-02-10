@@ -12,18 +12,21 @@ const books: Book[] = [
 ];
 
 function isBookRead (books: Book[], titleToSearch: string) {
-    books.forEach(book => {
-        const { title, isRead } = book;
-        const titleExists = title?.includes(titleToSearch);
 
-        if(titleExists && isRead){
-            console.log(`${title}: leído`)
-        } else if(titleExists && isRead === false) {
-            console.log(`${title}: no leído`)
-        };
-    });
- 
+    const book = books.find(book => book.title === titleToSearch);
+
+    if(!book){
+        console.log(`${titleToSearch}: no existe en la biblioteca`);
+        return;
+    };
+
+    if (book?.isRead) {
+        console.log(`${book?.title}: leído`);
+    } else {
+        console.log(`${book?.title}: no leído`);
+    };
 };
 
 isBookRead(books, "Walden");
 isBookRead(books, "Los nombres propios");
+isBookRead(books, "La profecía del armadillo");
