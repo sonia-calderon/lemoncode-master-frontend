@@ -1,4 +1,6 @@
-const cities = ["Madrid", "Barcelona", "Bilbao", "Valencia", "Sevilla"];
+console.log('/////////////////////////////////////////////');
+
+const cities: string[] = ["Madrid", "Barcelona", "Bilbao", "Valencia", "Sevilla"];
 
 ///// Head
 const head01 = (array: string[]): void => {

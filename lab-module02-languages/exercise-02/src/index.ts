@@ -32,7 +32,6 @@ console.log('///////////////////////////////////////////// OPTIONAL EXCERCISE SO
 
 const concat03 = (...arrays: string[][]): void => {
     const result = arrays.reduce((acc, arr) => {
-        console.log(arr)
         return [...acc, ...arr];
     });
     console.log(`Concat Opcional - Solución: ${result}`);

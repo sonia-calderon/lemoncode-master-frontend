@@ -27,3 +27,24 @@ function merge(source, target) {
   // Implementation here.
 }
 ```
+
+# Cómo ver el proyecto
+## Requisitos
+- Node.js
+- npm
+
+## Cómo ejecutar
+1. Clonar el repositorio
+```bash
+git clone <url-del-repositorio>
+cd <nombre-del-proyecto>
+```
+2. Instalar dependencias
+```bash
+npm install
+```
+3. Compilar TypeScript
+```bash
+npx tsc
+```
+4. Abrir el proyecto ```index.html```
