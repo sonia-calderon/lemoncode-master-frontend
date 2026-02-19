@@ -18,10 +18,7 @@ export default merge (common, {
             {
                 loader: "css-loader",
                 options: {
-                modules: {
-                    exportLocalsConvention: "camelCase",
-                    localIdentName: "[path][name]__[local]--[hash:base64:5]",
-                },
+                modules: false,
                 },
             },
             "sass-loader",

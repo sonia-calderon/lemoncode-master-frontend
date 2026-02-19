@@ -1,9 +1,53 @@
-$bg-color: cornflowerblue;
+$bg-color: #0F0F0F;
+$color-dark: #272727;
+$color-light: #FFFFFF;
 
-.title {
-    background-color: $bg-color;
+/* basic reset */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+* {
+ margin: 0;
 }
 
 img {
-    width: 200px;
+    max-width: 100%;
+    display: block;
+}
+/* all */
+body {
+    background-color: $bg-color;
+    font-family:'Courier New', Courier, monospace;
+    color: $color-light;
+    padding: 32px 24px;
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* header */
+header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+}
+
+img {
+    max-width: 250px;
+}
+
+/* card */
+.card {
+    background-color: $color-dark;
+    border-radius: 16px;
+    padding: 24px;
 }

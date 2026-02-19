@@ -24,7 +24,7 @@ export default {
                 loader: 'babel-loader',
             },
             {
-                test: /\.(png|jpg)$/,
+                test: /\.(png|jpg|gif)$/,
                 type: 'asset/resource',
             },
             {
