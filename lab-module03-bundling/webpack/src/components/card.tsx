@@ -8,22 +8,18 @@ const Card = () => {
             </div>
             <div className="card__content">
                 <div className="card__content-info">
-                    <h3>Entorno</h3>
-                    <p>{process.env.NODE_ENV}</p>
+                    <p>Entorno: <span>{process.env.NODE_ENV}</span></p>
                 </div>
                 <div className="card__content-info">
-                    <h3>API Url</h3>
-                    <p>{process.env.API_BASE}</p>
+                    <p>API Url: <span>{process.env.API_BASE}</span></p>
                 </div>
                 <div className="card__content-info">
-                    <h3>Tecnologías</h3>
-                    <p>React + TypeScript</p>
+                    <p>Tecnologías: <span>React + TypeScript</span></p>
                 </div>
                 <div className="card__content-info">
-                    <h3>Bundling</h3>
-                    <p>Webpack</p>
+                    <p>Bundling: <span>Webpack</span></p>
                 </div>
-                <div className="card__content-info">
+                <div className="card__content-instr">
                     <p>Para auditar el tamaño del bundle:</p>
                     <code>npm run build:perf</code>
                     <p>Este comando abrirá una pestaña interactiva con el peso detallado de cada librería.</p>
