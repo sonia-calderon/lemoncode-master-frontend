@@ -10,3 +10,32 @@ Montar una semilla de proyecto con vite que:
 
 ### Opcional
 Añadir al proyecto semilla de Vite la configuración necesaria para que al hacer la build también genere los ficheros de forma comprimida (GZIP y BROTLI), por lo que al hacer la build deberán existir los ficheros ```dist/index.js.gz``` y un ```dist/index.js.br```.
+
+# Cómo ver el proyecto
+## Requisitos
+- Node.js
+- npm
+
+## Cómo ejecutar
+1. Clonar el repositorio
+```bash
+git clone <url-del-repositorio>
+cd <nombre-del-proyecto>
+```
+2. Instalar dependencias
+```bash
+npm install
+```
+3. Levantar el servidor 
+- En desarrollo
+```bash
+npm start
+```
+- En Producción
+```bash
+npm run preview
+```
+4. Ver tamaño del bundle
+```bash
+npm run build
+```

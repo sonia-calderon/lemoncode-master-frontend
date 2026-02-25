@@ -1,0 +1,16 @@
+/* header */
+.header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+}
+
+.title {
+    text-align: center;
+}
+
+.header img {
+    max-width: 250px;
+}

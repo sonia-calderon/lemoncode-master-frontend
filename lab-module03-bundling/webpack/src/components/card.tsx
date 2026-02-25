@@ -14,7 +14,7 @@ const Card = () => {
                     <p>API Url: <span>{process.env.API_BASE}</span></p>
                 </div>
                 <div className="card__content-info">
-                    <p>Tecnologías: <span>React + TypeScript</span></p>
+                    <p>Tecnologías: <span>SASS + React + TypeScript</span></p>
                 </div>
                 <div className="card__content-info">
                     <p>Bundling: <span>Webpack</span></p>
