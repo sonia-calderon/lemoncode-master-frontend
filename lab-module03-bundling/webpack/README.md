@@ -37,7 +37,7 @@ npm start
 ```
 - En Producción
 ```bash
-npm start:prod
+npm run start:prod
 ```
 4. Ver tamaño del bundle
 ```bash
