@@ -26,16 +26,12 @@ cd <nombre-del-proyecto>
 ```bash
 npm install
 ```
-3. Levantar el servidor 
-- En desarrollo
+3. Levantar el servidor en desarrollo
 ```bash
 npm start
 ```
-- En Producción
-```bash
-npm run preview
-```
-4. Ver tamaño del bundle
+4. Ver tamaño del bundle y levantar el servidor en producción
 ```bash
 npm run build
+npm run preview
 ```
