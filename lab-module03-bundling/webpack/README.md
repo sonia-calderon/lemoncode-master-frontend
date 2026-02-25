@@ -14,3 +14,32 @@ Esta parte es opcional, por si queréis seguir practicando.
 - Tener una versión de build de producción.
 - Tener variables de entorno para diferentes entornos (desarrollo y producción).
 - Tener una forma de medir cuanto ocupa cada librería y nuestro código en el bundle.
+
+# Cómo ver el proyecto
+## Requisitos
+- Node.js
+- npm
+
+## Cómo ejecutar
+1. Clonar el repositorio
+```bash
+git clone <url-del-repositorio>
+cd <nombre-del-proyecto>
+```
+2. Instalar dependencias
+```bash
+npm install
+```
+3. Levantar el servidor 
+- En desarrollo
+```bash
+npm start
+```
+- En Producción
+```bash
+npm start:prod
+```
+4. Ver tamaño del bundle
+```bash
+npm run build:perf
+```
