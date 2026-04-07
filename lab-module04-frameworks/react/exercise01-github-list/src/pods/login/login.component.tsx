@@ -1,18 +1,17 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
 
-export const LoginPage: React.FC = () => {
-	const navigate = useNavigate();
+interface Props {
+	onLogin: (username: string, password: string) => void;
+}
+
+export const LoginComponent: React.FC<Props> = (props) => {
+	const { onLogin } = props;
 	const [username, setUsername] = React.useState("");
 	const [password, setPassword] = React.useState("");
 
 	const handleNavigation = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		if (username === "admin" && password === "test") {
-			navigate("/list");
-		} else {
-			alert("User / password not valid");
-		}
+		onLogin(username, password);
 	};
 	return (
 		<form onSubmit={handleNavigation}>

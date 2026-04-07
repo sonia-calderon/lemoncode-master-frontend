@@ -1,6 +1,11 @@
 {
   "compilerOptions": {
     "esModuleInterop": true,
+    "paths": {
+      "@/*": ["./src/*"],
+      "core": ["./src/core"],
+      "core/*": ["./src/core/*"]
+    },
     "isolatedModules": true,
     "jsx": "react-jsx",
     "lib": ["ESNext", "DOM"],
