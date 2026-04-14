@@ -8,6 +8,6 @@ interface SwitchRoutes {
 
 export const switchRoutes: SwitchRoutes = {
 	root: "/",
-	list: "/list",
-	details: "/detail/:id",
+	list: "/list/:org",
+	details: "/detail/:org/:id",
 };

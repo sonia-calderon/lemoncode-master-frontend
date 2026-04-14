@@ -6,10 +6,11 @@ import leftArrow from "../../assets/arrow-left.svg";
 
 interface Props {
 	member: MemberDetailEntity;
+	org: string;
 }
 
 export const DetailComponent: React.FC<Props> = (props) => {
-	const { member } = props;
+	const { member, org } = props;
 
 	return (
 		<>
@@ -26,7 +27,7 @@ export const DetailComponent: React.FC<Props> = (props) => {
 				</div>
 			</div>
 			<div className="detail__navigation">
-				<Link to={routes.list}>
+				<Link to={routes.list(org)}>
 					<span>
 						<img src={leftArrow} alt="" />
 					</span>

@@ -11,7 +11,7 @@ const useLoginHook = () => {
 
 	const loginSucceededAction = (userName) => {
 		setUserProfile({ userName });
-		navigate(routes.list);
+		navigate(routes.list("lemoncode"));
 	};
 
 	const loginFailedAction = () => {

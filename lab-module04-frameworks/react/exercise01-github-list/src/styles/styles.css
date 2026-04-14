@@ -44,8 +44,10 @@ a {
 .layout__container {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
   gap: 32px;
+  height: 100vh;
 }
 
 .layout__header {
@@ -159,6 +161,11 @@ a {
 
 .title h3 {
   font-size: 32px;
+  text-transform: lowercase;
+}
+
+.title h3::first-letter {
+  text-transform: uppercase;
 }
 
 /* LIST */
@@ -169,6 +176,7 @@ a {
   grid-template-rows: 20px 1fr;
   gap: 16px;
   width: 100%;
+  
 }
 
 .list__header {
