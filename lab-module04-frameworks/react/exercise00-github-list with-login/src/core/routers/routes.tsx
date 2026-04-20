@@ -7,11 +7,13 @@ interface SwitchRoutes {
 	details: string;
 }
 
-interface Routes extends Omit<SwitchRoutes, "details"> {
-	details: (id: string) => string;
+interface Routes extends Omit<SwitchRoutes, "list" | "details"> {
+	list: (org: string) => string;
+	details: (org: string, id: string) => string;
 }
 
 export const routes: Routes = {
 	...switchRoutes,
-	details: (id) => generatePath(switchRoutes.details, { id }),
+	list: (org) => generatePath(switchRoutes.list, { org }),
+	details: (org, id) => generatePath(switchRoutes.details, { org, id }),
 };

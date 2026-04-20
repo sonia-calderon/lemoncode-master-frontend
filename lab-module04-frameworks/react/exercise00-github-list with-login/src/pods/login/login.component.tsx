@@ -1,39 +1,41 @@
 import React from "react";
+import { Login, createEmptyLogin } from "./login.vm";
+import { Formik, Form } from "formik";
+import { TextFieldFormik } from "@/common/components";
+import Card from "@mui/material/Card";
+import CardHeader from "@mui/material/CardHeader";
+import CardContent from "@mui/material/CardContent";
+import Button from "@mui/material/Button";
 
 interface Props {
-	onLogin: (username: string, password: string) => void;
+	onLogin: (login: Login) => void;
 }
 
 export const LoginComponent: React.FC<Props> = (props) => {
 	const { onLogin } = props;
-	const [username, setUsername] = React.useState("");
-	const [password, setPassword] = React.useState("");
 
-	const handleNavigation = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-		onLogin(username, password);
-	};
 	return (
-		<form onSubmit={handleNavigation}>
-			<h2>Hello from login page</h2>
-			<div>
-				<div>
-					<label>Username: </label>
-					<input
-						value={username}
-						onChange={(e) => setUsername(e.target.value)}
-					/>
-				</div>
-				<div>
-					<label>Password: </label>
-					<input
-						type="password"
-						value={password}
-						onChange={(e) => setPassword(e.target.value)}
-					/>
-				</div>
-			</div>
-			<button type="submit">Login</button>
-		</form>
+		<Card sx={{ padding: "20px" }}>
+			<CardHeader title="Login" />
+			<CardContent>
+				<Formik onSubmit={onLogin} initialValues={createEmptyLogin()}>
+					{() => (
+						<Form>
+							<div className="login-container">
+								<TextFieldFormik name="username" placeholder="Username" />
+								<TextFieldFormik
+									name="password"
+									placeholder="Password"
+									type="password"
+								/>
+								<Button variant="contained" type="submit">
+									Login
+								</Button>
+							</div>
+						</Form>
+					)}
+				</Formik>
+			</CardContent>
+		</Card>
 	);
 };

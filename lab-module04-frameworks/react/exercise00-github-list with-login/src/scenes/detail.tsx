@@ -4,6 +4,10 @@ import { AppLayout } from "@/layouts";
 import { DetailContainer } from "@/pods/detail";
 
 export const DetailPage: React.FC = () => {
-	const { id } = useParams<{ id: string }>();
-	return <AppLayout>{id && <DetailContainer login={id} />}</AppLayout>;
+	const { org, id } = useParams<{ org: string; id: string }>();
+	return (
+		<AppLayout>
+			{org && id && <DetailContainer org={org} login={id} />}
+		</AppLayout>
+	);
 };
