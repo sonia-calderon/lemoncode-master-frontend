@@ -134,27 +134,99 @@ interface Props {
 	searchValue: string;
 	onSearch: (value: string) => void;
 	error?: string;
+	initialPage?: number;
+	initialMemberId?: number;
 }
 
 export const ListComponent: React.FC<Props> = (props) => {
-	const { members, searchValue, onSearch, error } = props;
+	const {
+		members,
+		searchValue,
+		onSearch,
+		error,
+		initialPage = 1,
+		initialMemberId,
+	} = props;
 
 	const [inputValue, setInputValue] = React.useState("");
 
-	const itemsPerPage = 10;
-	const [currentPage, setCurrentPage] = React.useState(1);
+	const itemsPerPage = 20;
+	const [currentPage, setCurrentPage] = React.useState(initialPage);
 	const totalPages = Math.ceil(members.length / itemsPerPage);
+
 	const paginatedMembers = members.slice(
 		(currentPage - 1) * itemsPerPage,
 		currentPage * itemsPerPage,
 	);
+
+	// acceder al DOM de cada miembro y hacer scroll hasta él
+	const memberRefs = React.useRef<Map<number, HTMLLIElement>>(new Map());
+	const ignoreNextScrollRef = React.useRef(false);
+	const isInitialMount = React.useRef(true);
+	const hasRestoredScroll = React.useRef(false);
+	const previousInitialPageRef = React.useRef(initialPage);
+
+	React.useEffect(() => {
+		if (initialPage !== previousInitialPageRef.current) {
+			ignoreNextScrollRef.current = true;
+			setCurrentPage(initialPage);
+			hasRestoredScroll.current = false;
+			previousInitialPageRef.current = initialPage;
+		}
+	}, [initialPage]);
+
+	// Restaurar scroll al volver del detalle
+	React.useEffect(() => {
+		if (!initialMemberId || members.length === 0 || hasRestoredScroll.current) {
+			return;
+		}
+
+		const timeout = window.setTimeout(() => {
+			const memberElement = memberRefs.current.get(initialMemberId);
+			if (memberElement) {
+				memberElement.scrollIntoView({
+					behavior: "smooth",
+					block: "center",
+				});
+				hasRestoredScroll.current = true;
+			}
+		}, 100);
+
+		return () => window.clearTimeout(timeout);
+	}, [initialMemberId, members.length, currentPage]);
+
+	// Scroll al inicio al cambiar de página (excepto en la carga inicial o durante restauración)
+	React.useEffect(() => {
+		if (isInitialMount.current) {
+			isInitialMount.current = false;
+			return;
+		}
+
+		if (ignoreNextScrollRef.current) {
+			ignoreNextScrollRef.current = false;
+			return;
+		}
+
+		window.scrollTo({ top: 0, behavior: "smooth" });
+	}, [currentPage]);
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		if (inputValue.trim()) {
 			onSearch(inputValue.trim());
 			setInputValue("");
+			setCurrentPage(1);
 		}
+	};
+
+	const handlePageChange = (newPage: number) => {
+		setCurrentPage(newPage);
+	};
+
+	const handleMemberClick = (memberId: number) => {
+		// Guardar el estado actual en sessionStorage
+		sessionStorage.setItem("listPage", currentPage.toString());
+		sessionStorage.setItem("listMemberId", memberId.toString());
 	};
 
 	return (
@@ -200,70 +272,86 @@ export const ListComponent: React.FC<Props> = (props) => {
 				</Typography>
 			)}
 
-			<Stack spacing={2} className="list">
-				<ListHeader className="list__header">
-					<Typography component="span" sx={{ fontWeight: "bold" }}>
-						Avatar
-					</Typography>
-					<Typography component="span" sx={{ fontWeight: "bold" }}>
-						Id
-					</Typography>
-					<Typography component="span" sx={{ fontWeight: "bold" }}>
-						Name
-					</Typography>
-				</ListHeader>
+			{!error && (
+				<Stack spacing={2} className="list">
+					<ListHeader className="list__header">
+						<Typography component="span" sx={{ fontWeight: "bold" }}>
+							Avatar
+						</Typography>
+						<Typography component="span" sx={{ fontWeight: "bold" }}>
+							Id
+						</Typography>
+						<Typography component="span" sx={{ fontWeight: "bold" }}>
+							Name
+						</Typography>
+					</ListHeader>
 
-				<List className="list__items" sx={{ padding: 0 }}>
-					{paginatedMembers.map((member) => (
-						<StyledListItem key={member.id} className="list__item">
-							<Avatar src={member.avatar_url} sx={{ width: 80, height: 80 }} />
-							<Typography>{member.id}</Typography>
-							<StyledLink to={routes.details(searchValue, member.login)}>
-								{member.login}
-							</StyledLink>
-						</StyledListItem>
-					))}
-				</List>
-				<Stack
-					direction="row"
-					spacing={1}
-					sx={{
-						justifyContent: "center",
-						alignItems: "center",
-						mt: 2,
-					}}
-				>
-					<PaginationButton
-						onClick={() => setCurrentPage((prev) => prev - 1)}
-						disabled={currentPage === 1}
-						aria-label="Previous page"
+					<List className="list__items" sx={{ padding: 0 }}>
+						{paginatedMembers.map((member) => (
+							<StyledListItem
+								key={member.id}
+								className="list__item"
+								ref={(el) => {
+									if (el) {
+										memberRefs.current.set(member.id, el);
+									}
+								}}
+							>
+								<Avatar
+									src={member.avatar_url}
+									sx={{ width: 80, height: 80 }}
+								/>
+								<Typography>{member.id}</Typography>
+								<StyledLink
+									to={routes.details(searchValue, member.login)}
+									onClick={() => handleMemberClick(member.id)}
+								>
+									{member.login}
+								</StyledLink>
+							</StyledListItem>
+						))}
+					</List>
+					<Stack
+						direction="row"
+						spacing={1}
+						sx={{
+							justifyContent: "center",
+							alignItems: "center",
+							mt: 2,
+						}}
 					>
-						<ChevronLeftIcon sx={{ fontSize: "1.2rem" }} />
-						Previous
-					</PaginationButton>
-
-					{Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
 						<PaginationButton
-							key={page}
-							onClick={() => setCurrentPage(page)}
-							active={currentPage === page}
-							aria-label={`Page ${page}`}
-							aria-current={currentPage === page ? "page" : undefined}
+							onClick={() => handlePageChange(currentPage - 1)}
+							disabled={currentPage === 1}
+							aria-label="Previous page"
 						>
-							{page}
+							<ChevronLeftIcon sx={{ fontSize: "1.2rem" }} />
+							Previous
 						</PaginationButton>
-					))}
 
-					<PaginationButton
-						onClick={() => setCurrentPage((prev) => prev + 1)}
-						disabled={currentPage === totalPages || totalPages === 0}
-						aria-label="Next page"
-					>
-						Next
-						<ChevronRightIcon sx={{ fontSize: "1.2rem" }} />
-					</PaginationButton>
+						{Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+							<PaginationButton
+								key={page}
+								onClick={() => handlePageChange(page)}
+								active={currentPage === page}
+								aria-label={`Page ${page}`}
+								aria-current={currentPage === page ? "page" : undefined}
+							>
+								{page}
+							</PaginationButton>
+						))}
+
+						<PaginationButton
+							onClick={() => handlePageChange(currentPage + 1)}
+							disabled={currentPage === totalPages || totalPages === 0}
+							aria-label="Next page"
+						>
+							Next
+							<ChevronRightIcon sx={{ fontSize: "1.2rem" }} />
+						</PaginationButton>
+					</Stack>
 				</Stack>
-			</Stack>
+			)}
 		</Stack>
 	);
 };

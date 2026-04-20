@@ -4,10 +4,9 @@ import { getMemberCollection as getMemberCollectionApi } from "./api/list.api";
 //import { getMemberCollection as getMemberCollectionApi } from "./api/list.api.mock";
 import { mapMemberCollectionFromApiToVm } from "./list.mapper";
 
-export const getMemberCollection = (org: string): Promise<MemberEntity[]> => {
-	return new Promise<MemberEntity[]>((resolve) => {
-		getMemberCollectionApi(org).then((result) => {
-			resolve(mapMemberCollectionFromApiToVm(result));
-		});
-	});
+export const getMemberCollection = async (
+	org: string,
+): Promise<MemberEntity[]> => {
+	const result = await getMemberCollectionApi(org);
+	return mapMemberCollectionFromApiToVm(result);
 };
