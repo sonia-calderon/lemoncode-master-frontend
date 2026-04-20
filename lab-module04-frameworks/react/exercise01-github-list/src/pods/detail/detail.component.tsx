@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { routes } from "core";
 import { MemberDetailEntity } from "./detail.vm";
-import leftArrow from "../../assets/arrow-left.svg";
 import {
 	Avatar,
 	Box,
@@ -15,7 +14,6 @@ import {
 	Typography,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import PersonIcon from "@mui/icons-material/Person";
 import BadgeIcon from "@mui/icons-material/Badge";
 import BusinessIcon from "@mui/icons-material/Business";
 import InfoIcon from "@mui/icons-material/Info";
@@ -55,7 +53,7 @@ export const DetailComponent: React.FC<Props> = (props) => {
 	);
 
 	return (
-		<Stack spacing={4}>
+		<Stack spacing={4} sx={{ px: { xs: 1.5, sm: 2, md: 3 }, width: "100%" }}>
 			{/* Back Navigation */}
 			<Box>
 				<Button
@@ -65,7 +63,8 @@ export const DetailComponent: React.FC<Props> = (props) => {
 					sx={{
 						color: "common.white",
 						textTransform: "none",
-						fontSize: "1rem",
+						fontSize: { xs: "0.9rem", md: "1rem" },
+						padding: { xs: "6px 12px", md: "8px 16px" },
 						"&:hover": {
 							backgroundColor: "rgba(15, 191, 62, 0.1)",
 							color: "primary.main",
@@ -79,15 +78,18 @@ export const DetailComponent: React.FC<Props> = (props) => {
 			{/* Main Content Card */}
 			<Card
 				sx={{
+					width: "100%",
+					maxWidth: 1200,
+					mx: "auto",
 					backgroundColor: "background.paper",
 					borderRadius: 2,
 					overflow: "visible",
 				}}
 			>
-				<CardContent sx={{ p: 4 }}>
+				<CardContent sx={{ p: { xs: 2, sm: 3, md: 4 } }}>
 					<Stack
 						direction={{ xs: "column", md: "row" }}
-						spacing={4}
+						spacing={{ xs: 2, md: 4 }}
 						sx={{ alignItems: { xs: "center", md: "flex-start" } }}
 					>
 						{/* Avatar Section */}
@@ -104,8 +106,8 @@ export const DetailComponent: React.FC<Props> = (props) => {
 								src={member.avatar_url}
 								alt={member.name || member.login}
 								sx={{
-									width: { xs: 200, md: 280 },
-									height: { xs: 200, md: 280 },
+									width: { xs: 140, sm: 200, md: 280 },
+									height: { xs: 140, sm: 200, md: 280 },
 									border: "4px solid",
 									borderColor: "primary.main",
 									boxShadow: "0 8px 24px rgba(15, 191, 62, 0.2)",
@@ -116,7 +118,7 @@ export const DetailComponent: React.FC<Props> = (props) => {
 								color="primary"
 								sx={{
 									fontWeight: "bold",
-									fontSize: "0.9rem",
+									fontSize: { xs: "0.75rem", md: "0.9rem" },
 									px: 1,
 								}}
 							/>
@@ -133,6 +135,7 @@ export const DetailComponent: React.FC<Props> = (props) => {
 										fontWeight: "bold",
 										mb: 1,
 										color: "common.white",
+										fontSize: { xs: "1.3rem", sm: "1.8rem", md: "2.125rem" },
 									}}
 								>
 									{member.name || member.login}

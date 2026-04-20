@@ -25,7 +25,7 @@ export const AppLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
 						alignItems: "center",
 						justifyContent: "space-between",
 						py: 3, // 24px
-						px: 4, // 32px
+						px: { xs: 1.5, sm: 2, md: 3 },
 						borderBottom: 1,
 						borderColor: "divider",
 					}}
@@ -43,7 +43,7 @@ export const AppLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
 					</Stack>
 
 					<Typography variant="body1" className="layout__header-company">
-						Company {userName}
+						{userName}
 					</Typography>
 				</Box>
 

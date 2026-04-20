@@ -2,18 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { routes } from "core";
 import { MemberEntity } from "./list.vm";
-import searchIcon from "../../assets/search.svg";
-import { styled, alpha } from "@mui/material/styles";
-import {
-	Avatar,
-	List,
-	ListItem,
-	Pagination,
-	Stack,
-	Typography,
-	Box,
-	Paper,
-} from "@mui/material";
+import { styled } from "@mui/material/styles";
+import { Avatar, List, ListItem, Stack, Typography, Box } from "@mui/material";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
@@ -32,6 +22,9 @@ const Search = styled("div")(({ theme }) => ({
 		boxShadow: "0 0 0 2.5px #2f303d",
 	},
 	width: "100%",
+	[theme.breakpoints.down("sm")]: {
+		marginBottom: theme.spacing(1),
+	},
 }));
 
 const SearchIconWrapper = styled("div")(({ theme }) => ({
@@ -79,8 +72,11 @@ const ListHeader = styled(Box)(({ theme }) => ({
 	display: "grid",
 	gridTemplateColumns: "repeat(3, 1fr)",
 	alignItems: "center",
-	padding: "8px 24px",
+	padding: theme.spacing(1, 3),
 	borderRadius: "8px",
+	[theme.breakpoints.down("sm")]: {
+		display: "none",
+	},
 }));
 
 const StyledListItem = styled(ListItem)(({ theme }) => ({
@@ -88,23 +84,34 @@ const StyledListItem = styled(ListItem)(({ theme }) => ({
 	gridTemplateColumns: "repeat(3, 1fr)",
 	alignItems: "center",
 	borderBottom: `1px solid ${theme.palette.secondary.main}`,
-	padding: "16px 24px",
+	padding: theme.spacing(2, 3),
+	gap: theme.spacing(2),
+	width: "100%",
 	"&:last-child": {
 		borderBottom: "none",
+	},
+	[theme.breakpoints.down("sm")]: {
+		flexDirection: "column",
+		padding: theme.spacing(2),
+		gap: theme.spacing(1.5),
 	},
 }));
 
 const StyledLink = styled(Link)(({ theme }) => ({
 	color: theme.palette.common.white,
 	textDecoration: "underline",
+	word: "break-word",
 	"&:hover": {
 		color: theme.palette.primary.main,
+	},
+	[theme.breakpoints.down("sm")]: {
+		fontSize: "0.95rem",
 	},
 }));
 
 const PaginationButton = styled("button")<{ active?: boolean }>(
 	({ theme, active }) => ({
-		padding: "8px 16px",
+		padding: theme.spacing(1, 2),
 		border: "none",
 		borderRadius: "4px",
 		backgroundColor: active ? theme.palette.primary.main : "transparent",
@@ -117,6 +124,7 @@ const PaginationButton = styled("button")<{ active?: boolean }>(
 		alignItems: "center",
 		justifyContent: "center",
 		gap: "4px",
+		fontSize: "0.95rem",
 		"&:hover:not(:disabled)": {
 			backgroundColor: active
 				? theme.palette.primary.dark
@@ -125,6 +133,11 @@ const PaginationButton = styled("button")<{ active?: boolean }>(
 		"&:disabled": {
 			opacity: 0.5,
 			cursor: "not-allowed",
+		},
+		[theme.breakpoints.down("sm")]: {
+			padding: theme.spacing(0.75, 1.5),
+			minWidth: "32px",
+			fontSize: "0.8rem",
 		},
 	}),
 );
@@ -230,7 +243,15 @@ export const ListComponent: React.FC<Props> = (props) => {
 	};
 
 	return (
-		<Stack spacing={4}>
+		<Stack
+			spacing={{ xs: 2, md: 4 }}
+			sx={{
+				width: "100%",
+				maxWidth: 1080,
+				mx: "auto",
+				px: { xs: 1.5, sm: 2, md: 3 },
+			}}
+		>
 			<Box component="form" className="search" onSubmit={handleSubmit}>
 				<Search>
 					<SearchIconWrapper>
@@ -255,7 +276,7 @@ export const ListComponent: React.FC<Props> = (props) => {
 						variant="h3"
 						component="h3"
 						sx={{
-							fontSize: "32px",
+							fontSize: { xs: "1.5rem", sm: "2rem", md: "32px" },
 							textTransform: "lowercase",
 							"&::first-letter": {
 								textTransform: "uppercase",
@@ -273,7 +294,7 @@ export const ListComponent: React.FC<Props> = (props) => {
 			)}
 
 			{!error && (
-				<Stack spacing={2} className="list">
+				<Stack spacing={2} className="list" sx={{ width: "100%" }}>
 					<ListHeader className="list__header">
 						<Typography component="span" sx={{ fontWeight: "bold" }}>
 							Avatar
@@ -315,9 +336,11 @@ export const ListComponent: React.FC<Props> = (props) => {
 						direction="row"
 						spacing={1}
 						sx={{
+							flexWrap: "wrap",
 							justifyContent: "center",
 							alignItems: "center",
-							mt: 2,
+							mt: { xs: 1.5, md: 2 },
+							width: "100%",
 						}}
 					>
 						<PaginationButton
@@ -325,8 +348,10 @@ export const ListComponent: React.FC<Props> = (props) => {
 							disabled={currentPage === 1}
 							aria-label="Previous page"
 						>
-							<ChevronLeftIcon sx={{ fontSize: "1.2rem" }} />
-							Previous
+							<ChevronLeftIcon
+								sx={{ fontSize: { xs: "1rem", md: "1.2rem" } }}
+							/>
+							<Box sx={{ display: { xs: "none", sm: "inline" } }}>Previous</Box>
 						</PaginationButton>
 
 						{Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
@@ -346,8 +371,10 @@ export const ListComponent: React.FC<Props> = (props) => {
 							disabled={currentPage === totalPages || totalPages === 0}
 							aria-label="Next page"
 						>
-							Next
-							<ChevronRightIcon sx={{ fontSize: "1.2rem" }} />
+							<Box sx={{ display: { xs: "none", sm: "inline" } }}>Next</Box>
+							<ChevronRightIcon
+								sx={{ fontSize: { xs: "1rem", md: "1.2rem" } }}
+							/>
 						</PaginationButton>
 					</Stack>
 				</Stack>
