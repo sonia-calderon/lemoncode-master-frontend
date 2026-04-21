@@ -1,10 +1,8 @@
 import React from "react";
-import { ProfileContext } from "@/core/profile";
 import githubSvg from "../assets/github.svg";
 import { Box, Container, Stack, Typography, Link } from "@mui/material";
 
 export const AppLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
-	const { userName } = React.useContext(ProfileContext);
 	return (
 		<>
 			<Stack
@@ -41,10 +39,6 @@ export const AppLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
 							Github Finder
 						</Typography>
 					</Stack>
-
-					<Typography variant="body1" className="layout__header-company">
-						{userName}
-					</Typography>
 				</Box>
 
 				<Stack
