@@ -12,6 +12,7 @@ import {
 	Divider,
 	Stack,
 	Typography,
+	Fade,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import BadgeIcon from "@mui/icons-material/Badge";
@@ -35,21 +36,32 @@ export const DetailComponent: React.FC<Props> = (props) => {
 		label: string;
 		value: string | number | null | undefined;
 	}) => (
-		<Stack direction="row" spacing={2} sx={{ alignItems: "flex-start" }}>
-			<Box sx={{ color: "primary.main", mt: 0.5 }}>{icon}</Box>
-			<Box sx={{ flex: 1 }}>
-				<Typography
-					variant="body2"
-					color="text.secondary"
-					sx={{ fontWeight: 600, mb: 0.5 }}
+		<Fade in={true} timeout={400}>
+			<Stack direction="row" spacing={2} sx={{ alignItems: "flex-start" }}>
+				<Box
+					sx={{
+						color: "primary.main",
+						mt: 0.5,
+						transition: "transform 0.2s ease",
+						"&:hover": { transform: "scale(1.1)" },
+					}}
 				>
-					{label}
-				</Typography>
-				<Typography variant="body1">
-					{value || <em style={{ opacity: 0.5 }}>No disponible</em>}
-				</Typography>
-			</Box>
-		</Stack>
+					{icon}
+				</Box>
+				<Box sx={{ flex: 1 }}>
+					<Typography
+						variant="body2"
+						color="text.secondary"
+						sx={{ fontWeight: 600, mb: 0.5 }}
+					>
+						{label}
+					</Typography>
+					<Typography variant="body1">
+						{value || <em style={{ opacity: 0.5 }}>No disponible</em>}
+					</Typography>
+				</Box>
+			</Stack>
+		</Fade>
 	);
 
 	return (

@@ -13,7 +13,7 @@ export const theme = createTheme({
 			default: "#232925",
 			paper: "#101411",
 		},
-		divider: "#101411",
+		divider: "#3a3a3a", // Gris más claro con toque
 	},
 	typography: {
 		fontFamily: [
