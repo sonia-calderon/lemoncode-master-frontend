@@ -1,5 +1,13 @@
 import React from "react";
+import { RouterComponent } from "@/core";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import { theme } from "./styles/theme";
 
 export const App = () => {
-	return <>Hello from React</>;
+	return (
+		<ThemeProvider theme={theme}>
+			<CssBaseline />
+			<RouterComponent />
+		</ThemeProvider>
+	);
 };
