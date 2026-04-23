@@ -4,16 +4,16 @@ export const theme = createTheme({
 	palette: {
 		mode: "dark",
 		primary: {
-			main: "",
+			main: "#BFDE42",
 		},
 		secondary: {
-			main: "",
+			main: "#9E42DE",
 		},
 		background: {
-			default: "",
-			paper: "",
+			default: "#202329",
+			paper: "#202329",
 		},
-		divider: "",
+		divider: "#202329",
 	},
 	typography: {
 		fontFamily: ["system-ui"].join(","),
