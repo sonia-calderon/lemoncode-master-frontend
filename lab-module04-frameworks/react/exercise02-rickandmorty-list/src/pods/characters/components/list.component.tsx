@@ -3,65 +3,125 @@ import { CharacterEntity } from "../characters.vm";
 import { Link } from "react-router-dom";
 
 import { styled } from "@mui/material/styles";
-import {
-	Avatar,
-	List,
-	ListItem,
-	Stack,
-	Typography,
-	Box,
-	Fade,
-} from "@mui/material";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import { Card, CardContent, Typography, Box, Fade, Chip } from "@mui/material";
 
-const ListHeader = styled(Box)(({ theme }) => ({
-	backgroundColor: theme.palette.secondary.main,
-	color: theme.palette.common.white,
-	fontWeight: "bold",
-	display: "grid",
-	gridTemplateColumns: "repeat(3, 1fr)",
-	alignItems: "center",
-	padding: theme.spacing(1, 3),
-	borderRadius: "8px",
-	[theme.breakpoints.down("sm")]: {
-		display: "none",
-	},
-}));
+interface StatusColor {
+	Alive: string;
+	Dead: string;
+	unknown: string;
+}
 
-const StyledListItem = styled(ListItem)(({ theme }) => ({
-	display: "grid",
-	gridTemplateColumns: "repeat(3, 1fr)",
-	alignItems: "center",
-	borderBottom: `1px solid ${theme.palette.divider}`,
-	padding: theme.spacing(2, 3),
-	gap: theme.spacing(2),
-	width: "100%",
-	transition: "transform 0.3s ease, box-shadow 0.3s ease",
-	"&:hover": {
-		transform: "scale(1.02)",
-	},
-	"&:last-child": {
-		borderBottom: "none",
-	},
-	[theme.breakpoints.down("sm")]: {
+const statusColors: StatusColor = {
+	Alive: "#00D084",
+	Dead: "#FF4757",
+	unknown: "#FFD93D",
+};
+
+const StyledCard = styled(Card, {
+	shouldForwardProp: (prop) => prop !== "status",
+})<{ status: string }>(({ theme, status }) => {
+	const borderColor =
+		statusColors[status as keyof StatusColor] || statusColors.unknown;
+	return {
+		height: "100%",
+		display: "flex",
 		flexDirection: "column",
-		padding: theme.spacing(2),
-		gap: theme.spacing(1.5),
+		background: "linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)",
+		border: `2px solid ${borderColor}`,
+		borderRadius: "12px",
+		transition: "all 0.3s cubic-bezier(0.19, 1, 0.22, 1)",
+		overflow: "hidden",
+		position: "relative",
+		"&::before": {
+			content: '""',
+			position: "absolute",
+			top: 0,
+			left: 0,
+			right: 0,
+			bottom: 0,
+			background: `radial-gradient(circle at top right, ${borderColor}15, transparent)`,
+			pointerEvents: "none",
+		},
+		"&:hover": {
+			transform: "translateY(-8px)",
+			boxShadow: `0 12px 24px rgba(${
+				status === "Alive"
+					? "0, 208, 132"
+					: status === "Dead"
+						? "255, 71, 87"
+						: "255, 217, 61"
+			}, 0.3)`,
+			borderColor: borderColor,
+		},
+		[theme.breakpoints.down("sm")]: {
+			borderRadius: "10px",
+		},
+	};
+});
+
+const StyledCardMedia = styled(Box)({
+	height: 200,
+	backgroundSize: "cover",
+	backgroundPosition: "center",
+	backgroundRepeat: "no-repeat",
+	transition: "transform 0.3s ease",
+	"&:hover": {
+		transform: "scale(1.05)",
+	},
+});
+
+const StyledCardContent = styled(CardContent)(({ theme }) => ({
+	padding: theme.spacing(2),
+	flexGrow: 1,
+	display: "flex",
+	flexDirection: "column",
+	gap: theme.spacing(1),
+	position: "relative",
+	zIndex: 1,
+}));
+
+const StyledLink = styled(Link)({
+	textDecoration: "none",
+	color: "inherit",
+	height: "100%",
+	display: "flex",
+	flexDirection: "column",
+});
+
+const CharacterName = styled(Typography)(({ theme }) => ({
+	fontSize: "1.1rem",
+	fontWeight: "bold",
+	color: "#00D084",
+	textTransform: "uppercase",
+	letterSpacing: "0.5px",
+	[theme.breakpoints.down("sm")]: {
+		fontSize: "1rem",
 	},
 }));
 
-const StyledLink = styled(Link)(({ theme }) => ({
-	color: theme.palette.common.white,
-	textDecoration: "underline",
-	word: "break-word",
-	"&:hover": {
-		color: theme.palette.primary.main,
-	},
+const CharacterInfo = styled(Typography)(({ theme }) => ({
+	fontSize: "0.9rem",
+	color: "#bdbecb",
 	[theme.breakpoints.down("sm")]: {
-		fontSize: "0.95rem",
+		fontSize: "0.85rem",
 	},
 }));
+
+const StatusChip = styled(Chip, {
+	shouldForwardProp: (prop) => prop !== "status",
+})<{ status: string }>(({ status }) => {
+	const backgroundColor =
+		statusColors[status as keyof StatusColor] || statusColors.unknown;
+	return {
+		backgroundColor: `${backgroundColor}25`,
+		color: backgroundColor,
+		fontWeight: "bold",
+		fontSize: "0.8rem",
+		border: `1.5px solid ${backgroundColor}`,
+		height: "auto",
+		padding: "4px 8px",
+	};
+});
 
 interface Props {
 	characters: CharacterEntity[];
@@ -71,18 +131,48 @@ export const ListComponent: React.FC<Props> = (props) => {
 	const { characters } = props;
 	return (
 		<Fade in={true} timeout={600}>
-			<Stack spacing={2} className="list" sx={{ width: "100%" }}>
-				Aquí la lista
+			<Box
+				className="list"
+				sx={{
+					display: "grid",
+					gridTemplateColumns: {
+						xs: "1fr",
+						sm: "repeat(2, 1fr)",
+						md: "repeat(3, 1fr)",
+						lg: "repeat(4, 1fr)",
+					},
+					gap: { xs: 2, sm: 2.5, md: 3 },
+					width: "100%",
+				}}
+			>
 				{characters.map((character) => (
-					<div>
-						<img src={character.image} alt="" />
-						<p>Name: {character.name}</p>
-						<p>Status: {character.status}</p>
-						<p>Species: {character.species}</p>
-						<p>Origin: {character.origin.name}</p>
-					</div>
+					<StyledLink key={character.id} to="">
+						<StyledCard status={character.status}>
+							<StyledCardMedia
+								sx={{ backgroundImage: `url(${character.image})` }}
+							/>
+							<StyledCardContent>
+								<CharacterName variant="h6">{character.name}</CharacterName>
+								<Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
+									<StatusChip
+										label={character.status}
+										status={character.status}
+										size="small"
+									/>
+									<StatusChip
+										label={character.species}
+										status="unknown"
+										size="small"
+									/>
+								</Box>
+								<CharacterInfo variant="body2">
+									<strong>Origin:</strong> {character.origin.name}
+								</CharacterInfo>
+							</StyledCardContent>
+						</StyledCard>
+					</StyledLink>
 				))}
-			</Stack>
+			</Box>
 		</Fade>
 	);
 };

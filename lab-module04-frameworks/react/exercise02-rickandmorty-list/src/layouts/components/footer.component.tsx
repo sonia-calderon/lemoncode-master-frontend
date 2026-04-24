@@ -6,8 +6,6 @@ export const Footer: React.FC = () => {
 		<Box
 			component="footer"
 			sx={{
-				borderTop: 1,
-				borderColor: "divider",
 				width: "100%",
 				textAlign: "center",
 				padding: 2, // 16px

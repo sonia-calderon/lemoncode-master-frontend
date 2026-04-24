@@ -22,16 +22,17 @@ interface Props {
 
 export const CharactersComponent: React.FC<Props> = (props) => {
 	const { error } = props;
+	const { character } = useParams<{ character: string }>();
 
 	const navigate = useNavigate();
 
 	const [characters, setCharacters] = React.useState<CharacterEntity[]>([]);
 
 	React.useEffect(() => {
-		getCharacterCollection().then((characterCollection) =>
+		getCharacterCollection(character ?? "").then((characterCollection) =>
 			setCharacters(characterCollection),
 		);
-	}, []);
+	}, [character]);
 
 	const handleSearch = (value: string) => {
 		const trimmed = value.trim();

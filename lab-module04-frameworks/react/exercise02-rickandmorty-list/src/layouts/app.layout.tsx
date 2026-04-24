@@ -23,7 +23,7 @@ export const AppLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
 					spacing={4}
 					sx={{
 						width: "100%",
-						maxWidth: 700,
+						maxWidth: 1100,
 						flex: 1,
 					}}
 				>
