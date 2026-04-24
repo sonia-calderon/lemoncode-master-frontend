@@ -1,6 +1,11 @@
 import React from "react";
-import { AppLayout } from "@/layouts/app.layout";
+import { AppLayout } from "@/layouts";
+import { CharactersContainer } from "@/pods/characters";
 
 export const CharactersPage: React.FC = () => {
-	return <AppLayout>Hola from characters</AppLayout>;
+	return (
+		<AppLayout>
+			<CharactersContainer />
+		</AppLayout>
+	);
 };

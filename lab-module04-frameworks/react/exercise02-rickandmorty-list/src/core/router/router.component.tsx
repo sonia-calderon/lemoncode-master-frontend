@@ -8,6 +8,7 @@ export const RouterComponent: React.FC = () => {
 		<Router>
 			<Routes>
 				<Route path={switchRoutes.root} element={<CharactersPage />} />
+				<Route path={switchRoutes.characters} element={<CharactersPage />} />
 				<Route path={switchRoutes.detail} element={<DetailPage />} />
 			</Routes>
 		</Router>
