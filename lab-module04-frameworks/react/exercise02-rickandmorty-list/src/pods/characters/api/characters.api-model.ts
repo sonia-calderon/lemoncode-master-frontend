@@ -22,3 +22,15 @@ export interface Location {
 	name: string;
 	url: string;
 }
+
+export interface ApiPaginationInfo {
+	count: number;
+	pages: number;
+	next: string | null;
+	prev: string | null;
+}
+
+export interface CharacterApiResponse {
+	info: ApiPaginationInfo;
+	results: CharacterEntityApi[];
+}
