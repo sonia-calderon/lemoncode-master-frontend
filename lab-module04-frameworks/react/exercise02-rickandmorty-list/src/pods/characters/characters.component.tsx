@@ -3,17 +3,15 @@ import { useNavigate, useParams } from "react-router-dom";
 import { routes } from "core";
 import { Stack } from "@mui/material";
 import { Link } from "react-router-dom";
-
 import { CharacterEntity } from "./characters.vm";
-
 import { Box, Alert, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
-
 import { Card, CardContent, Chip, Fade } from "@mui/material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import ClearIcon from "@mui/icons-material/Clear";
 
 const Search = styled("div")(({ theme }) => ({
 	position: "relative",
@@ -250,6 +248,35 @@ const PaginationEllipsis = styled(Box)(({ theme }) => ({
 	},
 }));
 
+const ClearSearchButton = styled("button")(({ theme }) => ({
+	textTransform: "none",
+	fontSize: "0.95rem",
+	fontWeight: 600,
+	backgroundColor: "transparent",
+	color: "#00D084",
+	padding: "8px 16px",
+	borderRadius: "6px",
+	border: "2px solid #00D084",
+	cursor: "pointer",
+	transition: "all 0.3s cubic-bezier(0.19, 1, 0.22, 1)",
+	display: "flex",
+	alignItems: "center",
+	gap: "6px",
+	"&:hover": {
+		backgroundColor: "#00D084",
+		color: "#1a1a2e",
+		transform: "translateY(-2px)",
+		boxShadow: "0 4px 12px rgba(0, 208, 132, 0.3)",
+	},
+	"&:active": {
+		transform: "translateY(0)",
+	},
+	[theme.breakpoints.down("sm")]: {
+		fontSize: "0.85rem",
+		padding: "6px 12px",
+	},
+}));
+
 interface Props {
 	characters: CharacterEntity[];
 	searchValue: string;
@@ -360,16 +387,20 @@ export const CharactersComponent: React.FC<Props> = (props) => {
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		onSearch(inputValue.trim());
-		setInputValue("");
-		setCurrentPage(1);
+		if (inputValue.trim()) {
+			onSearch(inputValue.trim());
+			setInputValue("");
+			setCurrentPage(1);
+		}
 	};
 
 	const handleIconClick = (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
-		onSearch(inputValue.trim());
-		setInputValue("");
-		setCurrentPage(1);
+		if (inputValue.trim()) {
+			onSearch(inputValue.trim());
+			setInputValue("");
+			setCurrentPage(1);
+		}
 	};
 
 	const handlePageChange = (newPage: number) => {
@@ -380,6 +411,11 @@ export const CharactersComponent: React.FC<Props> = (props) => {
 		// Guardar el estado actual en sessionStorage
 		sessionStorage.setItem("listPage", currentPage.toString());
 		sessionStorage.setItem("listMemberId", memberId.toString());
+	};
+
+	const handleClearSearch = () => {
+		onSearch("");
+		setCurrentPage(1);
 	};
 
 	return (
@@ -412,20 +448,34 @@ export const CharactersComponent: React.FC<Props> = (props) => {
 			</Box>
 
 			{searchValue && (
-				<Box>
-					<Typography
-						variant="h3"
-						component="h3"
-						sx={{
-							fontSize: { xs: "1.5rem", sm: "2rem", md: "32px" },
-							textTransform: "lowercase",
-							"&::first-letter": {
-								textTransform: "uppercase",
-							},
-						}}
-					>
-						Results for {searchValue}
-					</Typography>
+				<Box
+					sx={{
+						display: "flex",
+						flexDirection: { xs: "column", sm: "row" },
+						justifyContent: "space-between",
+						alignItems: { xs: "flex-start", sm: "center" },
+						gap: 2,
+					}}
+				>
+					<Box>
+						<Typography
+							variant="h3"
+							component="h3"
+							sx={{
+								fontSize: { xs: "1.5rem", sm: "2rem", md: "32px" },
+								textTransform: "lowercase",
+								"&::first-letter": {
+									textTransform: "uppercase",
+								},
+							}}
+						>
+							Results for "{searchValue}"
+						</Typography>
+					</Box>
+					<ClearSearchButton onClick={handleClearSearch}>
+						<ClearIcon sx={{ fontSize: "1.1rem" }} />
+						Show All Characters
+					</ClearSearchButton>
 				</Box>
 			)}
 			{error && (
@@ -487,9 +537,6 @@ export const CharactersComponent: React.FC<Props> = (props) => {
 													size="small"
 												/>
 											</Box>
-											<CharacterInfo variant="body2">
-												<strong>Origin:</strong> {character.origin.name}
-											</CharacterInfo>
 										</StyledCardContent>
 									</StyledCard>
 								</StyledLink>
@@ -503,7 +550,7 @@ export const CharactersComponent: React.FC<Props> = (props) => {
 								flexWrap: "wrap",
 								justifyContent: "center",
 								alignItems: "center",
-								mt: { xs: 1.5, md: 2 },
+								mt: { xs: 4, md: 5 },
 								width: "100%",
 							}}
 						>
