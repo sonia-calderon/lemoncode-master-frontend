@@ -1,6 +1,5 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-
 import { CharactersComponent } from "./characters.component";
 import { CharacterEntity } from "./characters.vm";
 import {
@@ -15,9 +14,7 @@ export const CharactersContainer: React.FC = () => {
 	const { character } = useParams<{ character: string }>();
 	const navigate = useNavigate();
 
-	// members
 	const [characters, setCharacters] = React.useState<CharacterEntity[]>([]);
-
 	const [searchValue, setSearchValue] = React.useState(
 		character ?? defaultCharacter,
 	);
@@ -34,21 +31,22 @@ export const CharactersContainer: React.FC = () => {
 
 	React.useEffect(() => {
 		const savedPage = sessionStorage.getItem("listPage");
-		const savedMemberId = sessionStorage.getItem("listMemberId");
+		const savedCharacterId = sessionStorage.getItem("listCharacterId");
 
 		if (savedPage) {
 			setInitialPage(parseInt(savedPage, 10));
 			sessionStorage.removeItem("listPage");
 		}
 
-		if (savedMemberId) {
-			setInitialCharacterId(parseInt(savedMemberId, 10));
-			sessionStorage.removeItem("listMemberId");
+		if (savedCharacterId) {
+			setInitialCharacterId(parseInt(savedCharacterId, 10));
+			sessionStorage.removeItem("listCharacterId");
 		}
 	}, []);
 
 	React.useEffect(() => {
 		const currentCharacter = character?.trim() || defaultCharacter;
+		console.log("currentCharacter:" + currentCharacter);
 
 		if (
 			previousCharacterRef.current &&
@@ -70,7 +68,6 @@ export const CharactersContainer: React.FC = () => {
 					: await getAllCharacterCollection();
 
 				setCharacters(characterCollection);
-				console.log(characterCollection);
 			} catch (err) {
 				setCharacters([]);
 				setError(
@@ -86,7 +83,7 @@ export const CharactersContainer: React.FC = () => {
 
 	const handleSearch = (value: string) => {
 		const trimmed = value.trim();
-		console.log(value);
+
 		if (!trimmed) {
 			navigate(routes.root);
 		} else {

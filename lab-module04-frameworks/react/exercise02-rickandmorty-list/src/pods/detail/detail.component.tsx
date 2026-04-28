@@ -19,7 +19,6 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 
 interface Props {
 	character?: CharacterDetailEntity;
-
 	onGoBack: () => void;
 }
 

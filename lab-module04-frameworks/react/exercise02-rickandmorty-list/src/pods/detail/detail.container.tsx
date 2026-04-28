@@ -12,19 +12,11 @@ export const DetailContainer: React.FC<Props> = (props) => {
 	const { id } = props;
 	const navigate = useNavigate();
 	const [character, setCharacter] = React.useState<CharacterDetailEntity>();
-	const [isLoading, setIsLoading] = React.useState(true);
-	const [error, setError] = React.useState<string | null>(null);
 
 	React.useEffect(() => {
-		getCharacterDetail(id)
-			.then((characterDetail) => {
-				setCharacter(characterDetail);
-				setIsLoading(false);
-			})
-			.catch((err) => {
-				setError("Error loading character");
-				setIsLoading(false);
-			});
+		getCharacterDetail(id).then((characterDetail) => {
+			setCharacter(characterDetail);
+		});
 	}, [id]);
 
 	const handleGoBack = () => {

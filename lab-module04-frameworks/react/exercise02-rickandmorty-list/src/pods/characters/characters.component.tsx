@@ -1,14 +1,20 @@
 import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import { routes } from "core";
-import { Stack } from "@mui/material";
-import { Link } from "react-router-dom";
 import { CharacterEntity } from "./characters.vm";
-import { Box, Alert, Typography } from "@mui/material";
+import {
+	Stack,
+	Box,
+	Alert,
+	Typography,
+	InputBase,
+	Card,
+	CardContent,
+	Chip,
+	Fade,
+} from "@mui/material";
 import { styled } from "@mui/material/styles";
-import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
-import { Card, CardContent, Chip, Fade } from "@mui/material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ClearIcon from "@mui/icons-material/Clear";
@@ -331,7 +337,7 @@ export const CharactersComponent: React.FC<Props> = (props) => {
 	);
 
 	// acceder al DOM de cada miembro y hacer scroll hasta él
-	const memberRefs = React.useRef<Map<number, HTMLLIElement>>(new Map());
+	const characterRefs = React.useRef<Map<number, HTMLAnchorElement>>(new Map());
 	const ignoreNextScrollRef = React.useRef(false);
 	const isInitialMount = React.useRef(true);
 	const hasRestoredScroll = React.useRef(false);
@@ -357,9 +363,10 @@ export const CharactersComponent: React.FC<Props> = (props) => {
 		}
 
 		const timeout = window.setTimeout(() => {
-			const memberElement = memberRefs.current.get(initialCharacterId);
-			if (memberElement) {
-				memberElement.scrollIntoView({
+			const characterElement = characterRefs.current.get(initialCharacterId);
+
+			if (characterElement) {
+				characterElement.scrollIntoView({
 					behavior: "smooth",
 					block: "center",
 				});
@@ -407,10 +414,10 @@ export const CharactersComponent: React.FC<Props> = (props) => {
 		setCurrentPage(newPage);
 	};
 
-	const handleMemberClick = (memberId: number) => {
+	const handleCharacterClick = (characterId: number) => {
 		// Guardar el estado actual en sessionStorage
 		sessionStorage.setItem("listPage", currentPage.toString());
-		sessionStorage.setItem("listMemberId", memberId.toString());
+		sessionStorage.setItem("listCharacterId", characterId.toString());
 	};
 
 	const handleClearSearch = () => {
@@ -515,7 +522,12 @@ export const CharactersComponent: React.FC<Props> = (props) => {
 								<StyledLink
 									key={character.id}
 									to={routes.detail(character.id)}
-									onClick={() => handleMemberClick(character.id)}
+									onClick={() => handleCharacterClick(character.id)}
+									ref={(el) => {
+										if (el) {
+											characterRefs.current.set(character.id, el);
+										}
+									}}
 								>
 									<StyledCard status={character.status}>
 										<StyledCardMedia
