@@ -6,7 +6,6 @@ export const ProductsPage: React.FC = () => {
 	return (
 		<>
 			<AppLayout>
-				<p>Hola from products page</p>
 				<ProductContainer />
 			</AppLayout>
 		</>

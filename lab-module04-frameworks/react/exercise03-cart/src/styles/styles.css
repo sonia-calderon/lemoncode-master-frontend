@@ -1,0 +1,65 @@
+:root {
+    --color01: #48776C;
+    --color02:#D27250;
+    --color03: #E98579;
+    --color04: #ECA86E;
+    --color05:#EAD1BF;
+    --color-white: #FFFFFF;
+}
+
+.container {
+    padding: 32px;
+    
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--color01);
+}
+
+.header__logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header__logo p {
+    font-size: 34px;
+}
+
+.header img {
+    width: 40px;
+}
+
+.main {
+width: 100%;
+}
+
+.cart-overlay {
+    border: 1px solid var(--color02);
+    border-radius: 16px;
+    padding: 24px 16px;
+}
+
+.books {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+}
+
+.books img {
+    width: 250px;
+}
+
+.book {
+    list-style-type: none;
+}
+
+.footer {
+    background-color: var(--color01);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
