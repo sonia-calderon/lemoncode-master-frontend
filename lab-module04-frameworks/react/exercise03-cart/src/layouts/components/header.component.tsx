@@ -1,19 +1,24 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { switchRoutes } from "@/core/router/routes";
+import { useCart } from "@/context/cart.context";
 
 import Logo from "@/assets/icons/book-bookmark-favorite-like-star-svgrepo-com.svg";
 import CartIcon from "@/assets/icons/cart-svgrepo-com.svg";
 
 export const Header: React.FC = () => {
+	const { cart } = useCart();
 	return (
 		<header className="header container">
-			<div className="header__logo">
+			<Link to={switchRoutes.root} className="header__logo">
 				<img src={Logo} alt="Book Store Logo" />
 				<p>Book Store</p>
-			</div>
+			</Link>
 			<div className="header__cart">
-				<a href="">
+				<Link to={switchRoutes.cart}>
 					<img src={CartIcon} alt="Cart Icon" />
-				</a>
+				</Link>
+				<span>{cart.length}</span>
 			</div>
 		</header>
 	);

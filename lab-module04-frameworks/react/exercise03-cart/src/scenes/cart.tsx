@@ -6,7 +6,6 @@ export const CartPage: React.FC = () => {
 	return (
 		<>
 			<AppLayout>
-				<p>Hola from cart page</p>
 				<CartContainer />
 			</AppLayout>
 		</>
