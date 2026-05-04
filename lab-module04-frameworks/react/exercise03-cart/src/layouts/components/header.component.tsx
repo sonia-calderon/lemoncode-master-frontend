@@ -9,17 +9,19 @@ import CartIcon from "@/assets/icons/cart-svgrepo-com.svg";
 export const Header: React.FC = () => {
 	const { cart } = useCart();
 	return (
-		<header className="header container">
-			<Link to={switchRoutes.root} className="header__logo">
-				<img src={Logo} alt="Book Store Logo" />
-				<p>Book Store</p>
-			</Link>
-			<div className="header__cart">
-				<Link to={switchRoutes.cart}>
-					<img src={CartIcon} alt="Cart Icon" />
+		<div className="header-wrapper">
+			<header className="header container">
+				<Link to={switchRoutes.root} className="header__logo">
+					<img src={Logo} alt="Book Store Logo" />
+					<p>Books</p>
 				</Link>
-				<span>{cart.length}</span>
-			</div>
-		</header>
+				<div className="header__cart">
+					<Link to={switchRoutes.cart}>
+						<img src={CartIcon} alt="Cart Icon" />
+					</Link>
+					<span>{cart.length}</span>
+				</div>
+			</header>
+		</div>
 	);
 };
