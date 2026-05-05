@@ -4,7 +4,7 @@ import { Footer } from "./components/footer.component";
 
 export const AppLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
 	return (
-		<div className="">
+		<div className="app-layout">
 			<Header />
 			<main className="main container">{children}</main>
 			<Footer />
