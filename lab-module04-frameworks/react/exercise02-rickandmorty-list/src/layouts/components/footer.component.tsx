@@ -8,7 +8,7 @@ export const Footer: React.FC = () => {
 			sx={{
 				width: "100%",
 				textAlign: "center",
-				padding: 2, // 16px
+				padding: 2,
 			}}
 		>
 			<Typography variant="body2" component="span">

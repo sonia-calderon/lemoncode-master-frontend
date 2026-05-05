@@ -11,7 +11,7 @@ export const Header: React.FC = () => {
 				display: "flex",
 				alignItems: "center",
 				justifyContent: "center",
-				py: 3, // 24px
+				py: 3,
 				px: { xs: 1.5, sm: 2, md: 3 },
 			}}
 		>
