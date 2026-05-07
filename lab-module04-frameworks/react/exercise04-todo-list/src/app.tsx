@@ -1,8 +1,13 @@
 import React from "react";
-import "@/styles/normalize.css";
-import "@/styles/styles.css";
+import { CssBaseline, ThemeProvider } from "@mui/material";
 import { TasksPage } from "@/scenes/tasks";
+import { theme } from "@/styles/theme";
 
 export const App = () => {
-	return <TasksPage />;
+	return (
+		<ThemeProvider theme={theme}>
+			<CssBaseline />
+			<TasksPage />
+		</ThemeProvider>
+	);
 };
