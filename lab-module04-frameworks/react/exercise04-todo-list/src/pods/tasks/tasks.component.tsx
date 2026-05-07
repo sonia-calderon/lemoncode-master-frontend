@@ -46,7 +46,16 @@ export const TasksComponent: React.FC = () => {
 	const [filter, setFilter] = React.useState<Task["category"] | "all">("all");
 
 	const handleOpen = () => setIsOpen(true);
-	const handleClose = () => setIsOpen(false);
+	const handleClose = () => {
+		setIsOpen(false);
+		setTask({
+			id: 0,
+			name: "",
+			description: "",
+			priority: undefined,
+			category: undefined,
+		});
+	};
 
 	const saveNewTask = (e: React.FormEvent) => {
 		e.preventDefault();
@@ -58,15 +67,6 @@ export const TasksComponent: React.FC = () => {
 		};
 
 		setAllTasks((prev) => [...prev, taskWithId]);
-
-		// Limpia el formulario para la siguiente tarea
-		setTask({
-			id: 0,
-			name: "",
-			description: "",
-			priority: undefined,
-			category: undefined,
-		});
 
 		handleClose();
 	};
@@ -143,7 +143,7 @@ export const TasksComponent: React.FC = () => {
 	};
 
 	return (
-		<Box sx={{ width: "100%", maxWidth: 1200, mx: "auto", p: 3 }}>
+		<Box sx={{ width: "100%", maxWidth: 800, mx: "auto", p: { xs: 2, sm: 3 } }}>
 			{/* Modal */}
 			<Modal
 				open={isOpen}
@@ -260,7 +260,6 @@ export const TasksComponent: React.FC = () => {
 						</Box>
 
 						{/* Priority */}
-
 						<Box>
 							<Typography
 								variant="body2"
@@ -280,7 +279,6 @@ export const TasksComponent: React.FC = () => {
 										textTransform: "uppercase",
 										fontSize: "0.75rem",
 										fontWeight: 600,
-										border: "1px solid #E5E7EB",
 										color: "#6B7280",
 										"&.Mui-selected": {
 											backgroundColor: "#EEF2FF",
@@ -319,6 +317,7 @@ export const TasksComponent: React.FC = () => {
 											task.category === "work" ? "#4F46E5" : "#F3F4F6",
 										color: task.category === "work" ? "white" : "#6B7280",
 										fontWeight: 500,
+										px: 0.5,
 										"&:hover": {
 											backgroundColor:
 												task.category === "work" ? "#4338CA" : "#E5E7EB",
@@ -338,6 +337,7 @@ export const TasksComponent: React.FC = () => {
 											task.category === "personal" ? "#4F46E5" : "#F3F4F6",
 										color: task.category === "personal" ? "white" : "#6B7280",
 										fontWeight: 500,
+										px: 0.5,
 										"&:hover": {
 											backgroundColor:
 												task.category === "personal" ? "#4338CA" : "#E5E7EB",
@@ -357,6 +357,7 @@ export const TasksComponent: React.FC = () => {
 											task.category === "shopping" ? "#4F46E5" : "#F3F4F6",
 										color: task.category === "shopping" ? "white" : "#6B7280",
 										fontWeight: 500,
+										px: 0.5,
 										"&:hover": {
 											backgroundColor:
 												task.category === "shopping" ? "#4338CA" : "#E5E7EB",
@@ -376,6 +377,7 @@ export const TasksComponent: React.FC = () => {
 											task.category === "other" ? "#4F46E5" : "#F3F4F6",
 										color: task.category === "other" ? "white" : "#6B7280",
 										fontWeight: 500,
+										px: 0.5,
 										"&:hover": {
 											backgroundColor:
 												task.category === "other" ? "#4338CA" : "#E5E7EB",
@@ -444,7 +446,8 @@ export const TasksComponent: React.FC = () => {
 						gap: 2,
 						backgroundColor: "white",
 						borderRadius: 3,
-						p: 2.5,
+						p: 0,
+
 						boxShadow:
 							"0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)",
 					}}
@@ -456,6 +459,8 @@ export const TasksComponent: React.FC = () => {
 						onChange={handleTextChange}
 						value={task.name}
 						sx={{
+							px: 3,
+							py: 2,
 							"& .MuiInput-root": {
 								fontSize: "1rem",
 								"&:before": {
@@ -484,6 +489,8 @@ export const TasksComponent: React.FC = () => {
 							boxShadow: "none",
 							px: 3,
 							py: 1.2,
+							marginRight: 2,
+							whiteSpace: "nowrap",
 							borderRadius: 2,
 							"&:hover": {
 								backgroundColor: "#4338CA",
@@ -510,10 +517,11 @@ export const TasksComponent: React.FC = () => {
 					</Typography>
 
 					<Stack
-						spacing={1.5}
+						direction="row"
+						spacing={1}
 						sx={{
-							gap: 1.5,
-							flexDirection: "row",
+							gap: 1,
+
 							flexWrap: "wrap",
 							alignItems: "center",
 						}}
@@ -529,6 +537,7 @@ export const TasksComponent: React.FC = () => {
 								fontWeight: 500,
 								fontSize: "0.875rem",
 								height: 38,
+								px: 0.5,
 								"&:hover": {
 									backgroundColor: filter === "all" ? "#4338CA" : "#E5E7EB",
 								},
@@ -548,6 +557,7 @@ export const TasksComponent: React.FC = () => {
 								fontWeight: 500,
 								fontSize: "0.875rem",
 								height: 38,
+								px: 0.5,
 								"&:hover": {
 									backgroundColor: filter === "work" ? "#4338CA" : "#E5E7EB",
 								},
@@ -567,6 +577,7 @@ export const TasksComponent: React.FC = () => {
 								fontWeight: 500,
 								fontSize: "0.875rem",
 								height: 38,
+								px: 0.5,
 								"&:hover": {
 									backgroundColor:
 										filter === "personal" ? "#4338CA" : "#E5E7EB",
@@ -587,6 +598,7 @@ export const TasksComponent: React.FC = () => {
 								fontWeight: 500,
 								fontSize: "0.875rem",
 								height: 38,
+								px: 0.5,
 								"&:hover": {
 									backgroundColor:
 										filter === "shopping" ? "#4338CA" : "#E5E7EB",
@@ -607,6 +619,7 @@ export const TasksComponent: React.FC = () => {
 								fontWeight: 500,
 								fontSize: "0.875rem",
 								height: 38,
+								px: 0.5,
 								"&:hover": {
 									backgroundColor: filter === "other" ? "#4338CA" : "#E5E7EB",
 								},
