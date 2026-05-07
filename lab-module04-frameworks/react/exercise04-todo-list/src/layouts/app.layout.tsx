@@ -5,30 +5,24 @@ import { Footer } from "./components/footer.component";
 
 export const AppLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
 	return (
-		<>
+		<Stack
+			sx={{
+				minHeight: "100vh",
+				backgroundColor: "#F9FAFB",
+			}}
+		>
+			<Header />
 			<Stack
+				component="main"
 				sx={{
-					minHeight: "100vh",
-					gap: 4, // 32px
-					justifyContent: "space-between",
-					alignItems: "center",
-					backgroundColor: "aliceblue",
+					width: "100%",
+					flex: 1,
+					py: 4,
 				}}
 			>
-				<Header />
-				<Stack
-					component="main"
-					spacing={4}
-					sx={{
-						width: "100%",
-						maxWidth: 1100,
-						flex: 1,
-					}}
-				>
-					{children}
-				</Stack>
-				<Footer />
+				{children}
 			</Stack>
-		</>
+			<Footer />
+		</Stack>
 	);
 };

@@ -8,12 +8,23 @@ export const Header: React.FC = () => {
 			sx={{
 				width: "100%",
 				display: "flex",
-				py: 3,
-				px: { xs: 1.5, sm: 2, md: 3 },
-				borderBottom: "1px solid black",
+				py: 2.5,
+				px: 4,
+				borderBottom: "1px solid #E5E7EB",
+				backgroundColor: "white",
+				boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1)",
 			}}
 		>
-			<Typography variant="h5">To Do List</Typography>
+			<Typography
+				variant="h5"
+				sx={{
+					fontWeight: 700,
+					color: "#4F46E5",
+					fontSize: "1.5rem",
+				}}
+			>
+				To Do List
+			</Typography>
 		</Box>
 	);
 };
