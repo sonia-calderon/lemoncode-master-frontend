@@ -1,8 +1,8 @@
 # React - Extra: To Do List
 
--
--
--
+- Funcionalidad de añadir tareas (nombre, descripción, prioridad, cateogoría)
+- Filtrado de tareas por categorías
+- Edición de tareas
 
 # Cómo ver el proyecto
 
