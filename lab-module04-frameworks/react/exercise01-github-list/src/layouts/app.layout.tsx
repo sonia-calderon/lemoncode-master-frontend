@@ -43,12 +43,12 @@ export const AppLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
 
 				<Stack
 					component="main"
-					spacing={4} // 32px
+					spacing={4}
 					className="layout__main"
 					sx={{
 						width: "100%",
 						maxWidth: 700,
-						flex: 1, // para que ocupe el espacio disponible
+						flex: 1,
 					}}
 				>
 					{children}
@@ -62,7 +62,7 @@ export const AppLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
 						borderColor: "divider",
 						width: "100%",
 						textAlign: "center",
-						padding: 2, // 16px
+						padding: 2,
 					}}
 				>
 					<Typography variant="body2" component="span">
