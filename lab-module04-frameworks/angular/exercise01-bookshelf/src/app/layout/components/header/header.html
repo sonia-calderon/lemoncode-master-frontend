@@ -1,20 +1,48 @@
-<header>
-    <div class="container">
-        <div class="header__logo">
-            <p>BookShelf</p>
+<mat-toolbar class="header">
+  <div class="header__content">
+
+    <a routerLink="/" class="logo">
+      BookShelf
+    </a>
+
+    @if (!authService.isLoggedIn()) {
+    <nav class="nav">
+        <div class="mainNav">
+            <a mat-button routerLink="/about">About</a>
         </div>
-        <nav class="header__nav">
-            <ul>
-                <li>
-                    <a routerLink="/home">Home</a>
-                </li>
-                <li>
-                    <a routerLink="/login">Login</a>
-                </li>
-                <li>
-                    <a routerLink="/about">About</a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-</header>
+        <div class="userNav">
+            <button mat-button routerLink="/login">
+                <mat-icon fontSet="material-symbols-outlined">
+                account_circle
+                </mat-icon>
+                Login
+            </button>
+        </div>
+    </nav>
+    }
+
+    @if (authService.isLoggedIn()) {
+    <nav class="nav">
+        <div class="mainNav">
+        <a mat-button routerLink="/dashboard">Dashboard</a>
+        <a mat-button routerLink="/gallery">Gallery</a>
+        <a mat-button routerLink="/crud">Library</a>
+      </div>
+      <div class="userNav">
+        <button mat-button>
+          <mat-icon fontSet="material-symbols-outlined">
+            account_circle
+        </mat-icon>
+          Sonia
+        </button>
+
+        <button mat-icon-button aria-label="Logout" (click)="logOut()">
+          <mat-icon fontSet="material-symbols-outlined">logout</mat-icon>
+        </button>
+      </div>  
+    </nav>
+       
+    }
+
+  </div>
+</mat-toolbar>

@@ -1,7 +1,10 @@
+@use '@angular/material' as mat;
+
 html,
 body {
   height: 100%;
   margin: 0;
+  
 }
 
 *,
@@ -10,9 +13,36 @@ body {
   box-sizing: border-box;
 }
 
+:root {
+  /* Brand */
+  --color-primary: #8a9a5b;
+  --color-secondary: #b58451;
+  --color-tertiary: #e9e4d9;
+
+  /* Surface */
+  --color-background: #fdfcf8;
+  --color-surface: #ffffff;
+
+  /* Text */
+  --color-text: #333333;
+  --color-text-light: #666666;
+
+  /* Borders */
+  --color-border: #d9d4c8;
+
+  --mat-sys-primary: #8a9a5b;
+  --mat-sys-secondary: #b58451;
+  --mat-sys-tertiary: #e9e4d9;
+
+  --color-background: #fdfcf8;
+  --color-border: #d9d4c8;
+  --color-text: #333333;
+}
+
 body {
+  margin: 0;
   font-family: Roboto, sans-serif;
-  background-color: #FAF9F5;;
+  background: var(--color-background);
 }
 
 app-root {

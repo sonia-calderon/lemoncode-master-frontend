@@ -1,0 +1,62 @@
+.login {
+  display: flex;
+  justify-content: center;
+  padding: 3rem 1rem;
+}
+
+.login__card {
+  width: 100%;
+  max-width: 420px;
+  padding: 1rem;
+}
+
+mat-card-header {
+  padding-bottom: 2rem;
+}
+
+mat-card-title {
+  font-size: 2.25rem !important;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+mat-card-subtitle {
+  margin-top: 1rem !important;
+  color: var(--color-text-light);
+}
+
+.login__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.login__form-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: -0.75rem;
+
+  label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+}
+
+
+.login__button {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background-color: var(--color-primary);
+  color: var(--color-surface);
+}
