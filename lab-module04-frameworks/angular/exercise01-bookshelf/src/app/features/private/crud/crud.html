@@ -1,1 +1,189 @@
-<p>crud works!</p>
+<section class="library">
+
+  <header class="library__header">
+
+    <div>
+      <h1>My Library</h1>
+
+      <p>
+        Manage your collection, update reading status and keep track of every book.
+      </p>
+    </div>
+
+    <div class="library__actions">
+
+      <button
+        mat-raised-button
+        class="library__button"
+        (click)="addBook()"
+      >
+        <mat-icon fontSet="material-symbols-outlined">add</mat-icon>
+        Add Book
+      </button>
+
+    </div>
+
+  </header>
+
+  <table
+    mat-table
+    [dataSource]="dataSource"
+    class="library__table"
+  >
+
+    <!-- TITLE -->
+
+    <ng-container matColumnDef="title">
+
+      <th mat-header-cell *matHeaderCellDef>
+        Title
+      </th>
+
+      <td mat-cell *matCellDef="let element">
+        {{ element.title }}
+      </td>
+
+    </ng-container>
+
+    <!-- AUTHOR -->
+
+    <ng-container matColumnDef="author">
+
+      <th mat-header-cell *matHeaderCellDef>
+        Author
+      </th>
+
+      <td mat-cell *matCellDef="let element">
+        {{ element.author }}
+      </td>
+
+    </ng-container>
+
+    <!-- STATUS -->
+
+    <ng-container matColumnDef="status">
+
+      <th mat-header-cell *matHeaderCellDef>
+        Status
+      </th>
+
+      <td mat-cell *matCellDef="let element">
+
+        <span
+          class="status"
+          [class.status--read]="element.status === 'read'"
+          [class.status--progress]="element.status === 'in-progress'"
+          [class.status--wishlist]="element.status === 'want-to-read'"
+        >
+          {{ element.status }}
+        </span>
+
+      </td>
+
+    </ng-container>
+
+    <!-- AVAILABLE -->
+
+    <ng-container matColumnDef="available">
+
+      <th mat-header-cell *matHeaderCellDef>
+        Available
+      </th>
+
+      <td mat-cell *matCellDef="let element">
+
+        @if (element.available) {
+          <mat-icon fontSet="material-symbols-outlined" class="available">
+            check_circle
+          </mat-icon>
+        }
+
+        @else {
+          <mat-icon fontSet="material-symbols-outlined" class="unavailable">
+            cancel
+          </mat-icon>
+        }
+
+      </td>
+
+    </ng-container>
+
+    <!-- GENRES -->
+
+    <ng-container matColumnDef="genres">
+
+      <th mat-header-cell *matHeaderCellDef>
+        Genre
+      </th>
+
+      <td mat-cell *matCellDef="let element">
+        {{ element.genres }}
+      </td>
+
+    </ng-container>
+
+    <!-- ACTIONS -->
+
+    <ng-container matColumnDef="actions">
+
+      <th mat-header-cell *matHeaderCellDef>
+        Actions
+      </th>
+
+      <td mat-cell *matCellDef="let element">
+
+        <div class="actions">
+
+          <button
+            mat-icon-button
+            aria-label="Edit book"
+            (click)="editBook(element)"
+          >
+            <mat-icon fontSet="material-symbols-outlined">edit</mat-icon>
+          </button>
+
+          <button
+            mat-icon-button
+            aria-label="Delete book"
+            (click)="deleteBook(element.id)"
+          >
+            <mat-icon fontSet="material-symbols-outlined">delete</mat-icon>
+          </button>
+
+        </div>
+
+      </td>
+
+    </ng-container>
+
+    <!-- ROWS -->
+
+    <tr
+      mat-header-row
+      *matHeaderRowDef="displayedColumns"
+    ></tr>
+
+    <tr
+      mat-row
+      *matRowDef="let row; columns: displayedColumns"
+    ></tr>
+
+  </table>
+
+  @if (dataSource.length === 0) {
+    <div class="library__empty">
+
+      <mat-icon fontSet="material-symbols-outlined">
+        menu_book
+      </mat-icon>
+
+      <h3>No books yet</h3>
+
+      <p>
+        Start building your personal collection by adding your first book.
+      </p>
+
+    </div>
+  }
+
+</section>

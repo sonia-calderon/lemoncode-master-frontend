@@ -1,0 +1,61 @@
+.about {
+  max-width: 900px;
+
+  margin: 0 auto;
+
+  padding: 4rem 1rem;
+}
+
+.about__hero {
+  margin-bottom: 4rem;
+}
+
+.about__hero span {
+  color: var(--color-primary);
+
+  text-transform: uppercase;
+
+  font-size: 0.875rem;
+
+  letter-spacing: 0.1em;
+}
+
+.about__hero h1 {
+  margin-top: 1rem;
+
+  font-family: Georgia, serif;
+
+  font-size: 3.5rem;
+  line-height: 1.2;
+
+  color: var(--color-text);
+}
+
+.about__section {
+  margin-bottom: 3rem;
+}
+
+.about__section h2 {
+  margin-bottom: 1rem;
+
+  font-family: Georgia, serif;
+
+  color: var(--color-primary);
+}
+
+.about__section p,
+.about__section li {
+  color: var(--color-text-light);
+
+  line-height: 1.8;
+}
+
+.about__section ul {
+  padding-left: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .about__hero h1 {
+    font-size: 2.5rem;
+  }
+}
