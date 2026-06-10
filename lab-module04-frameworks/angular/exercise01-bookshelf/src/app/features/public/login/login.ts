@@ -13,6 +13,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { AuthService } from '../../../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -30,19 +31,35 @@ import { AuthService } from '../../../auth.service';
   styleUrl: './login.scss',
 })
 export class Login {
-  authService = inject(AuthService);
+  private authService = inject(AuthService);
+  private router = inject(Router);
+  loginError = false;
 
   loginForm = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
+    username: new FormControl('', [Validators.required, Validators.minLength(4)]),
     password: new FormControl('', [Validators.required, Validators.minLength(8)]),
   });
 
+  constructor() {
+    this.loginForm.valueChanges.subscribe(() => {
+      this.loginError = false;
+    });
+  }
+
   onSubmit(): void {
+    this.loginError = false;
+
     if (this.loginForm.invalid) {
-      this.loginForm.markAllAsTouched();
       return;
     }
 
-    this.authService.login();
+    const username = this.loginForm.controls.username.value ?? '';
+    const password = this.loginForm.controls.password.value ?? '';
+
+    if (this.authService.login(username, password)) {
+      this.router.navigate(['/dashboard']);
+    } else {
+      this.loginError = true;
+    }
   }
 }

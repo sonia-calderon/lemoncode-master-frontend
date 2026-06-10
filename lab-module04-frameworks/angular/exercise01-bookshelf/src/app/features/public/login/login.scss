@@ -8,6 +8,7 @@
   width: 100%;
   max-width: 420px;
   padding: 1rem;
+  background-color: var(--color-surface);
 }
 
 mat-card-header {
@@ -17,7 +18,6 @@ mat-card-header {
 mat-card-title {
   font-size: 2.25rem !important;
   font-weight: 700;
-  color: var(--color-text);
 }
 
 mat-card-subtitle {

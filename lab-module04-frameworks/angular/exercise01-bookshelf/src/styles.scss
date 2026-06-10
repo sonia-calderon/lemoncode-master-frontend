@@ -20,7 +20,7 @@ body {
   --color-tertiary: #e9e4d9;
 
   /* Surface */
-  --color-background: #fdfcf8;
+  --color-background: #FAF9F5;
   --color-surface: #ffffff;
 
   /* Text */
@@ -43,6 +43,7 @@ body {
   margin: 0;
   font-family: Roboto, sans-serif;
   background: var(--color-background);
+  color: var(--color-text);
 }
 
 app-root {
@@ -55,4 +56,5 @@ app-root {
   max-width: 1200px;
   margin: 0 auto;
   padding-inline: 1rem;
+  flex: 1;
 }

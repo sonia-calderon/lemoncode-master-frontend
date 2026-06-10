@@ -5,7 +5,7 @@
       BookShelf
     </a>
 
-    @if (!authService.isLoggedIn()) {
+    @if (!authService.isLogged()) {
     <nav class="nav">
         <div class="mainNav">
             <a mat-button routerLink="/about">About</a>
@@ -21,7 +21,7 @@
     </nav>
     }
 
-    @if (authService.isLoggedIn()) {
+    @if (authService.isLogged()) {
     <nav class="nav">
         <div class="mainNav">
         <a mat-button routerLink="/dashboard">Dashboard</a>
@@ -29,14 +29,14 @@
         <a mat-button routerLink="/crud">Library</a>
       </div>
       <div class="userNav">
-        <button mat-button>
+        <a mat-button routerLink="/profile">
           <mat-icon fontSet="material-symbols-outlined">
             account_circle
         </mat-icon>
-          Sonia
-        </button>
+          {{authService.getUsername()}}
+        </a>
 
-        <button mat-icon-button aria-label="Logout" (click)="logOut()">
+        <button mat-icon-button aria-label="Logout" (click)="logout()">
           <mat-icon fontSet="material-symbols-outlined">logout</mat-icon>
         </button>
       </div>  
