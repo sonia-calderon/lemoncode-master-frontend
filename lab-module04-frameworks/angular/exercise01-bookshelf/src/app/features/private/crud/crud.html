@@ -15,7 +15,7 @@
       <button
         mat-raised-button
         class="library__button"
-        (click)="addBook()"
+        (click)="openNewBookModal()"
       >
         <mat-icon fontSet="material-symbols-outlined">add</mat-icon>
         Add Book
@@ -30,6 +30,20 @@
     [dataSource]="dataSource"
     class="library__table"
   >
+
+    <!-- COVER -->
+
+    <ng-container matColumnDef="cover">
+
+      <th mat-header-cell *matHeaderCellDef>
+        Cover
+      </th>
+
+      <td mat-cell *matCellDef="let element">
+        <img [src]="element.cover" alt="element.title"  class="book-cover">
+      </td>
+
+    </ng-container>
 
     <!-- TITLE -->
 
@@ -74,6 +88,7 @@
           [class.status--read]="element.status === 'read'"
           [class.status--progress]="element.status === 'in-progress'"
           [class.status--wishlist]="element.status === 'want-to-read'"
+          [class.status--notfinish]="element.status === 'did-not-finish'"
         >
           {{ element.status }}
         </span>
@@ -137,7 +152,7 @@
           <button
             mat-icon-button
             aria-label="Edit book"
-            (click)="editBook(element)"
+            (click)="openEditModal(element.id)"
           >
             <mat-icon fontSet="material-symbols-outlined">edit</mat-icon>
           </button>
@@ -174,16 +189,333 @@
     <div class="library__empty">
 
       <mat-icon fontSet="material-symbols-outlined">
-        menu_book
+        local_library
       </mat-icon>
 
-      <h3>No books yet</h3>
+      <h3>Your library is waiting</h3>
 
       <p>
-        Start building your personal collection by adding your first book.
+        Add your first book and start building a collection of stories,
+        adventures and ideas you'll never lose track of.
       </p>
+
+      <button
+        class="save-btn"
+        (click)="openNewBookModal()"
+      >
+        Add First Book
+      </button>
 
     </div>
   }
 
 </section>
+
+@if (isNewBookModalOpen()) {
+  <div
+    class="modal-overlay"
+    (click)="isNewBookModalOpen.set(false)"
+  >
+
+    <div
+      class="library__modal"
+      (click)="$event.stopPropagation()"
+    >
+
+      <h2>Add New Book</h2>
+
+      <p>
+        Add a new title to your personal collection and keep your reading
+        journey organized.
+      </p>
+
+      <form
+        [formGroup]="addBookForm"
+        (ngSubmit)="addBook($event)"
+      >
+
+        <div class="form-group">
+          <label>Title</label>
+
+          <input
+            type="text"
+            placeholder="The Hobbit"
+            formControlName="title"
+          />
+        </div>
+
+        <div class="form-group">
+          <label>Author</label>
+
+          <input
+            type="text"
+            placeholder="J.R.R. Tolkien"
+            formControlName="author"
+          />
+        </div>
+
+        <div class="form-group cover-group">
+          <label>Cover</label>
+
+          <div class="cover-row">
+            <input
+              type="file"
+              accept="image/*"
+              (change)="onAddCoverSelected($event)"
+            />
+
+            @if (selectedCoverAdd) {
+              <img
+                class="cover-thumb"
+                [src]="selectedCoverAdd"
+                alt="Preview cover"
+              />
+            }
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Status</label>
+
+          <select formControlName="status">
+            <option value="want-to-read">
+              Want to Read
+            </option>
+
+            <option value="read">
+              Read
+            </option>
+
+            <option value="in-progress">
+              In Progress
+            </option>
+
+            <option value="did-not-finish">
+              Did Not Finish
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Available</label>
+
+          <select formControlName="available">
+            <option [ngValue]="true">
+              Available
+            </option>
+
+            <option [ngValue]="false">
+              Not Available
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+
+          <label>Genre</label>
+
+          <select formControlName="genres">
+
+            <option value="Mystery">
+              Mystery
+            </option>
+
+            <option value="Romance">
+              Romance
+            </option>
+
+            <option value="Fantasy">
+              Fantasy
+            </option>
+
+            <option value="Science Fiction">
+              Science Fiction
+            </option>
+
+            <option value="Historical Fiction">
+              Historical Fiction
+            </option>
+
+          </select>
+
+        </div>
+
+        <div class="modal-actions">
+
+          <button
+            type="button"
+            class="cancel-btn"
+            (click)="isNewBookModalOpen.set(false)"
+          >
+            Cancel
+          </button>
+
+          <button
+            type="submit"
+            class="save-btn"
+          >
+            Add Book
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+}
+
+@if (isEditModalOpen()) {
+  <div
+    class="modal-overlay"
+    (click)="isEditModalOpen.set(false)"
+  >
+
+    <div
+      class="library__modal"
+      (click)="$event.stopPropagation()"
+    >
+
+      <h2>Edit Book</h2>
+
+      <p>
+        Update the details of this book, adjust its reading status, availability or genre and keep your collection up to date.
+      </p>
+
+      <form
+        [formGroup]="editBookForm"
+        (ngSubmit)="editBook($event)"
+      >
+
+        <div class="form-group">
+          <label>Title</label>
+
+          <input
+            type="text"
+            placeholder="The Hobbit"
+            formControlName="title"
+          />
+        </div>
+
+        <div class="form-group">
+          <label>Author</label>
+
+          <input
+            type="text"
+            placeholder="J.R.R. Tolkien"
+            formControlName="author"
+          />
+        </div>
+
+        <div class="form-group cover-group">
+          <label>Cover</label>
+
+          <div class="cover-row">
+            <input
+              type="file"
+              accept="image/*"
+              (change)="onEditCoverSelected($event)"
+            />
+
+            @if (selectedCoverEdit || editBookForm.value.cover) {
+              <img
+                class="cover-thumb"
+                [src]="selectedCoverEdit || editBookForm.value.cover"
+                alt="Preview cover"
+              />
+            }
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Status</label>
+
+          <select formControlName="status">
+            <option value="want-to-read">
+              Want to Read
+            </option>
+
+            <option value="read">
+              Read
+            </option>
+
+            <option value="in-progress">
+              In Progress
+            </option>
+
+            <option value="did-not-finish">
+              Did Not Finish
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Available</label>
+
+          <select formControlName="available">
+            <option [ngValue]="true">
+              Available
+            </option>
+
+            <option [ngValue]="false">
+              Not Available
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+
+          <label>Genre</label>
+
+          <select formControlName="genres">
+
+            <option value="Mystery">
+              Mystery
+            </option>
+
+            <option value="Romance">
+              Romance
+            </option>
+
+            <option value="Fantasy">
+              Fantasy
+            </option>
+
+            <option value="Science Fiction">
+              Science Fiction
+            </option>
+
+            <option value="Historical Fiction">
+              Historical Fiction
+            </option>
+
+          </select>
+
+        </div>
+
+        <div class="modal-actions">
+
+          <button
+            type="button"
+            class="cancel-btn"
+            (click)="isEditModalOpen.set(false)"
+          >
+            Cancel
+          </button>
+
+          <button
+            type="submit"
+            class="save-btn"
+          >
+            Edit Book
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+}
