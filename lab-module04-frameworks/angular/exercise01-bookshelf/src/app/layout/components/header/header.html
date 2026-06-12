@@ -1,9 +1,18 @@
 <mat-toolbar class="header">
   <div class="header__content">
 
-    <a routerLink="/" class="logo">
-      BookShelf
-    </a>
+    @if (authService.isLogged()) {
+      <a class="logo">
+        BookShelf
+      </a>
+    } 
+    
+    @if (!authService.isLogged()) {
+      <a routerLink="/" class="logo">
+        BookShelf
+      </a>
+    }
+    
 
     @if (!authService.isLogged()) {
     <nav class="nav">

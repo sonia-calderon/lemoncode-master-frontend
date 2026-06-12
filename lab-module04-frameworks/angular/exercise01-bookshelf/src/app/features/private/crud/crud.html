@@ -27,7 +27,7 @@
 
   <table
     mat-table
-    [dataSource]="dataSource"
+    [dataSource]="dataSource()"
     class="library__table"
   >
 
@@ -185,7 +185,7 @@
 
   </table>
 
-  @if (dataSource.length === 0) {
+  @if (dataSource().length === 0) {
     <div class="library__empty">
 
       <mat-icon fontSet="material-symbols-outlined">

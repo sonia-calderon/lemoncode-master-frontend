@@ -1,1 +1,51 @@
-<p>profile works!</p>
+<section class="profile">
+
+  <header class="profile__header">
+    <h1>Profile</h1>
+    <p>Manage your account and keep growing your reading collection.</p>
+  </header>
+
+  <div class="profile__grid">
+
+    <!-- USER -->
+    <mat-card class="profile__card profile__user">
+
+      <div class="user-info">
+
+        <div class="avatar">
+          {{ (authService.getUsername()?.charAt(0)) || 'U' }}
+        </div>
+
+        <div class="user-data">
+          <h2>
+            {{ authService.getUsername() }}
+          </h2>
+        </div>
+
+      </div>
+
+      <button class="signout-btn" (click)="logout()">
+        Sign out
+      </button>
+
+    </mat-card>
+
+    <!-- CTA -->
+    <mat-card class="profile__card profile__cta">
+
+      <h2>Build your library</h2>
+
+      <p>
+        Start adding books to track your reading progress, create your wishlist and
+        organize your personal collection.
+      </p>
+
+      <a routerLink="/crud" class="cta-link">
+        + Add your first books
+      </a>
+
+    </mat-card>
+
+  </div>
+
+</section>

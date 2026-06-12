@@ -1,1 +1,38 @@
-<p>gallery works!</p>
+<section class="gallery">
+
+  <header class="gallery__header">
+    <h1>Book Gallery</h1>
+
+    <p>
+      Browse your collection and discover every story waiting on your shelves.
+    </p>
+  </header>
+
+  <div class="gallery__grid">
+
+    @for (book of books(); track book.id) {
+
+        @if (book.cover !== "") {
+        <div class="gallery__book">
+
+        <img
+          [src]="book.cover"
+          [alt]="book.title"
+          class="gallery__book-cover"
+        />
+
+        <div class="gallery__book-info">
+          <h3>{{ book.title }}</h3>
+          <p>{{ book.author }}</p>
+        </div>
+
+      </div>
+        }
+
+      
+
+    }
+
+  </div>
+
+</section>
