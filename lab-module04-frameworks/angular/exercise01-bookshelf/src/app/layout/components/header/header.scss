@@ -23,10 +23,9 @@
 }
 
 .nav {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
 }
 
 .mainNav {
@@ -34,7 +33,6 @@
   align-items: center;
   gap: 0.5rem;
 }
-
 
 .mainNav a,
 .userNav a,
@@ -66,3 +64,25 @@
   height: 18px;
   color: var(--color-primary);
 }
+
+/* MOBILE */
+.mobile-menu-button {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .desktop-nav {
+    display: none;
+  }
+
+  .mobile-menu-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .header__content {
+    min-height: 64px;
+  }
+}
+

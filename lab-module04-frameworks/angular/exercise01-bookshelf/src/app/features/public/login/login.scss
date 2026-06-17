@@ -1,7 +1,6 @@
 .login {
     display: flex;
     justify-content: center;
-    padding: 3rem 1rem;
 }
 
 .login__card {
@@ -93,7 +92,6 @@ mat-form-field {
     gap: 1rem;
     background-color: var(--color-primary);
     color: var(--color-surface);
-
     height: 52px;
 
     &:hover:not(:disabled) {

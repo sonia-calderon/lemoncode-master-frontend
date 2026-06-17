@@ -2,57 +2,108 @@
   <div class="header__content">
 
     @if (authService.isLogged()) {
-      <a class="logo">
+      <a routerLink="/dashboard" class="logo">
         BookShelf
       </a>
-    } 
-    
-    @if (!authService.isLogged()) {
+    } @else {
       <a routerLink="/" class="logo">
         BookShelf
       </a>
     }
-    
 
+    <!-- DESKTOP -->
     @if (!authService.isLogged()) {
-    <nav class="nav">
+      <nav class="nav desktop-nav">
         <div class="mainNav">
-            <a mat-button routerLink="/">BookShelf</a>
-            <a mat-button routerLink="/about">About</a>
+          <a mat-button routerLink="/">BookShelf</a>
+          <a mat-button routerLink="/about">About</a>
         </div>
+
         <div class="userNav">
-            <button mat-button routerLink="/login">
-                <mat-icon fontSet="material-symbols-outlined">
-                account_circle
-                </mat-icon>
-                Login
-            </button>
+          <button mat-button routerLink="/login">
+            <mat-icon fontSet="material-symbols-outlined">
+              account_circle
+            </mat-icon>
+            Login
+          </button>
         </div>
-    </nav>
+      </nav>
     }
 
     @if (authService.isLogged()) {
-    <nav class="nav">
+      <nav class="nav desktop-nav">
         <div class="mainNav">
-        <a mat-button routerLink="/dashboard">Dashboard</a>
-        <a mat-button routerLink="/gallery">Gallery</a>
-        <a mat-button routerLink="/crud">Library</a>
-      </div>
-      <div class="userNav">
-        <a mat-button routerLink="/profile">
-          <mat-icon fontSet="material-symbols-outlined">
-            account_circle
-        </mat-icon>
-          {{authService.getUsername()}}
-        </a>
+          <a mat-button routerLink="/dashboard">Dashboard</a>
+          <a mat-button routerLink="/gallery">Gallery</a>
+          <a mat-button routerLink="/crud">Library</a>
+        </div>
 
-        <button mat-icon-button aria-label="Logout" (click)="logout()">
-          <mat-icon fontSet="material-symbols-outlined">logout</mat-icon>
-        </button>
-      </div>  
-    </nav>
-       
+        <div class="userNav">
+          <a mat-button routerLink="/profile">
+            <mat-icon fontSet="material-symbols-outlined">
+              account_circle
+            </mat-icon>
+            {{ authService.getUsername() }}
+          </a>
+          <button
+            mat-icon-button
+            aria-label="Logout"
+            (click)="logout()">
+            <mat-icon fontSet="material-symbols-outlined">
+              logout
+            </mat-icon>
+          </button>
+        </div>
+      </nav>
     }
 
+    <!-- MOBILE -->
+
+    <button
+      mat-icon-button
+      class="mobile-menu-button"
+      [matMenuTriggerFor]="mobileMenu">
+      <mat-icon fontSet="material-symbols-outlined">menu</mat-icon>
+    </button>
+
+    <mat-menu #mobileMenu="matMenu" class="mobile-menu-panel">
+
+      @if (!authService.isLogged()) {
+        <button mat-menu-item routerLink="/">
+          BookShelf
+        </button>
+
+        <button mat-menu-item routerLink="/about">
+          About
+        </button>
+
+        <button mat-menu-item routerLink="/login">
+          Login
+        </button>
+      }
+
+      @if (authService.isLogged()) {
+        <button mat-menu-item routerLink="/dashboard">
+          Dashboard
+        </button>
+
+        <button mat-menu-item routerLink="/gallery">
+          Gallery
+        </button>
+
+        <button mat-menu-item routerLink="/crud">
+          Library
+        </button>
+
+        <button mat-menu-item routerLink="/profile">
+          Profile
+        </button>
+
+        <button mat-menu-item (click)="logout()">
+          Logout
+        </button>
+      }
+
+    </mat-menu>
   </div>
 </mat-toolbar>
