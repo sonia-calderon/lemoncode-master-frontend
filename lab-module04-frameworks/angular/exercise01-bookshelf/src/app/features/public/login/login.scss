@@ -111,3 +111,15 @@ mat-form-field {
         font-size: 20px;
     }
 }
+
+.login__demo {
+  margin-top: 0.5rem;
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--color-text-light);
+
+  strong {
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+}

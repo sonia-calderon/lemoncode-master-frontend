@@ -29,14 +29,6 @@ body {
 
   /* Borders */
   --color-border: #d9d4c8;
-
-  --mat-sys-primary: #8a9a5b;
-  --mat-sys-secondary: #b58451;
-  --mat-sys-tertiary: #e9e4d9;
-
-  --color-background: #fdfcf8;
-  --color-border: #d9d4c8;
-  --color-text: #333333;
 }
 
 body {
@@ -53,16 +45,15 @@ app-root {
 }
 
 main {
-  /*max-width: 1200px;
-  margin: 0 auto;*/
   padding-inline: 1rem;
   flex: 1;
+  width: 100%;
 }
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 4rem 1rem;
+  padding: 2rem 1rem;
 }
 
 .mobile-menu-button {
@@ -77,7 +68,6 @@ main {
   border-radius: 16px !important;
   border: 1px solid var(--color-tertiary);
   background: var(--color-background) !important;
-
   box-shadow:
     0 10px 25px rgba(0, 0, 0, 0.08),
     0 4px 10px rgba(0, 0, 0, 0.04) !important;
@@ -88,10 +78,8 @@ main {
 .mat-mdc-menu-item {
   border-radius: 10px;
   min-height: 48px;
-
   font-size: 0.95rem;
   font-weight: 500;
-
   transition: all 0.2s ease;
 }
 

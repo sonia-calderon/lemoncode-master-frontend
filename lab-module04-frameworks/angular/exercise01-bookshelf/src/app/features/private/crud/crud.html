@@ -1,219 +1,241 @@
-<section class="library">
-
+<section class="library container">
   <header class="library__header">
-
-    <div>
+    <div class="library__intro">
       <h1>My Library</h1>
-
       <p>
         Manage your collection, update reading status and keep track of every book.
       </p>
     </div>
-
     <div class="library__actions">
-
       <button
         mat-raised-button
         class="library__button"
         (click)="openNewBookModal()"
       >
-        <mat-icon fontSet="material-symbols-outlined">add</mat-icon>
+        <mat-icon fontSet="material-symbols-outlined">
+          add
+        </mat-icon>
         Add Book
       </button>
-
     </div>
-
   </header>
 
-  <table
-    mat-table
-    [dataSource]="dataSource()"
-    class="library__table"
-  >
+  <div class="library__table-wrapper">
+    <table
+      mat-table
+      [dataSource]="dataSource()"
+      class="library__table"
+    >
 
-    <!-- COVER -->
-
-    <ng-container matColumnDef="cover">
-
-      <th mat-header-cell *matHeaderCellDef>
-        Cover
-      </th>
-
-      <td mat-cell *matCellDef="let element">
-        <img [src]="element.cover" alt="element.title"  class="book-cover">
-      </td>
-
-    </ng-container>
-
-    <!-- TITLE -->
-
-    <ng-container matColumnDef="title">
-
-      <th mat-header-cell *matHeaderCellDef>
-        Title
-      </th>
-
-      <td mat-cell *matCellDef="let element">
-        {{ element.title }}
-      </td>
-
-    </ng-container>
-
-    <!-- AUTHOR -->
-
-    <ng-container matColumnDef="author">
-
-      <th mat-header-cell *matHeaderCellDef>
-        Author
-      </th>
-
-      <td mat-cell *matCellDef="let element">
-        {{ element.author }}
-      </td>
-
-    </ng-container>
-
-    <!-- STATUS -->
-
-    <ng-container matColumnDef="status">
-
-      <th mat-header-cell *matHeaderCellDef>
-        Status
-      </th>
-
-      <td mat-cell *matCellDef="let element">
-
-        <span
-          class="status"
-          [class.status--read]="element.status === 'read'"
-          [class.status--progress]="element.status === 'in-progress'"
-          [class.status--wishlist]="element.status === 'want-to-read'"
-          [class.status--notfinish]="element.status === 'did-not-finish'"
+      <!-- COVER -->
+      <ng-container matColumnDef="cover">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          class="library__cell library__cell--header"
         >
-          {{ element.status }}
-        </span>
+          Cover
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          class="library__cell"
+          data-label="Cover"
+        >
+          @if (element.cover) {
+            <img
+              [src]="element.cover"
+              [alt]="element.title"
+              class="library__cover"
+            />
+          }
+        </td>
+      </ng-container>
 
-      </td>
+      <!-- TITLE -->
+      <ng-container matColumnDef="title">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          class="library__cell library__cell--header"
+        >
+          Title
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          class="library__cell"
+          data-label="Title"
+        >
+          {{ element.title }}
+        </td>
+      </ng-container>
 
-    </ng-container>
+      <!-- AUTHOR -->
+      <ng-container matColumnDef="author">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          class="library__cell library__cell--header"
+        >
+          Author
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          class="library__cell"
+          data-label="Author"
+        >
+          {{ element.author }}
+        </td>
+      </ng-container>
 
-    <!-- AVAILABLE -->
-
-    <ng-container matColumnDef="available">
-
-      <th mat-header-cell *matHeaderCellDef>
-        Available
-      </th>
-
-      <td mat-cell *matCellDef="let element">
-
-        @if (element.available) {
-          <mat-icon fontSet="material-symbols-outlined" class="available">
-            check_circle
-          </mat-icon>
-        }
-
-        @else {
-          <mat-icon fontSet="material-symbols-outlined" class="unavailable">
-            cancel
-          </mat-icon>
-        }
-
-      </td>
-
-    </ng-container>
-
-    <!-- GENRES -->
-
-    <ng-container matColumnDef="genres">
-
-      <th mat-header-cell *matHeaderCellDef>
-        Genre
-      </th>
-
-      <td mat-cell *matCellDef="let element">
-        {{ element.genres }}
-      </td>
-
-    </ng-container>
-
-    <!-- ACTIONS -->
-
-    <ng-container matColumnDef="actions">
-
-      <th mat-header-cell *matHeaderCellDef>
-        Actions
-      </th>
-
-      <td mat-cell *matCellDef="let element">
-
-        <div class="actions">
-
-          <button
-            mat-icon-button
-            aria-label="Edit book"
-            (click)="openEditModal(element.id)"
+      <!-- STATUS -->
+      <ng-container matColumnDef="status">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          class="library__cell library__cell--header"
+        >
+          Status
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          class="library__cell"
+          data-label="Status"
+        >
+          <span
+            class="library__status"
+            [class.library__status--read]="element.status === 'read'"
+            [class.library__status--progress]="element.status === 'in-progress'"
+            [class.library__status--wishlist]="element.status === 'want-to-read'"
           >
-            <mat-icon fontSet="material-symbols-outlined">edit</mat-icon>
-          </button>
+            {{ element.status }}
+          </span>
+        </td>
+      </ng-container>
 
-          <button
-            mat-icon-button
-            aria-label="Delete book"
-            (click)="deleteBook(element.id)"
-          >
-            <mat-icon fontSet="material-symbols-outlined">delete</mat-icon>
-          </button>
+      <!-- AVAILABLE -->
+      <ng-container matColumnDef="available">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          class="library__cell library__cell--header"
+        >
+          Available
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          class="library__cell"
+          data-label="Available"
+        >
+          @if (element.available) {
+            <mat-icon
+              fontSet="material-symbols-outlined"
+              class="library__availability library__availability--available"
+            >
+              check_circle
+            </mat-icon>
 
-        </div>
+          } @else {
+            <mat-icon
+              fontSet="material-symbols-outlined"
+              class="library__availability library__availability--unavailable"
+            >
+              cancel
+            </mat-icon>
+          }
+        </td>
+      </ng-container>
 
-      </td>
+      <!-- GENRES -->
+      <ng-container matColumnDef="genres">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          class="library__cell library__cell--header"
+        >
+          Genre
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          class="library__cell"
+          data-label="Genre"
+        >
+          {{ element.genres }}
+        </td>
+      </ng-container>
 
-    </ng-container>
+      <!-- ACTIONS -->
+      <ng-container matColumnDef="actions">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          class="library__cell library__cell--header"
+        >
+          Actions
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          class="library__cell"
+          data-label="Actions"
+        >
+          <div class="library__row-actions">
+            <button
+              mat-icon-button
+              (click)="openEditModal(element.id)"
+            >
+              <mat-icon fontSet="material-symbols-outlined">
+                edit
+              </mat-icon>
+            </button>
 
-    <!-- ROWS -->
-
-    <tr
-      mat-header-row
-      *matHeaderRowDef="displayedColumns"
-    ></tr>
-
-    <tr
-      mat-row
-      *matRowDef="let row; columns: displayedColumns"
-    ></tr>
-
-  </table>
+            <button
+              mat-icon-button
+              (click)="deleteBook(element.id)"
+            >
+              <mat-icon fontSet="material-symbols-outlined">
+                delete
+              </mat-icon>
+            </button>
+          </div>
+        </td>
+      </ng-container>
+      <tr
+        mat-header-row
+        *matHeaderRowDef="displayedColumns"
+        class="library__row library__row--header"
+      ></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: displayedColumns"
+        class="library__row"
+      ></tr>
+    </table>
+  </div>
 
   @if (dataSource().length === 0) {
     <div class="library__empty">
-
       <mat-icon fontSet="material-symbols-outlined">
-        local_library
+        menu_book
       </mat-icon>
-
-      <h3>Your library is waiting</h3>
-
+      <h3>No books yet</h3>
       <p>
-        Add your first book and start building a collection of stories,
-        adventures and ideas you'll never lose track of.
+        Start building your personal collection by adding your first book.
       </p>
-
-      <button
-        class="save-btn"
-        (click)="openNewBookModal()"
-      >
-        Add First Book
-      </button>
-
     </div>
   }
-
 </section>
+
+<!-- ADD BOOK MODAL -->
 
 @if (isNewBookModalOpen()) {
   <div
-    class="modal-overlay"
+    class="library__modal-overlay"
     (click)="isNewBookModalOpen.set(false)"
   >
 
@@ -230,11 +252,12 @@
       </p>
 
       <form
+        class="library__form"
         [formGroup]="addBookForm"
         (ngSubmit)="addBook($event)"
       >
 
-        <div class="form-group">
+        <div class="library__field">
           <label>Title</label>
 
           <input
@@ -244,7 +267,7 @@
           />
         </div>
 
-        <div class="form-group">
+        <div class="library__field">
           <label>Author</label>
 
           <input
@@ -254,11 +277,13 @@
           />
         </div>
 
-        <div class="form-group cover-group">
+        <div class="library__field">
           <label>Cover</label>
 
-          <div class="cover-row">
+          <div class="library__cover-row">
+
             <input
+              class="library__cover-input"
               type="file"
               accept="image/*"
               (change)="onAddCoverSelected($event)"
@@ -266,85 +291,52 @@
 
             @if (selectedCoverAdd) {
               <img
-                class="cover-thumb"
+                class="library__cover-preview"
                 [src]="selectedCoverAdd"
                 alt="Preview cover"
               />
             }
+
           </div>
         </div>
 
-        <div class="form-group">
+        <div class="library__field">
           <label>Status</label>
 
           <select formControlName="status">
-            <option value="want-to-read">
-              Want to Read
-            </option>
-
-            <option value="read">
-              Read
-            </option>
-
-            <option value="in-progress">
-              In Progress
-            </option>
-
-            <option value="did-not-finish">
-              Did Not Finish
-            </option>
+            <option value="want-to-read">Want to Read</option>
+            <option value="read">Read</option>
+            <option value="in-progress">In Progress</option>
+            <option value="did-not-finish">Did Not Finish</option>
           </select>
         </div>
 
-        <div class="form-group">
+        <div class="library__field">
           <label>Available</label>
 
           <select formControlName="available">
-            <option [ngValue]="true">
-              Available
-            </option>
-
-            <option [ngValue]="false">
-              Not Available
-            </option>
+            <option [ngValue]="true">Available</option>
+            <option [ngValue]="false">Not Available</option>
           </select>
         </div>
 
-        <div class="form-group">
-
+        <div class="library__field">
           <label>Genre</label>
 
           <select formControlName="genres">
-
-            <option value="Mystery">
-              Mystery
-            </option>
-
-            <option value="Romance">
-              Romance
-            </option>
-
-            <option value="Fantasy">
-              Fantasy
-            </option>
-
-            <option value="Science Fiction">
-              Science Fiction
-            </option>
-
-            <option value="Historical Fiction">
-              Historical Fiction
-            </option>
-
+            <option value="Mystery">Mystery</option>
+            <option value="Romance">Romance</option>
+            <option value="Fantasy">Fantasy</option>
+            <option value="Science Fiction">Science Fiction</option>
+            <option value="Historical Fiction">Historical Fiction</option>
           </select>
-
         </div>
 
-        <div class="modal-actions">
+        <div class="library__modal-actions">
 
           <button
             type="button"
-            class="cancel-btn"
+            class="library__cancel-btn"
             (click)="isNewBookModalOpen.set(false)"
           >
             Cancel
@@ -352,7 +344,7 @@
 
           <button
             type="submit"
-            class="save-btn"
+            class="library__save-btn"
           >
             Add Book
           </button>
@@ -368,7 +360,7 @@
 
 @if (isEditModalOpen()) {
   <div
-    class="modal-overlay"
+    class="library__modal-overlay"
     (click)="isEditModalOpen.set(false)"
   >
 
@@ -380,15 +372,17 @@
       <h2>Edit Book</h2>
 
       <p>
-        Update the details of this book, adjust its reading status, availability or genre and keep your collection up to date.
+        Update the details of this book, adjust its reading status,
+        availability or genre and keep your collection up to date.
       </p>
 
       <form
+        class="library__form"
         [formGroup]="editBookForm"
         (ngSubmit)="editBook($event)"
       >
 
-        <div class="form-group">
+        <div class="library__field">
           <label>Title</label>
 
           <input
@@ -398,7 +392,7 @@
           />
         </div>
 
-        <div class="form-group">
+        <div class="library__field">
           <label>Author</label>
 
           <input
@@ -408,11 +402,13 @@
           />
         </div>
 
-        <div class="form-group cover-group">
+        <div class="library__field">
           <label>Cover</label>
 
-          <div class="cover-row">
+          <div class="library__cover-row">
+
             <input
+              class="library__cover-input"
               type="file"
               accept="image/*"
               (change)="onEditCoverSelected($event)"
@@ -420,85 +416,52 @@
 
             @if (selectedCoverEdit || editBookForm.value.cover) {
               <img
-                class="cover-thumb"
+                class="library__cover-preview"
                 [src]="selectedCoverEdit || editBookForm.value.cover"
                 alt="Preview cover"
               />
             }
+
           </div>
         </div>
 
-        <div class="form-group">
+        <div class="library__field">
           <label>Status</label>
 
           <select formControlName="status">
-            <option value="want-to-read">
-              Want to Read
-            </option>
-
-            <option value="read">
-              Read
-            </option>
-
-            <option value="in-progress">
-              In Progress
-            </option>
-
-            <option value="did-not-finish">
-              Did Not Finish
-            </option>
+            <option value="want-to-read">Want to Read</option>
+            <option value="read">Read</option>
+            <option value="in-progress">In Progress</option>
+            <option value="did-not-finish">Did Not Finish</option>
           </select>
         </div>
 
-        <div class="form-group">
+        <div class="library__field">
           <label>Available</label>
 
           <select formControlName="available">
-            <option [ngValue]="true">
-              Available
-            </option>
-
-            <option [ngValue]="false">
-              Not Available
-            </option>
+            <option [ngValue]="true">Available</option>
+            <option [ngValue]="false">Not Available</option>
           </select>
         </div>
 
-        <div class="form-group">
-
+        <div class="library__field">
           <label>Genre</label>
 
           <select formControlName="genres">
-
-            <option value="Mystery">
-              Mystery
-            </option>
-
-            <option value="Romance">
-              Romance
-            </option>
-
-            <option value="Fantasy">
-              Fantasy
-            </option>
-
-            <option value="Science Fiction">
-              Science Fiction
-            </option>
-
-            <option value="Historical Fiction">
-              Historical Fiction
-            </option>
-
+            <option value="Mystery">Mystery</option>
+            <option value="Romance">Romance</option>
+            <option value="Fantasy">Fantasy</option>
+            <option value="Science Fiction">Science Fiction</option>
+            <option value="Historical Fiction">Historical Fiction</option>
           </select>
-
         </div>
 
-        <div class="modal-actions">
+        <div class="library__modal-actions">
 
           <button
             type="button"
-            class="cancel-btn"
+            class="library__cancel-btn"
             (click)="isEditModalOpen.set(false)"
           >
             Cancel
@@ -506,9 +469,9 @@
 
           <button
             type="submit"
-            class="save-btn"
+            class="library__save-btn"
           >
-            Edit Book
+            Save Changes
           </button>
 
         </div>

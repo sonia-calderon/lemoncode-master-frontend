@@ -1,111 +1,81 @@
-<section class="dashboard">
-
+<section class="dashboard container">
   <header class="dashboard__header">
     <h1>Dashboard</h1>
     <p>Overview of your reading progress and collection.</p>
   </header>
 
   <div class="dashboard__grid">
-
     <!-- KPIs -->
     <aside class="dashboard__kpis">
-
       <div class="kpi">
         <span class="kpi__label">Total books</span>
         <span class="kpi__value">{{ books().length }}</span>
       </div>
-
       <div class="kpi">
         <span class="kpi__label">Read</span>
         <span class="kpi__value">
           {{ books().filter(b => b.status === 'read').length }}
         </span>
       </div>
-
       <div class="kpi">
         <span class="kpi__label">In progress</span>
         <span class="kpi__value">
           {{ books().filter(b => b.status === 'in-progress').length }}
         </span>
       </div>
-
       <div class="kpi">
         <span class="kpi__label">Wishlist</span>
         <span class="kpi__value">
           {{ books().filter(b => b.available === false).length }}
         </span>
       </div>
-
     </aside>
 
     <!-- WISHLIST -->
     <section class="dashboard__wishlist">
-        <h3 class="section-title">Wishlist</h3>
-
+        <h3 class="dashboard__section-title">Wishlist</h3>
     <div class="cover-grid">
-
         @for (book of books(); track book.id) {
         @if (book.available === false) {
-
             <img
             class="cover-tile"
             [src]="book.cover"
             [alt]="book.title"
             />
-
         }
         }
-
     </div>
-
     </section>
 
     <!-- CONTINUE READING -->
     <section class="dashboard__featured">
-
       <h3>Continue reading</h3>
-
       @if (books().find(b => b.status === 'in-progress'); as currentBook) {
-
         <div class="featured-card">
-
           <img [src]="currentBook.cover" [alt]="currentBook.title" />
-
           <div class="featured-content">
             <h3>{{ currentBook.title }}</h3>
             <p>{{ currentBook.author }}</p>
-
             <span class="badge">In progress</span>
           </div>
-
         </div>
-
       }
-
     </section>
 
     <!-- READ -->
     <section class="dashboard__read">
-         <h3 class="section-title">Recently read</h3>
-
+         <h3 class="dashboard__section-title">Recently read</h3>
     <div class="cover-grid">
-
         @for (book of books(); track book.id) {
         @if (book.status === 'read') {
-
             <img
             class="cover-tile"
             [src]="book.cover"
             [alt]="book.title"
             />
-
         }
         }
-
     </div>
-
     </section>
-
   </div>
-
 </section>

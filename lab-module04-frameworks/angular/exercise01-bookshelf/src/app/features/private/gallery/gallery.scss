@@ -1,13 +1,3 @@
-.gallery {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 3rem 1rem;
-}
-
-/* ========================
-   HEADER
-======================== */
-
 .gallery__header {
     margin-bottom: 3rem;
 
@@ -17,6 +7,10 @@
         font-size: 3rem;
         font-weight: 700;
         color: var(--color-text);
+
+        @media (max-width: 768px) {
+            font-size: 2.25rem;
+        }
     }
 
     p {
@@ -28,10 +22,6 @@
 }
 
 
-/* ========================
-   GRID
-======================== */
-
 .gallery__grid {
   display: grid;
   grid-template-columns: repeat(
@@ -39,11 +29,15 @@
     minmax(140px, 1fr)
   );
   gap: 1.5rem;
-}
 
-/* ========================
-   BOOK
-======================== */
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(120px, 1fr)
+    );
+    gap: 1.25rem;
+  }
+}
 
 .gallery__book {
     transition: transform 0.2s ease;
@@ -80,24 +74,4 @@
             color: var(--color-text-light);
         }
     }
-}
-
-
-/* ========================
-   RESPONSIVE
-======================== */
-
-@media (max-width: 768px) {
-
-  .gallery__header h1 {
-    font-size: 2.25rem;
-  }
-
-  .gallery__grid {
-    grid-template-columns: repeat(
-      auto-fill,
-      minmax(120px, 1fr)
-    );
-    gap: 1.25rem;
-  }
 }

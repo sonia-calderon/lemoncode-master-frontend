@@ -11,11 +11,9 @@
 
 .home__hero-eyebrow {
   color: var(--color-primary);
-  font-size: 0.875rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
   text-transform: uppercase;
-
+  font-size: 0.875rem;
+  letter-spacing: 0.1em;
 }
 
 .home__hero-content h1 {
@@ -46,10 +44,20 @@
   margin-top: 2rem;
 }
 
-.home__hero-actions .mdc-button,
-.home__hero-actions .mdc-button--raised {
+.home__hero-actions-start {
   background-color: var(--color-primary);
   color: white;
+}
+
+.home__hero-actions-more {
+  margin-top: auto;
+  color: var(--color-primary);
+  font-weight: 600;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .home__hero-image img {
@@ -77,9 +85,7 @@
 
   h3 {
     margin-top: 0;
-
     font-family: Georgia, serif;
-
     color: var(--color-primary);
   }
 
@@ -88,7 +94,6 @@
     line-height: 1.7;
   }
 }
-
 
 
 .home__stats {
