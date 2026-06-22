@@ -3,7 +3,6 @@ import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { FormControl, FormsModule, ReactiveFormsModule, FormGroup } from '@angular/forms';
-import { LibraryData } from '../library.data';
 import { Book, Status, Genres } from '../book.vm';
 import { LibraryDataService } from '../library-data.service';
 
@@ -97,7 +96,7 @@ export class Crud {
       available: available,
       genres: genres,
     };
-    //this.dataSource = [newBook, ...this.dataSource];
+
     this.libraryDataService.addBook(newBook);
     this.addBookForm.reset();
     this.selectedCoverAdd = '';
@@ -136,21 +135,6 @@ export class Crud {
     };
 
     this.libraryDataService.updateBook(updateBook);
-
-    /*this.dataSource = this.dataSource.map((book) =>
-      book.id === this.editBookId
-        ? {
-            ...book,
-            title: this.editBookForm.controls.title.value ?? '',
-            author: this.editBookForm.controls.author.value ?? '',
-            cover: this.selectedCoverEdit || this.editBookForm.value.cover || book.cover,
-            status: this.editBookForm.controls.status.value as Status,
-            available: this.editBookForm.controls.available.value ?? false,
-            genres: this.editBookForm.controls.genres.value as Genres,
-          }
-        : book,
-    );*/
-
     this.editBookForm.reset();
     this.editBookId = null;
     this.selectedCoverEdit = '';

@@ -5,7 +5,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { AuthService } from '../../../auth.service';
-import { MatSidenavModule } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-header',
