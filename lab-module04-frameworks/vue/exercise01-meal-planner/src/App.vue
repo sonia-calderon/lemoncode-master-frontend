@@ -1,8 +1,16 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { RouterView } from 'vue-router';
+import AppHeader from './components/AppHeader.vue';
+import AppFooter from './components/AppFooter.vue';
+
+</script>
 
 <template>
-  <h1>Meal Planner</h1>
-  
+  <AppHeader />
+  <main class="flex flex-col flex-1 w-full">
+    <RouterView />
+  </main>
+  <AppFooter />
 </template>
 
 <style scoped></style>
