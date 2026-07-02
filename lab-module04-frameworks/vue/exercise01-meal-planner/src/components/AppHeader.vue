@@ -6,20 +6,20 @@ import LogoIcon from './Icons/LogoIcon.vue';
 </script>
 
 <template>
-    <header class="flex gap-3 justify-between items-center p-3 border-b w-full">
+    <header class="flex gap-3 justify-between items-center border-b w-full max-w-screen-xl py-3 px-4 my-0 mx-auto">
         <div class="flex gap-2 items-center">
             <LogoIcon class="logo" />
             <h1 class="text-primary text-xl font-medium">MealPlanner</h1>
         </div>
         <div class="flex gap-6 items-center">
-            <nav class="flex gap-3 text-terciary font-medium">
+            <nav class="flex gap-1 text-terciary font-medium">
                 <RouterLink to="/" class="flex gap-1 items-center px-3 py-2 rounded-3xl hover:bg-secondary hover:bg-opacity-30">
                     <CalendarIcon />
-                    Meal Plan
+                    <span>Meal Plan</span>
                 </RouterLink>
                 <RouterLink to="/favorites" class="flex gap-1 items-center px-3 py-2 rounded-3xl hover:bg-secondary hover:bg-opacity-30">
                     <HeartIcon />
-                    Favorites
+                    <span>Favorites</span>
                 </RouterLink>
             </nav>
             <button class="flex gap-1 bg-primary text-textlight rounded-3xl px-3 py-2">
