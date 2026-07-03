@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import DishCard from '@/components/DishCard.vue';
 
-
-
 </script>
 
 <template>
@@ -13,12 +11,6 @@ import DishCard from '@/components/DishCard.vue';
     </div>
     
     <div class="grid grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-4">
-      <DishCard />
-      <DishCard />
-      <DishCard />
-      <DishCard />
-      <DishCard />
-      <DishCard />
       <DishCard />
     </div>
   </section>

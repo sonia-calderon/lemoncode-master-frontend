@@ -1,8 +1,14 @@
 <script setup lang="ts">
+import { useDishesStore } from '@/stores/dishes.ts';
 import AddIcon from './Icons/AddIcon.vue';
 import CalendarIcon from './Icons/CalendarIcon.vue';
 import HeartIcon from './Icons/HeartIcon.vue';
 import LogoIcon from './Icons/LogoIcon.vue';
+
+const dishesStore = useDishesStore();
+
+const handleOpenModal = () => dishesStore.openModal()
+
 </script>
 
 <template>
@@ -22,12 +28,12 @@ import LogoIcon from './Icons/LogoIcon.vue';
                     <span>Favorites</span>
                 </RouterLink>
             </nav>
-            <button class="flex gap-1 bg-primary text-textlight rounded-3xl px-3 py-2">
+            <button class="flex gap-1 bg-primary text-textlight rounded-3xl px-3 py-2" @click="handleOpenModal">
                 <AddIcon />
                 <span class="font-medium">New Meal</span>
             </button>
         </div>
-    </header>
+    </header> 
 </template>
 
 <style scoped>

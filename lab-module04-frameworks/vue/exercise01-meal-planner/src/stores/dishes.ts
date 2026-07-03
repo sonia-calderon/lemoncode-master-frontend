@@ -5,21 +5,18 @@ import { ref } from 'vue'
 export const useDishesStore = defineStore('dishes', () => {
   const dishes = ref<Dish[]>([])
 
-  const createDish = () => {
-    const newDish = {
-      id: crypto.randomUUID(),
-      name: '',
-      description: '',
-      category: undefined,
-      weekDay: undefined,
-      isFavorite: false,
-    }
+  const isModalOpen = ref(false)
+  const openModal = () => (isModalOpen.value = true)
+  const closeModal = () => (isModalOpen.value = false)
 
-    console.log('creating dish')
-
-    dishes.value.push(newDish)
-    return newDish
+  const toggleFavorite = (id: string) => {
+    const dish = dishes.value.find((dish) => dish.id === id)
+    if (dish) dish.isFavorite = !dish.isFavorite
   }
 
-  return { dishes, createDish }
+  const createDish = (dish: Dish) => {
+    dishes.value.push({ ...dish })
+  }
+
+  return { dishes, isModalOpen, openModal, closeModal, toggleFavorite, createDish }
 })

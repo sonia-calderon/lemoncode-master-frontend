@@ -2,6 +2,7 @@
 import { RouterView } from 'vue-router';
 import AppHeader from './components/AppHeader.vue';
 import AppFooter from './components/AppFooter.vue';
+import DishModal from './components/DishModal.vue';
 
 </script>
 
@@ -9,6 +10,7 @@ import AppFooter from './components/AppFooter.vue';
   <AppHeader />
   <main class="flex flex-col flex-1 w-full max-w-screen-xl py-8 px-4 my-0 mx-auto">
     <RouterView />
+    <DishModal />
   </main>
   <AppFooter />
 </template>
