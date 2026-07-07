@@ -1,9 +1,10 @@
 import type { Dish } from '@/types'
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
+import { dishes as dishesData } from '@/database/dishes'
 
 export const useDishesStore = defineStore('dishes', () => {
-  const dishes = ref<Dish[]>([])
+  const dishes = ref<Dish[]>(dishesData)
 
   const isModalOpen = ref(false)
   const openModal = () => (isModalOpen.value = true)
@@ -14,9 +15,24 @@ export const useDishesStore = defineStore('dishes', () => {
     if (dish) dish.isFavorite = !dish.isFavorite
   }
 
+  const favoriteDishes = computed(() => dishes.value.filter((dish) => dish.isFavorite))
+
   const createDish = (dish: Dish) => {
     dishes.value.push({ ...dish })
   }
 
-  return { dishes, isModalOpen, openModal, closeModal, toggleFavorite, createDish }
+  const clearPlanner = () => {
+    dishes.value.forEach((dish) => (dish.weekDay = undefined))
+  }
+
+  return {
+    dishes,
+    isModalOpen,
+    openModal,
+    closeModal,
+    toggleFavorite,
+    favoriteDishes,
+    createDish,
+    clearPlanner,
+  }
 })
