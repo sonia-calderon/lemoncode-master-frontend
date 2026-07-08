@@ -15,10 +15,10 @@ const handleOpenModal = () => dishesStore.openModal()
   <header
     class="flex gap-3 justify-between items-center border-b w-full max-w-screen-xl py-3 px-4 my-0 mx-auto"
   >
-    <div class="flex gap-2 items-center">
+    <RouterLink to="planner" class="flex gap-2 items-center">
       <LogoIcon class="logo" />
       <h1 class="text-primary text-xl font-medium">MealPlanner</h1>
-    </div>
+    </RouterLink>
     <div class="flex gap-6 items-center">
       <nav class="flex gap-1 text-terciary font-medium">
         <RouterLink

@@ -15,4 +15,5 @@ export interface Dish {
   category?: DishCategory | undefined
   weekDay?: WeekDay | undefined
   isFavorite: boolean
+  minutes: number | undefined
 }

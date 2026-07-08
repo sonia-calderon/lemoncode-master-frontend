@@ -7,6 +7,7 @@ export const dishes: Dish[] = [
     description: 'Toasted bread topped with smashed avocado and cherry tomatoes.',
     category: 'Breakfast',
     weekDay: 'Monday',
+    minutes: 10,
     isFavorite: false,
   },
   {
@@ -15,6 +16,7 @@ export const dishes: Dish[] = [
     description: 'Grilled chicken served with romaine lettuce, parmesan, and Caesar dressing.',
     category: 'Lunch',
     weekDay: 'Tuesday',
+    minutes: 25,
     isFavorite: false,
   },
   {
@@ -23,6 +25,7 @@ export const dishes: Dish[] = [
     description: 'Classic pasta with a rich beef and tomato sauce.',
     category: 'Dinner',
     weekDay: 'Wednesday',
+    minutes: 45,
     isFavorite: true,
   },
   {
@@ -31,6 +34,7 @@ export const dishes: Dish[] = [
     description: 'Fluffy pancakes served with fresh blueberries and maple syrup.',
     category: 'Breakfast',
     weekDay: 'Thursday',
+    minutes: 20,
     isFavorite: false,
   },
   {
@@ -39,6 +43,7 @@ export const dishes: Dish[] = [
     description: 'Whole-grain bread filled with turkey, lettuce, tomato, and cheese.',
     category: 'Lunch',
     weekDay: 'Friday',
+    minutes: 10,
     isFavorite: true,
   },
   {
@@ -47,6 +52,7 @@ export const dishes: Dish[] = [
     description: 'Fresh salmon fillet served with steamed vegetables.',
     category: 'Dinner',
     weekDay: 'Saturday',
+    minutes: 30,
     isFavorite: false,
   },
   {
@@ -55,6 +61,7 @@ export const dishes: Dish[] = [
     description: 'Greek yogurt topped with granola, honey, and fresh berries.',
     category: 'Breakfast',
     weekDay: 'Sunday',
+    minutes: 5,
     isFavorite: false,
   },
   {
@@ -63,6 +70,7 @@ export const dishes: Dish[] = [
     description: 'Mixed vegetables sautéed with soy sauce and served over rice.',
     category: 'Lunch',
     weekDay: 'Monday',
+    minutes: 20,
     isFavorite: false,
   },
   {
@@ -71,6 +79,7 @@ export const dishes: Dish[] = [
     description: 'Soft tortillas filled with seasoned beef, lettuce, cheese, and salsa.',
     category: 'Dinner',
     weekDay: 'Tuesday',
+    minutes: 35,
     isFavorite: true,
   },
   {
@@ -79,6 +88,7 @@ export const dishes: Dish[] = [
     description: 'Three-egg omelette with sautéed mushrooms and cheddar cheese.',
     category: 'Breakfast',
     weekDay: 'Wednesday',
+    minutes: 15,
     isFavorite: false,
   },
 ]

@@ -1,85 +1,176 @@
 <script setup lang="ts">
-import { reactive } from 'vue';
-import ChevronDownIcon from './Icons/ChevronDownIcon.vue';
-import CloseIcon from './Icons/CloseIcon.vue';
+import { reactive } from 'vue'
+import ChevronDownIcon from './Icons/ChevronDownIcon.vue'
+import CloseIcon from './Icons/CloseIcon.vue'
 
-import { useDishesStore } from '@/stores/dishes.ts';
-import type { WeekDay } from '@/types/index.ts';
+import { useDishesStore } from '@/stores/dishes.ts'
+import type { Dish, DishCategory, WeekDay } from '@/types/index.ts'
+import ClockIcon from './Icons/ClockIcon.vue'
+import HeartIcon from './Icons/HeartIcon.vue'
 
-const weekDays: WeekDay[] = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+const categories: DishCategory[] = ['Breakfast', 'Lunch', 'Dinner']
+
+const weekDays: WeekDay[] = [
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday',
+  'Sunday',
+]
 
 const dishesStore = useDishesStore()
 const handleCloseModal = () => dishesStore.closeModal()
 
-const emptyForm = () => ({
-    id: crypto.randomUUID(),
-    name: '',
-    description: '',
-    category: undefined,
-    weekDay: undefined,
-    isFavorite: false,
+const emptyForm = (): Dish => ({
+  id: crypto.randomUUID(),
+  name: '',
+  description: '',
+  category: undefined,
+  weekDay: undefined,
+  isFavorite: false,
+  minutes: undefined,
 })
 
-const form = reactive(emptyForm())
+const form = reactive<Dish>(emptyForm())
 
 const resetForm = () => Object.assign(form, emptyForm())
 
-const handleAddDish = () => {
-    dishesStore.createDish({... form})
-    resetForm()
-    handleCloseModal()
+const handleSelectCategory = (category: DishCategory | undefined) => {
+  form.category = category
 }
 
+const handleAddDish = () => {
+  dishesStore.createDish({ ...form })
+  resetForm()
+  handleCloseModal()
+}
 </script>
 <template>
-    <Teleport to="body">
-        <div v-if="dishesStore.isModalOpen" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50"
-        @click="handleCloseModal" >
-            <section class="bg-white border rounded-xl w-full flex flex-col gap-6 p-6 max-w-xl" @click.stop>
-                <div class="flex justify-between border-b py-3">
-                    <p class="text-xl font-semibold">Add a new dish</p>
-                    <button @click="handleCloseModal"><CloseIcon /></button>
-                </div>
-                <div class="flex flex-col gap-4">
-                    <div class="flex flex-col gap-2">
-                        <label for="" class="text-gray-500 font-semibold">Dish name</label>
-                        <input type="text" placeholder="E.g. Avocado Toast & Poached Egg" class="border border-primary border-opacity-10 bg-primary bg-opacity-10 rounded-lg p-2 placeholder-gray-500" v-model="form.name">
-                    </div>
-                    <div class="flex flex-col gap-2">
-                        <label for="" class="text-gray-500 font-semibold">Dish description</label>
-                        <textarea name="" id="" class="border border-primary border-opacity-10 bg-primary bg-opacity-10 rounded-lg p-2 placeholder-gray-500" placeholder="E.g. Perfectly seasoned avocado on sourdough bread with a runny egg and microgreens" v-model="form.description"></textarea>
-                    </div>
-                    <div class="flex gap-4 w-full">
-                        <div class="flex flex-col gap-2 w-full">
-                            <label for="" class="text-gray-500 font-semibold">Week day</label>
-                            <div class="relative">
-                                <select name="" id="" class="w-full appearance-none border border-primary border-opacity-10 bg-primary/10 rounded-lg py-2 pr-10" v-model="form.weekDay">
-                                    <option v-for="day in weekDays" :key="day" :value="day">{{ day }}</option>
-                                </select>
-                                <ChevronDownIcon class="poiner-events-none absolute right-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-500" />
-                            </div>
-                            
-                        </div>
-                        <div class="flex flex-col gap-2 w-full">
-                            <label for="" class="text-gray-500 font-semibold">Category</label>
-                            <div class="relative">
-                                <select name="" id="" class="w-full appearance-none border border-primary border-opacity-10 bg-primary/10 rounded-lg py-2 pr-10" v-model="form.category">
-                                    <option value=""></option>
-                                    <option value="Breakfast">Breakfast</option>
-                                    <option value="Lunch">Lunch</option>
-                                    <option value="Dinner">Dinner</option>
-                                </select>
-                                <ChevronDownIcon class="poiner-events-none absolute right-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-500" />
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>
-                <div class="flex gap-4">
-                    <button class="border border-primary rounded-xl p-2 w-full" @click="handleCloseModal">Cancel</button>
-                    <button class="bg-primary text-textlight border border-primary rounded-xl p-2 w-full" @click="handleAddDish">Add</button>
-                </div>
-            </section>
+  <Teleport to="body">
+    <div
+      v-if="dishesStore.isModalOpen"
+      class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50"
+      @click="handleCloseModal"
+    >
+      <section
+        class="bg-white border rounded-xl w-full flex flex-col gap-6 p-6 max-w-xl"
+        @click.stop
+      >
+        <!-- Modal Header -->
+        <div class="flex justify-between border-b py-3">
+          <p class="text-xl font-semibold">Add a new dish</p>
+          <button @click="handleCloseModal"><CloseIcon /></button>
         </div>
-    </Teleport>
+        <!-- Modal Content -->
+        <div class="flex flex-col gap-4">
+          <!-- Name -->
+          <div class="flex flex-col gap-2">
+            <label class="text-sm font-medium text-gray-600">Dish name</label>
+            <input
+              type="text"
+              placeholder="E.g. Avocado Toast & Poached Egg"
+              class="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 placeholder:text-gray-400 transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+              v-model="form.name"
+            />
+          </div>
+          <!-- Description -->
+          <div class="flex flex-col gap-2">
+            <label class="text-sm font-medium text-gray-600">Dish description</label>
+            <textarea
+              rows="3"
+              class="w-full resize-none rounded-xl border border-gray-200 bg-white px-4 py-3 placeholder:text-gray-400 transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+              placeholder="E.g. Perfectly seasoned avocado on sourdough bread with a runny egg and microgreens"
+              v-model="form.description"
+            ></textarea>
+          </div>
+          <!-- Weekday & Minutes -->
+          <div class="flex gap-4 w-full">
+            <!-- Weekday -->
+            <div class="flex flex-col gap-2 w-full">
+              <label class="text-sm font-medium text-gray-600">Week day</label>
+              <div class="relative group">
+                <select
+                  class="w-full appearance-none rounded-xl border border-gray-200 bg-white py-3 pl-4 pr-10 text-gray-700 transition-all duration-200 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 hover:border-primary"
+                  v-model="form.weekDay"
+                >
+                  <option v-for="day in weekDays" :key="day" :value="day">{{ day }}</option>
+                </select>
+                <ChevronDownIcon
+                  class="pointer-events-none absolute right-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400 transition-transform duration-200 group-focus-within:rotate-180"
+                />
+              </div>
+            </div>
+            <!-- Minutes -->
+            <div class="flex flex-col gap-2 w-full">
+              <label class="text-sm font-medium text-gray-600">Minutes</label>
+              <div class="relative">
+                <ClockIcon class="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
+                <input
+                  type="number"
+                  min="0"
+                  class="w-full rounded-xl border border-gray-200 bg-white py-3 pl-10 pr-12 transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  v-model="form.minutes"
+                />
+                <span
+                  class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-sm text-gray-400"
+                >
+                  min
+                </span>
+              </div>
+            </div>
+          </div>
+          <!-- Categories -->
+          <div class="flex flex-col gap-2">
+            <label class="text-sm font-medium text-gray-600">Category</label>
+            <div class="flex gap-2 rounded-lg bg-primary/10 p-1">
+              <button
+                v-for="category in categories"
+                :key="category"
+                type="button"
+                @click="handleSelectCategory(category)"
+                :class="[
+                  'flex-1 rounded-md py-2 transition',
+                  form.category === category
+                    ? 'bg-primary text-white'
+                    : 'bg-white text-gray-600 hover:bg-primary hover:text-white',
+                ]"
+              >
+                {{ category }}
+              </button>
+            </div>
+          </div>
+          <!-- Favorites -->
+          <div class="flex gap-2 items-center justify-between border-t pt-4">
+            <div class="flex gap-2 items-center">
+              <HeartIcon class="fill-primary stroke-none" />
+              <div>
+                <p class="font-semibold">Add to Favorites</p>
+                <p>It will appear in your favorites collection</p>
+              </div>
+            </div>
+            <label class="inline-flex items-center cursor-pointer">
+              <input type="checkbox" value="" class="sr-only peer" v-model="form.isFavorite" />
+              <div
+                class="relative w-9 h-5 bg-gray-400 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-brand-soft dark:peer-focus:ring-brand-soft rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-buffer after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"
+              ></div>
+            </label>
+          </div>
+        </div>
+        <!-- Modal Footer -->
+        <div class="flex gap-4">
+          <button class="border border-primary rounded-xl p-2 w-full" @click="handleCloseModal">
+            Cancel
+          </button>
+          <button
+            class="bg-primary text-textlight border border-primary rounded-xl p-2 w-full"
+            @click="handleAddDish"
+          >
+            Add
+          </button>
+        </div>
+      </section>
+    </div>
+  </Teleport>
 </template>

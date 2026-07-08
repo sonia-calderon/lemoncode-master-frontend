@@ -25,6 +25,12 @@ export const useDishesStore = defineStore('dishes', () => {
     dishes.value.forEach((dish) => (dish.weekDay = undefined))
   }
 
+  const modifyDish = (id: string) => {}
+
+  const deleteDish = (id: string) => {
+    dishes.value = dishes.value.filter((dish) => dish.id !== id)
+  }
+
   return {
     dishes,
     isModalOpen,
@@ -34,5 +40,6 @@ export const useDishesStore = defineStore('dishes', () => {
     favoriteDishes,
     createDish,
     clearPlanner,
+    deleteDish,
   }
 })
