@@ -1,10 +1,19 @@
 import type { Dish, DishCategory, WeekDay } from '@/types'
 import { defineStore } from 'pinia'
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { dishes as dishesData } from '@/database/dishes'
 
 export const useDishesStore = defineStore('dishes', () => {
-  const dishes = ref<Dish[]>(dishesData)
+  const savedDishes = localStorage.getItem('dishes')
+  const dishes = ref<Dish[]>(savedDishes ? JSON.parse(savedDishes) : dishesData)
+
+  watch(
+    dishes,
+    (newDishes) => {
+      localStorage.setItem('dishes', JSON.stringify(newDishes))
+    },
+    { deep: true },
+  )
 
   const isModalOpen = ref(false)
   const modalMode = ref<'create' | 'edit'>('create')
@@ -42,7 +51,7 @@ export const useDishesStore = defineStore('dishes', () => {
   const favoriteDishes = computed(() => dishes.value.filter((dish) => dish.isFavorite))
 
   const createDish = (dish: Dish) => {
-    dishes.value.push({ ...dish })
+    const allDishes = dishes.value.push({ ...dish })
   }
 
   const clearPlanner = () => {
@@ -60,14 +69,6 @@ export const useDishesStore = defineStore('dishes', () => {
   const selectedCategory = ref<DishCategory | 'all'>('all')
 
   const filterCategory = (category: DishCategory | 'all') => {
-    /* if (cat === 'all') {
-      console.log(dishes.value)
-      return dishes
-    } else {
-      const filteredDishes = dishes.value.filter((dish) => cat === dish.category)
-      console.log(filteredDishes)
-      return filteredDishes
-    }*/
     selectedCategory.value = category
   }
 

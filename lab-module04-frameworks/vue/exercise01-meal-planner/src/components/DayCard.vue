@@ -2,6 +2,7 @@
 import { useDishesStore } from '@/stores/dishes'
 import type { DishCategory, WeekDay } from '@/types/index.ts'
 import AddIcon from './Icons/AddIcon.vue'
+import { computed } from 'vue'
 
 const weekDays: WeekDay[] = [
   'Monday',
@@ -20,18 +21,25 @@ const dishesStore = useDishesStore()
 const getDish = (day: WeekDay, category: DishCategory) => {
   return dishesStore.dishes.find((dish) => dish.weekDay === day && dish.category === category)
 }
+
+const filteredCategories = computed(() => {
+  if (dishesStore.selectedCategory === 'all') {
+    return categories
+  }
+  return [dishesStore.selectedCategory]
+})
 </script>
 
 <template>
   <article
-    class="flex flex-col gap-4 bg-white w-full rounded-lg"
+    class="flex flex-col gap-1 bg-white w-full rounded-lg"
     v-for="weekday in weekDays"
     :key="weekday"
   >
     <div class="bg-primary bg-opacity-10 p-4 rounded-t-lg border-b">
       <p class="font-semibold text-primary">{{ weekday }}</p>
     </div>
-    <div class="flex flex-col gap-4 p-4" v-for="category in categories" :key="category">
+    <div class="flex flex-col gap-4 p-4" v-for="category in filteredCategories" :key="category">
       <div class="flex flex-col gap-2" v-if="getDish(weekday, category)">
         <p class="uppercase font-semibold text-sm text-gray-500">{{ category }}</p>
         <p
