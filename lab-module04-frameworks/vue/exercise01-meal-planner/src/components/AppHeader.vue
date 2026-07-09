@@ -7,8 +7,6 @@ import LogoIcon from './Icons/LogoIcon.vue'
 import BookmarkIcon from './Icons/BookmarkIcon.vue'
 
 const dishesStore = useDishesStore()
-
-const handleOpenModal = () => dishesStore.openModal()
 </script>
 
 <template>
@@ -45,7 +43,7 @@ const handleOpenModal = () => dishesStore.openModal()
       </nav>
       <button
         class="flex gap-1 bg-primary text-textlight rounded-3xl px-3 py-2"
-        @click="handleOpenModal"
+        @click="dishesStore.openCreateModal()"
       >
         <AddIcon />
         <span class="font-medium">New Meal</span>

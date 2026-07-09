@@ -9,23 +9,33 @@ import ClockIcon from './Icons/ClockIcon.vue'
 
 const dishesStore = useDishesStore()
 
-defineProps<{
+const props = defineProps<{
   dish: Dish
 }>()
+
+const handleEdit = () => {
+  dishesStore.openEditModal(props.dish)
+}
 </script>
 
 <template>
   <article class="flex flex-col gap-4 bg-white border border-border rounded-lg p-4 w-full">
     <div class="flex gap-2">
       <p
+        v-if="dish.category"
         class="text-terciary text-xs font-medium px-3 py-1 rounded-3xl flex items-center"
-        :class="dish.category ? 'bg-primary/30' : 'bg-transparent'"
+        :class="{
+          'bg-orange-300/30': dish.category === 'Breakfast',
+          'bg-indigo-400/30': dish.category === 'Lunch',
+          'bg-emerald-400/20': dish.category === 'Dinner',
+          'bg-transparent': !dish.category,
+        }"
       >
         {{ dish.category }}
       </p>
       <p
-        class="bg-primary/30 text-terciary text-xs font-medium px-3 py-1 rounded-3xl flex gap-1 items-center"
-        v-if="dish.weekDay !== undefined"
+        class="bg-gray-300/30 text-terciary text-xs font-medium px-3 py-1 rounded-3xl flex gap-1 items-center"
+        v-if="dish.weekDay"
       >
         <CalendarIcon class="w-4" />
         Planned
@@ -43,7 +53,7 @@ defineProps<{
             :class="dish.isFavorite ? 'fill-primary' : 'fill-none'"
           />
         </button>
-        <button>
+        <button @click="handleEdit">
           <PencilIcon class="cursor-pointer stroke-primary" />
         </button>
         <button @click="dishesStore.deleteDish(dish.id)">

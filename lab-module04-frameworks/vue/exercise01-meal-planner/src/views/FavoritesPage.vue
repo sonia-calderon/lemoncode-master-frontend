@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import DishCard from '@/components/DishCard.vue'
+import DishFilters from '@/components/DishFilters.vue'
 import EyeIcon from '@/components/Icons/EyeIcon.vue'
 import HeartIcon from '@/components/Icons/HeartIcon.vue'
 import { useDishesStore } from '@/stores/dishes'
@@ -14,12 +15,16 @@ const dishesStore = useDishesStore()
       <p class="text-base">Your personal collection of culinary inspirations</p>
     </div>
 
+    <div class="flex justify-between">
+      <DishFilters />
+    </div>
+
     <!-- Favorite Dish Card -->
     <div
       class="grid grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-4"
       v-if="dishesStore.favoriteDishes.length > 0"
     >
-      <DishCard v-for="dish in dishesStore.favoriteDishes" :key="dish.id" :dish="dish" />
+      <DishCard v-for="dish in dishesStore.filteredFavoriteDishes" :key="dish.id" :dish="dish" />
     </div>
     <!-- Empty Dishes -->
     <div v-else class="flex flex-col justify-center items-center gap-5">

@@ -1,12 +1,15 @@
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { computed, reactive, watch } from 'vue'
 import ChevronDownIcon from './Icons/ChevronDownIcon.vue'
 import CloseIcon from './Icons/CloseIcon.vue'
-
 import { useDishesStore } from '@/stores/dishes.ts'
 import type { Dish, DishCategory, WeekDay } from '@/types/index.ts'
 import ClockIcon from './Icons/ClockIcon.vue'
 import HeartIcon from './Icons/HeartIcon.vue'
+
+const title = computed(() => (dishesStore.modalMode === 'create' ? 'Add a new dish' : 'Edit dish'))
+
+const buttonText = computed(() => (dishesStore.modalMode === 'create' ? 'Add' : 'Save changes'))
 
 const categories: DishCategory[] = ['Breakfast', 'Lunch', 'Dinner']
 
@@ -34,15 +37,36 @@ const emptyForm = (): Dish => ({
 })
 
 const form = reactive<Dish>(emptyForm())
+const resetForm = () =>
+  Object.assign(form, {
+    ...emptyForm(),
+    weekDay: dishesStore.initialWeekDay,
+    category: dishesStore.initialCategory,
+  })
 
-const resetForm = () => Object.assign(form, emptyForm())
+watch(
+  () => dishesStore.isModalOpen,
+  (isOpen) => {
+    if (!isOpen) return
+    if (dishesStore.modalMode === 'edit' && dishesStore.editingDish) {
+      Object.assign(form, dishesStore.editingDish)
+    } else {
+      resetForm()
+    }
+  },
+)
 
 const handleSelectCategory = (category: DishCategory | undefined) => {
   form.category = category
 }
 
-const handleAddDish = () => {
-  dishesStore.createDish({ ...form })
+const handleSubmit = () => {
+  if (dishesStore.modalMode === 'create') {
+    dishesStore.createDish({ ...form })
+  } else {
+    dishesStore.updateDish({ ...form })
+  }
+
   resetForm()
   handleCloseModal()
 }
@@ -60,7 +84,7 @@ const handleAddDish = () => {
       >
         <!-- Modal Header -->
         <div class="flex justify-between border-b py-3">
-          <p class="text-xl font-semibold">Add a new dish</p>
+          <p class="text-xl font-semibold">{{ title }}</p>
           <button @click="handleCloseModal"><CloseIcon /></button>
         </div>
         <!-- Modal Content -->
@@ -165,9 +189,9 @@ const handleAddDish = () => {
           </button>
           <button
             class="bg-primary text-textlight border border-primary rounded-xl p-2 w-full"
-            @click="handleAddDish"
+            @click="handleSubmit"
           >
-            Add
+            {{ buttonText }}
           </button>
         </div>
       </section>

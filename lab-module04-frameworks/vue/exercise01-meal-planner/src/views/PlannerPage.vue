@@ -14,9 +14,9 @@ const handleClearPlanner = () => dishesStore.clearPlanner()
       <p class="text-base"></p>
     </div>
 
-    <div class="flex justify-between">
-      <div>Filters</div>
-      <div>
+    <div class="flex justify-between items-center">
+      <div></div>
+      <div class="">
         <button class="text-error flex gap-1 font-semibold" @click="handleClearPlanner">
           <XCircleIcon />
           Clear All

@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import DishCard from '@/components/DishCard.vue'
+import DishFilters from '@/components/DishFilters.vue'
 import AddIcon from '@/components/Icons/AddIcon.vue'
 import BookmarkSlashIcon from '@/components/Icons/BookmarkSlashIcon.vue'
 import { useDishesStore } from '@/stores/dishes'
 
 const dishesStore = useDishesStore()
-
-const handleOpenModal = () => dishesStore.openModal()
 </script>
 
 <template>
@@ -16,12 +15,16 @@ const handleOpenModal = () => dishesStore.openModal()
       <p class="text-base">Your personal collection of culinary inspirations</p>
     </div>
 
+    <div class="flex justify-between">
+      <DishFilters />
+    </div>
+
     <!-- Dish Card -->
     <div
       class="grid grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-4"
       v-if="dishesStore.dishes.length > 0"
     >
-      <DishCard v-for="dish in dishesStore.dishes" :key="dish.id" :dish="dish" />
+      <DishCard v-for="dish in dishesStore.filteredDishes" :key="dish.id" :dish="dish" />
     </div>
     <!-- Empty Dishes -->
     <div v-else class="flex flex-col justify-center items-center gap-5">
@@ -35,7 +38,7 @@ const handleOpenModal = () => dishesStore.openModal()
       <div>
         <button
           class="flex gap-1 bg-primary text-textlight rounded-3xl px-5 py-2"
-          @click="handleOpenModal"
+          @click="dishesStore.openCreateModal()"
         >
           <AddIcon />
           New Meal
