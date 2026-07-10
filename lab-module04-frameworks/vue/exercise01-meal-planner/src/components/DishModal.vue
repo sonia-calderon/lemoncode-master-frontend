@@ -119,6 +119,7 @@ const handleSubmit = () => {
                   class="w-full appearance-none rounded-xl border border-gray-200 bg-white py-3 pl-4 pr-10 text-gray-700 transition-all duration-200 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 hover:border-primary"
                   v-model="form.weekDay"
                 >
+                  <option value="">None</option>
                   <option v-for="day in weekDays" :key="day" :value="day">{{ day }}</option>
                 </select>
                 <ChevronDownIcon
