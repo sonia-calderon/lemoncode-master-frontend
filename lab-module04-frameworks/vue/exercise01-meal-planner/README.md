@@ -1,54 +1,68 @@
-# exercise01-meal-planner
+# Vue: Meal Planner
 
-This template should help get you started developing with Vue 3 in Vite.
+En este ejercicio, deberás crear una aplicación web utilizando Vue 3 (con la plantilla de `create-vue`) que permita planificar las comidas de una semana.
 
-## Recommended IDE Setup
+La interfaz de usuario debe tener los siguientes elementos:
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- Un formulario que permita añadir un plato, indicando:
+  - El nombre del plato (campo de texto).
+  - El día de la semana (selector o menú desplegable).
+- Un botón "Agregar" que añada el plato al plan semanal.
+- Una vista principal donde se muestren los días de la semana con los platos planificados.
+  - Cada día puede mostrar una lista de platos (por ejemplo: "Comida" o "Cena").
+  - Cada plato debe tener un botón "Eliminar" para borrarlo del plan.
+- El estado de la aplicación (lista de platos planificados) debe gestionarse con Pinia.
+- Una vez se añada un plato, el formulario debe limpiarse automáticamente.
 
-## Recommended Browser Setup
+### Obligatorio
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+- Usar Vue Router para organizar la aplicación con al menos dos vistas:
+  - Una vista "Plan semanal" (lista de comidas por día).
+  - Una vista "Lista de platos favoritos" (opcionalmente, platos frecuentes para reutilizar).
+- Gestionar el estado global de las comidas con Pinia.
+- Mantener una estructura clara de componentes (por ejemplo: MealForm.vue, MealList.vue, DayCard.vue, etc.).
+- El diseño puede hacerse con Tailwind CSS (recomendado por rapidez) o con CSS propio.
 
-## Type Support for `.vue` Imports in TS
+### Adicional
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+- 💾 Persistencia del estado: usar el plugin `pinia-plugin-persistedstate` para que el plan semanal no se pierda al recargar la página.
+- ✏️ Editar platos existentes: permitir modificar el nombre o el día de un plato.
+- 🔍 Filtrar o buscar platos por nombre o por día.
+- 🗓️ Añadir categorías de comidas (por ejemplo: "Desayuno", "Comida", "Cena") y permitir filtrarlas.
+- 🎨 Mejorar la apariencia con Tailwind o CSS personalizado:
+  - Mostrar los días en tarjetas o columnas.
+  - Usar colores, espaciados y tipografía para hacerlo más legible.
+- 📱 Diseño responsive, para que se vea bien en móviles.
+- 🧺 Funcionalidades extra:
+  - Botón para limpiar el plan semanal completo.
+  - Contador de platos planificados.
+  - Exportar el menú semanal como texto (para copiar o imprimir).
+  - Navegación adicional: "Plan semanal" / "Platos favoritos" / "Configuración".
 
-## Customize configuration
+# Cómo ver el proyecto
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+## Requisitos
 
-## Project Setup
+- Node.js
+- pnpm
 
-```sh
+## Cómo ejecutar
+
+1. Clonar el repositorio
+
+```bash
+git clone <url-del-repositorio>
+cd <nombre-del-proyecto>
+```
+
+2. Instalar dependencias
+
+```bash
 pnpm install
 ```
 
-### Compile and Hot-Reload for Development
+3. Levantar el servidor en desarrollo
 
-```sh
+```bash
 pnpm dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-pnpm build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-pnpm test:unit
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-pnpm lint
 ```
