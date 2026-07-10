@@ -36,10 +36,13 @@ const filteredCategories = computed(() => {
     v-for="weekday in weekDays"
     :key="weekday"
   >
+    <!-- Header-->
     <div class="bg-primary bg-opacity-10 p-4 rounded-t-lg border-b">
       <p class="font-semibold text-primary">{{ weekday }}</p>
     </div>
+    <!-- Content -->
     <div class="flex flex-col gap-4 p-4" v-for="category in filteredCategories" :key="category">
+      <!-- Meal -->
       <div class="flex flex-col gap-2" v-if="getDish(weekday, category)">
         <p class="uppercase font-semibold text-sm text-gray-500">{{ category }}</p>
         <p
@@ -50,6 +53,7 @@ const filteredCategories = computed(() => {
         </p>
       </div>
 
+      <!-- Empty -->
       <div class="flex flex-col gap-2" v-else>
         <p class="uppercase font-semibold text-sm text-gray-500">{{ category }}</p>
         <button

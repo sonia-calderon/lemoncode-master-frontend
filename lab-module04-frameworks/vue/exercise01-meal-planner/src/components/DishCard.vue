@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useDishesStore } from '@/stores/dishes.ts'
-import HeartIcon from './Icons/HeartIcon.vue'
 import type { Dish } from '@/types/index.ts'
+import HeartIcon from './Icons/HeartIcon.vue'
 import CalendarIcon from './Icons/CalendarIcon.vue'
 import PencilIcon from './Icons/PencilIcon.vue'
 import TrashIcon from './Icons/TrashIcon.vue'
@@ -20,6 +20,7 @@ const handleEdit = () => {
 
 <template>
   <article class="flex flex-col gap-4 bg-white border border-border rounded-lg p-4 w-full">
+    <!-- Header (category and isPlanned)-->
     <div class="flex gap-2">
       <p
         v-if="dish.category"
@@ -41,10 +42,12 @@ const handleEdit = () => {
         Planned
       </p>
     </div>
+    <!-- Content (name and description)-->
     <div class="flex flex-col gap-1 flex-1">
       <h5 class="text-text text-2xl font-bold">{{ dish.name }}</h5>
       <p class="text-text text-base">{{ dish.description }}</p>
     </div>
+    <!-- Footer (fav, edit, delete, min)-->
     <div class="flex justify-between items-center gap-1 border-t pt-2">
       <div class="flex gap-3">
         <button @click="dishesStore.toggleFavorite(dish.id)">
@@ -61,7 +64,7 @@ const handleEdit = () => {
         </button>
       </div>
 
-      <button class="text-primary font-semibold flex gap-1">
+      <button class="text-primary font-semibold flex gap-1" v-if="dish.minutes">
         <ClockIcon class="cursor-pointer stroke-primary" />
         {{ dish.minutes }} min
       </button>

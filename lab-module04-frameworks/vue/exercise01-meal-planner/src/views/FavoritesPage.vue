@@ -1,20 +1,23 @@
 <script setup lang="ts">
+import { useDishesStore } from '@/stores/dishes'
 import DishCard from '@/components/DishCard.vue'
 import DishFilters from '@/components/DishFilters.vue'
 import EyeIcon from '@/components/Icons/EyeIcon.vue'
 import HeartIcon from '@/components/Icons/HeartIcon.vue'
-import { useDishesStore } from '@/stores/dishes'
+import SectionHeader from '@/components/SectionHeader.vue'
 
 const dishesStore = useDishesStore()
 </script>
 
 <template>
   <section class="flex flex-col gap-8">
-    <div class="flex flex-col gap-2">
-      <h2 class="text-3xl font-semibold">My Favorite Dishes</h2>
-      <p class="text-base">Your personal collection of culinary inspirations</p>
-    </div>
+    <!-- Title and description -->
+    <SectionHeader
+      section-title="My Favorite Dishes"
+      section-description="Your personal collection of culinary inspirations"
+    />
 
+    <!-- Filters -->
     <div class="flex justify-between">
       <DishFilters />
     </div>
@@ -26,6 +29,7 @@ const dishesStore = useDishesStore()
     >
       <DishCard v-for="dish in dishesStore.filteredFavoriteDishes" :key="dish.id" :dish="dish" />
     </div>
+
     <!-- Empty Dishes -->
     <div v-else class="flex flex-col justify-center items-center gap-5">
       <div class="bg-border rounded-full w-20 h-20 flex items-center justify-center">
@@ -47,5 +51,3 @@ const dishesStore = useDishesStore()
     </div>
   </section>
 </template>
-
-<style scoped></style>

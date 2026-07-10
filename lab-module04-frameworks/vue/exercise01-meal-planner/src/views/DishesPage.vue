@@ -1,20 +1,23 @@
 <script setup lang="ts">
+import { useDishesStore } from '@/stores/dishes'
 import DishCard from '@/components/DishCard.vue'
 import DishFilters from '@/components/DishFilters.vue'
 import AddIcon from '@/components/Icons/AddIcon.vue'
 import BookmarkSlashIcon from '@/components/Icons/BookmarkSlashIcon.vue'
-import { useDishesStore } from '@/stores/dishes'
+import SectionHeader from '@/components/SectionHeader.vue'
 
 const dishesStore = useDishesStore()
 </script>
 
 <template>
   <section class="flex flex-col gap-8">
-    <div class="flex flex-col gap-2">
-      <h2 class="text-3xl font-semibold">All Dishes</h2>
-      <p class="text-base">Your personal collection of culinary inspirations</p>
-    </div>
+    <!-- Title and description -->
+    <SectionHeader
+      section-title="All Dishes"
+      section-description="Your personal collection of culinary inspirations"
+    />
 
+    <!-- Filters -->
     <div class="flex justify-between">
       <DishFilters />
     </div>
@@ -26,6 +29,7 @@ const dishesStore = useDishesStore()
     >
       <DishCard v-for="dish in dishesStore.filteredDishes" :key="dish.id" :dish="dish" />
     </div>
+
     <!-- Empty Dishes -->
     <div v-else class="flex flex-col justify-center items-center gap-5">
       <div class="bg-border rounded-full w-20 h-20 flex items-center justify-center">
@@ -33,7 +37,7 @@ const dishesStore = useDishesStore()
       </div>
       <div class="flex flex-col justify-center items-center gap-2">
         <p class="font-bold text-xl">There are no dishes yet</p>
-        <p class="">Start adding your first dishes</p>
+        <p class="">Start adding your first dish</p>
       </div>
       <div>
         <button
@@ -47,5 +51,3 @@ const dishesStore = useDishesStore()
     </div>
   </section>
 </template>
-
-<style scoped></style>

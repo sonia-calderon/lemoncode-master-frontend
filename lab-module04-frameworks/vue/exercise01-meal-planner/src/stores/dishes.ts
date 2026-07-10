@@ -51,7 +51,7 @@ export const useDishesStore = defineStore('dishes', () => {
   const favoriteDishes = computed(() => dishes.value.filter((dish) => dish.isFavorite))
 
   const createDish = (dish: Dish) => {
-    const allDishes = dishes.value.push({ ...dish })
+    dishes.value.push({ ...dish })
   }
 
   const clearPlanner = () => {

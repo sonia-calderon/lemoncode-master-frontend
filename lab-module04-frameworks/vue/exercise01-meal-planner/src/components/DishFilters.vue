@@ -1,18 +1,19 @@
 <script setup lang="ts">
 import { useDishesStore } from '@/stores/dishes'
 import type { DishCategory } from '@/types'
-import XCircleIcon from './Icons/XCircleIcon.vue'
 import { useRoute } from 'vue-router'
+import XCircleIcon from './Icons/XCircleIcon.vue'
 
 const dishesStore = useDishesStore()
+const route = useRoute()
 
 const categories: DishCategory[] = ['Breakfast', 'Lunch', 'Dinner']
-const route = useRoute()
 </script>
 <template>
   <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between border-y w-full">
     <!-- Filters -->
     <div class="flex justify-center sm:justify-start gap-2 py-3 px-2 sm:px-3">
+      <!-- All button-->
       <button
         class="px-3 sm:px-6 py-2 rounded-3xl text-sm sm:text-base font-semibold text-gray-700"
         @click="dishesStore.filterCategory('all')"
@@ -23,6 +24,7 @@ const route = useRoute()
         All
       </button>
 
+      <!-- Categories -->
       <button
         v-for="category in categories"
         :key="category"

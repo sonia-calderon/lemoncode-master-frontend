@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed, reactive, watch } from 'vue'
-import ChevronDownIcon from './Icons/ChevronDownIcon.vue'
-import CloseIcon from './Icons/CloseIcon.vue'
 import { useDishesStore } from '@/stores/dishes.ts'
 import type { Dish, DishCategory, WeekDay } from '@/types/index.ts'
+import ChevronDownIcon from './Icons/ChevronDownIcon.vue'
+import CloseIcon from './Icons/CloseIcon.vue'
 import ClockIcon from './Icons/ClockIcon.vue'
 import HeartIcon from './Icons/HeartIcon.vue'
 
@@ -75,11 +75,11 @@ const handleSubmit = () => {
   <Teleport to="body">
     <div
       v-if="dishesStore.isModalOpen"
-      class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50"
+      class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 px-2"
       @click="handleCloseModal"
     >
       <section
-        class="bg-white border rounded-xl w-full flex flex-col gap-6 p-6 max-w-xl"
+        class="bg-white border rounded-xl w-full flex flex-col gap-6 p-6 max-w-xl max-h-[90vh] overflow-y-auto"
         @click.stop
       >
         <!-- Modal Header -->
