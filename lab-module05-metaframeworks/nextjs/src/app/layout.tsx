@@ -1,0 +1,43 @@
+import { Inter, Playfair_Display } from 'next/font/google';
+import 'normalize.css';
+import './globals.css';
+import { Metadata } from 'next';
+import React from 'react';
+
+import Header from '#components/Header';
+import Footer from '#components/Footer';
+
+const inter = Inter({
+  variable: '--font-inter',
+  subsets: ['latin'],
+});
+
+const playfair = Playfair_Display({
+  variable: '--font-playfair',
+  subsets: ['latin'],
+});
+
+export const metadata: Metadata = {
+  title: 'Listado Casas Rurales',
+};
+
+interface Props {
+  children: React.ReactNode;
+}
+
+const RootLayout = (props: Props) => {
+  const { children } = props;
+  return (
+    <html lang="es">
+      <body
+        className={`${inter.variable} ${playfair.variable} font-sans bg-secondary flex flex-col min-h-screen p-4`}
+      >
+        <Header />
+        <main className="flex-1 py-2">{children}</main>
+        <Footer />
+      </body>
+    </html>
+  );
+};
+
+export default RootLayout;
