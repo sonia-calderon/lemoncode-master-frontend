@@ -30,7 +30,7 @@ const RootLayout = (props: Props) => {
   return (
     <html lang="es">
       <body
-        className={`${inter.variable} ${playfair.variable} font-sans bg-secondary flex flex-col min-h-screen p-4`}
+        className={`${inter.variable} ${playfair.variable} font-sans bg-secondary flex flex-col h-screen p-4`}
       >
         <Header />
         <main className="flex-1 py-2">{children}</main>

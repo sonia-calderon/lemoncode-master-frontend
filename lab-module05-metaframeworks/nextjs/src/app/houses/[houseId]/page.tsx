@@ -1,3 +1,4 @@
+import { api, House, mapHouseFromApiToVm } from '#pods/house';
 import { Metadata } from 'next';
 import React from 'react';
 
@@ -7,17 +8,26 @@ interface Props {
 
 export const generateMetadata = async (props: Props): Promise<Metadata> => {
   const params = await props.params;
+  const house = await api.getHouse(params.houseId);
   return {
-    title: `Rent a house - House ${params.houseId} details`,
+    title: `Rent a house - House ${house.name} details`,
   };
 };
 
 const HousePage = async (props: Props) => {
   const params = await props.params;
+  console.log('ID:', params.houseId);
+
+  const house = await api.getHouse(params.houseId);
+  console.log('API:', house);
+
+  const houseVm = mapHouseFromApiToVm(house);
+
+  console.log('VM:', houseVm);
+
   return (
     <>
-      <h2>House detail page</h2>
-      <p>{params.houseId}</p>
+      <House house={mapHouseFromApiToVm(house)} />
     </>
   );
 };

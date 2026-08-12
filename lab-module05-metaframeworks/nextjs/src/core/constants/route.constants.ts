@@ -7,5 +7,5 @@ export interface Routes {
 export const routeConstants: Routes = {
   root: '/',
   houseList: '/houses',
-  house: (houseId: string) => `/house/${houseId}`,
+  house: (houseId: string) => `/houses/${houseId}`,
 };
