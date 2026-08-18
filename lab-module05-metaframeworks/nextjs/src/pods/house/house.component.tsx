@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { AmenityIcon } from './amenityIcon.component';
 import * as viewModel from './house.vm';
-import { BookButton } from './bookButton.component';
+import { BookButton } from '#pods/booking';
 
 interface Props {
   house: viewModel.House;
@@ -11,66 +11,53 @@ export const House: React.FC<Props> = (props) => {
   const { house } = props;
 
   return (
-    <section className="flex flex-col gap-6 pb-48">
+    <section className="flex flex-col gap-5 pb-24 sm:gap-6 lg:pb-0">
       {/* Back nav */}
       <div>
-        <Link href="/houses" className="flex gap-2 items-center">
+        <Link
+          href="/houses"
+          className="
+      group inline-flex items-center gap-2
+      rounded-lg px-2 py-1.5
+      text-sm font-medium text-neutral
+      transition-colors
+      hover:bg-primary/5 hover:text-primary
+    "
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="1em"
-            height="1em"
+            fill="none"
             viewBox="0 0 24 24"
+            strokeWidth={1.8}
+            stroke="currentColor"
+            className="size-4 transition-transform duration-200 group-hover:-translate-x-0.5"
           >
-            <path d="M0 0h24v24H0z" fill="none" />
-            <g
-              fill="none"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-            >
-              <path stroke-dasharray="20" d="M21 12h-17.5">
-                <animate
-                  fill="freeze"
-                  attributeName="stroke-dashoffset"
-                  dur="0.3s"
-                  values="20;0"
-                />
-              </path>
-              <path
-                stroke-dasharray="12"
-                stroke-dashoffset="12"
-                d="M3 12l7 7M3 12l7 -7"
-              >
-                <animate
-                  fill="freeze"
-                  attributeName="stroke-dashoffset"
-                  begin="0.3s"
-                  dur="0.2s"
-                  to="0"
-                />
-              </path>
-            </g>
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
+            />
           </svg>
+
           <span>Volver al listado</span>
         </Link>
       </div>
       {/* Imagen principal */}
-      <div>
+      <div className="aspect-16/8 w-full overflow-hidden rounded-2xl sm:aspect-16/7 lg:aspect-16/6">
         <img
           src={house.image}
           alt={house.name}
-          className="rounded-2xl w-full max-h-96 object-cover"
+          className="h-full w-full object-cover"
         />
       </div>
       {/* Contenido + reserva */}
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 lg:gap-10">
         {/* Información */}
-        <aside className="flex flex-col gap-6 lg:col-span-2 ">
+        <aside className="flex flex-col gap-8 lg:col-span-2 ">
           {/* Información principal */}
-          <div className="flex flex-col gap-3 border-b border-neutral/10 pb-5">
+          <div className="flex flex-col gap-4 border-b border-neutral/10 pb-6">
             {/* Nombre */}
-            <h2 className="text-3xl font-display font-bold text-primary">
+            <h2 className="font-display text-2xl font-bold leading-tight text-primary sm:text-3xl lg:text-4xl">
               {house.name}
             </h2>
 
@@ -160,22 +147,22 @@ export const House: React.FC<Props> = (props) => {
             </div>
 
             {/* Descripción */}
-            <p className="max-w-2xl text-md text-neutral">
+            <p className="max-w-3xl text-sm leading-relaxed text-neutral sm:text-base">
               {house.description}
             </p>
           </div>
 
           {/* Servicios */}
-          <div className="flex flex-col gap-3 border-b border-neutral/10 pb-5">
+          <div className="flex flex-col gap-4 border-b border-neutral/10 pb-6">
             <h5 className="text-2xl font-display font-semibold text-primary">
               Servicios Destacados
             </h5>
 
-            <ul className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+            <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
               {house.amenities.map((amenity) => (
                 <li
                   key={amenity}
-                  className="flex h-12 flex-col items-center justify-center gap-1 rounded-lg bg-white/60 px-2 text-center text-[10px] text-primary transition-colors"
+                  className="flex min-h-14 flex-col items-center justify-center gap-1 rounded-xl bg-white/60 px-2 py-2 text-center text-xs text-primary transition-colors"
                 >
                   {/* Icono */}
                   <AmenityIcon amenity={amenity} />
@@ -187,25 +174,25 @@ export const House: React.FC<Props> = (props) => {
           </div>
 
           {/* Opiniones */}
-          <div className="flex flex-col gap-3  pb-5">
+          <div className="flex flex-col gap-4">
             <h5 className="text-2xl font-display font-semibold text-primary">
               Opiniones de huéspedes
             </h5>
 
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-4">
               {house.reviews.map((review) => (
                 <article
                   key={review.id}
-                  className="rounded-2xl border border-white bg-white/50 p-4"
+                  className="rounded-2xl border border-neutral/10 bg-white/50 p-4 sm:p-5"
                 >
-                  <div className="flex gap-3">
+                  <div className="flex gap-3 sm:gap-4">
                     {/* Avatar */}
-                    <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary/10  font-medium text-primary">
+                    <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-sm font-semibold text-primary">
                       {review.author.slice(0, 1).toUpperCase()}
                     </div>
 
                     <div className="min-w-0 flex-1">
-                      <div className="flex items-center justify-between gap-3">
+                      <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-2">
                         <div>
                           <p className="font-medium text-primary">
                             {review.author}
@@ -214,26 +201,21 @@ export const House: React.FC<Props> = (props) => {
                         </div>
 
                         {/* Valoración */}
-                        <div className="flex items-center gap-0.5 text-lg  text-primary">
-                          <span>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="1em"
-                              height="1em"
-                              viewBox="0 0 24 24"
-                            >
-                              <path d="M0 0h24v24H0z" fill="none" />
-                              <path
-                                fill="currentColor"
-                                d="m5.825 21l1.625-7.025L2 9.25l7.2-.625L12 2l2.8 6.625l7.2.625l-5.45 4.725L18.175 21L12 17.275z"
-                              />
-                            </svg>
-                          </span>
+                        <div className="flex items-center gap-1 text-sm font-medium  text-primary">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            className="size-4"
+                          >
+                            <path d="m12 2 2.8 6.625 7.2.625-5.45 4.725L18.175 21 12 17.275 5.825 21l1.625-7.025L2 9.25l7.2-.625L12 2Z" />
+                          </svg>
+
                           <span>{review.rating}</span>
                         </div>
                       </div>
 
-                      <p className="mt-2 leading-relaxed text-neutral">
+                      <p className="mt-3 text-sm leading-relaxed text-neutral sm:text-base">
                         "{review.comment}"
                       </p>
                     </div>
@@ -246,31 +228,34 @@ export const House: React.FC<Props> = (props) => {
 
         {/* Reserva */}
         <aside
-          className="fixed bottom-0 left-0 z-50 w-full
-            border-t border-neutral/10 bg-white p-3 shadow-lg
-
-            lg:sticky lg:top-6 lg:bottom-auto
-            lg:h-fit lg:border-0 lg:bg-transparent
-            lg:p-0 lg:shadow-none"
+          className="
+            fixed inset-x-0 bottom-0 z-50
+            border-t border-neutral/10
+            bg-secondary/95 p-3 backdrop-blur-md
+            lg:sticky lg:top-6 lg:inset-auto
+            lg:border-0 lg:bg-transparent lg:p-0 lg:backdrop-blur-none"
         >
           <div
             className="
               mx-auto flex w-full max-w-xl items-center justify-between gap-4
-              rounded-xl bg-white p-4 shadow-sm ring-1 ring-neutral/10
-
-              lg:block lg:p-4
+              lg:block
+              lg:rounded-2xl
+              lg:bg-white/70
+              lg:p-5
+              lg:shadow-sm
+              lg:ring-1 lg:ring-neutral/10
             "
           >
             {/* Precio */}
-            <div className="flex items-baseline gap-1 lg:mb-4">
-              <span className="font-display text-2xl font-bold text-primary">
+            <div className="flex shrink-0 items-baseline gap-1 lg:mb-5">
+              <span className="font-display text-xl font-bold text-primary sm:text-2xl">
                 {house.price}€
               </span>
-              <span className="text-[10px] text-neutral">/ noche</span>
+              <span className="text-xs text-neutral">/ noche</span>
             </div>
 
             {/* Botón */}
-            <BookButton house={house} />
+            <BookButton houseId={house.id} isBooked={house.isBooked} />
           </div>
         </aside>
       </div>

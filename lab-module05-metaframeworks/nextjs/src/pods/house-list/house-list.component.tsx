@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { House } from './house-list.vm';
 import { routeConstants } from '#core/constants';
+import { BookButton } from '#pods/booking';
 
 interface Props {
   houseList: House[];
@@ -9,26 +10,26 @@ interface Props {
 export const HouseList: React.FC<Props> = (props) => {
   const { houseList } = props;
   return (
-    <ul className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-4">
+    <ul className="grid grid-cols-1 gap-x-5 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {houseList.map((house) => (
-        <li key={house.id} className="flex flex-col gap-2  rounded-2xl">
+        <li key={house.id} className="flex flex-col gap-3 rounded-2xl">
           <Link
             href={routeConstants.house(house.id)}
             className="flex flex-col gap-2 h-full"
           >
-            <div className="flex w-full h-full ">
+            <div className="aspect-4/3 w-full overflow-hidden rounded-2xl">
               <img
                 src={house.image}
                 alt={house.name}
-                className="rounded-2xl object-cover"
+                className="h-full w-full object-cover transition-transform duration-300 hover:scale-[1.02]"
               />
             </div>
-            <div className="flex justify-between py-4">
-              <div className="flex flex-col gap-2">
-                <h5 className="text-xl font-display text-primary font-bold">
+            <div className="flex items-start justify-between gap-4 px-1">
+              <div className="flex min-w-0 flex-col gap-1.5">
+                <h5 className="font-display text-lg font-bold text-primary sm:text-xl">
                   {house.name}
                 </h5>
-                <div className="flex items-center text-neutral">
+                <div className="flex items-center gap-1 text-sm text-neutral">
                   <span>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -56,17 +57,15 @@ export const HouseList: React.FC<Props> = (props) => {
                 </div>
               </div>
               <div className="flex items-center">
-                <p className="text-primary font-bold text-xl font-display">
-                  {house.price}€{' '}
-                  <span className="text-xs font-sans font-normal">/noche</span>
+                <p className="shrink-0 font-display text-lg font-bold text-primary sm:text-xl">
+                  {house.price}€
+                  <span className="font-sans text-xs font-normal"> /noche</span>
                 </p>
               </div>
             </div>
           </Link>
-          <div className="flex justify-center">
-            <button className="w-full rounded-2xl bg-primary px-2 py-3 text-secondary text-center hover:bg-primary/85">
-              Reservar
-            </button>
+          <div className="flex justify-center pt-1">
+            <BookButton houseId={house.id} isBooked={house.isBooked} />
           </div>
         </li>
       ))}

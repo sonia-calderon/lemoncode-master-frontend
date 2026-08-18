@@ -20,4 +20,5 @@ export interface House {
   image: string;
   amenities: string[];
   reviews: Review[];
+  isBooked: boolean;
 }

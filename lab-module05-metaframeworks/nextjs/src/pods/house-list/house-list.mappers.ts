@@ -14,4 +14,5 @@ const mapHouseFromApiToVm = (house: apiModel.House): viewModel.House => ({
   country: house.country,
   price: house.price,
   image: `${ENV.BASE_PICTURES_URL}${house.image}`,
+  isBooked: house.isBooked,
 });

@@ -5,4 +5,5 @@ export interface House {
   country: string;
   price: number;
   image: string;
+  isBooked: boolean;
 }
