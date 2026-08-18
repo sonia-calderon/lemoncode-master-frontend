@@ -23,6 +23,15 @@ app.get('/api/houses/:id', (context) => {
   return context.json(db.houses.find((c) => c.id === context.req.param('id')));
 });
 
+app.patch('/api/houses/:id', async (context) => {
+  const id = context.req.param('id');
+  const house = await context.req.json();
+  db.houses = db.houses.map((h) =>
+    h.id === id ? { ...h, isBooked: house.isBooked } : h
+  );
+  return context.body(null, 204);
+});
+
 serve({ fetch: app.fetch, port: 3001 }, (info) => {
   console.log(`API running on ${info.port}`);
 });

@@ -1,5 +1,7 @@
-import { AmenityIcon } from './amenityIcon';
+import Link from 'next/link';
+import { AmenityIcon } from './amenityIcon.component';
 import * as viewModel from './house.vm';
+import { BookButton } from './bookButton.component';
 
 interface Props {
   house: viewModel.House;
@@ -7,8 +9,52 @@ interface Props {
 
 export const House: React.FC<Props> = (props) => {
   const { house } = props;
+
   return (
     <section className="flex flex-col gap-6 pb-48">
+      {/* Back nav */}
+      <div>
+        <Link href="/houses" className="flex gap-2 items-center">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="1em"
+            height="1em"
+            viewBox="0 0 24 24"
+          >
+            <path d="M0 0h24v24H0z" fill="none" />
+            <g
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+            >
+              <path stroke-dasharray="20" d="M21 12h-17.5">
+                <animate
+                  fill="freeze"
+                  attributeName="stroke-dashoffset"
+                  dur="0.3s"
+                  values="20;0"
+                />
+              </path>
+              <path
+                stroke-dasharray="12"
+                stroke-dashoffset="12"
+                d="M3 12l7 7M3 12l7 -7"
+              >
+                <animate
+                  fill="freeze"
+                  attributeName="stroke-dashoffset"
+                  begin="0.3s"
+                  dur="0.2s"
+                  to="0"
+                />
+              </path>
+            </g>
+          </svg>
+          <span>Volver al listado</span>
+        </Link>
+      </div>
       {/* Imagen principal */}
       <div>
         <img
@@ -129,7 +175,7 @@ export const House: React.FC<Props> = (props) => {
               {house.amenities.map((amenity) => (
                 <li
                   key={amenity}
-                  className="flex h-12 flex-col items-center justify-center gap-1 rounded-lg bg-white/60 px-2 text-center text-[10px] text-primary transition-colors hover:bg-secondary"
+                  className="flex h-12 flex-col items-center justify-center gap-1 rounded-lg bg-white/60 px-2 text-center text-[10px] text-primary transition-colors"
                 >
                   {/* Icono */}
                   <AmenityIcon amenity={amenity} />
@@ -224,17 +270,7 @@ export const House: React.FC<Props> = (props) => {
             </div>
 
             {/* Botón */}
-            <button
-              type="button"
-              className="
-                w-full rounded-md bg-tertiary px-4 py-2.5
-                font-medium text-secondary
-                transition-colors hover:bg-tertiary/90
-                lg:mt-3
-              "
-            >
-              Reservar ahora
-            </button>
+            <BookButton house={house} />
           </div>
         </aside>
       </div>
