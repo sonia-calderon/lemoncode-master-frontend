@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { House } from './house-list.vm';
 import { routeConstants } from '#core/constants';
+import Image from 'next/image';
 
 interface Props {
   houseList: House[];
@@ -17,11 +18,13 @@ export const HouseList: React.FC<Props> = (props) => {
             className="flex flex-col gap-2 h-full"
           >
             {/* Image */}
-            <div className="aspect-4/3 w-full overflow-hidden rounded-2xl">
-              <img
+            <div className="relative aspect-4/3 w-full overflow-hidden rounded-2xl">
+              <Image
                 src={house.image}
                 alt={house.name}
-                className="h-full w-full object-cover transition-transform duration-300 hover:scale-[1.02]"
+                fill
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                className="object-cover transition-transform duration-300 hover:scale-[1.02]"
               />
             </div>
 

@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import * as viewModel from '../house.vm';
 
 interface Props {
@@ -7,11 +8,13 @@ interface Props {
 export const DetailImage: React.FC<Props> = (props) => {
   const { house } = props;
   return (
-    <div className="aspect-16/8 w-full overflow-hidden rounded-2xl sm:aspect-16/7 lg:aspect-16/6">
-      <img
+    <div className="relative aspect-16/8 w-full overflow-hidden rounded-2xl sm:aspect-16/7 lg:aspect-16/6">
+      <Image
         src={house.image}
         alt={house.name}
-        className="h-full w-full object-cover"
+        fill
+        sizes="(max-width: 640px) 100vw, 100vw"
+        className="object-cover"
       />
     </div>
   );
