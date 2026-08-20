@@ -7,20 +7,13 @@ interface Props {
   }>;
 }
 
-export const dynamic = 'force-dynamic';
-
 const HouseListPage = async ({ searchParams }: Props) => {
-  console.log('🏡 HOUSE LIST PAGE:', new Date().toISOString());
   const params = await searchParams;
   const search = params.search ?? '';
-
-  console.log('🔎 SEARCH:', search);
 
   const houseList = await api.getHouseList({
     next: { revalidate: 10 },
   });
-
-  //console.log('📦 HOUSE LIST:', houseList);
 
   const filteredHouseList = houseList.filter((house) => {
     if (!search) return true;
