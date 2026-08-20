@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { House } from './house-list.vm';
 import { routeConstants } from '#core/constants';
-import { BookButton } from '#pods/booking';
 
 interface Props {
   houseList: House[];
@@ -17,6 +16,7 @@ export const HouseList: React.FC<Props> = (props) => {
             href={routeConstants.house(house.id)}
             className="flex flex-col gap-2 h-full"
           >
+            {/* Image */}
             <div className="aspect-4/3 w-full overflow-hidden rounded-2xl">
               <img
                 src={house.image}
@@ -24,6 +24,8 @@ export const HouseList: React.FC<Props> = (props) => {
                 className="h-full w-full object-cover transition-transform duration-300 hover:scale-[1.02]"
               />
             </div>
+
+            {/* Details */}
             <div className="flex items-start justify-between gap-4 px-1">
               <div className="flex min-w-0 flex-col gap-1.5">
                 <h5 className="font-display text-lg font-bold text-primary sm:text-xl">
@@ -64,9 +66,6 @@ export const HouseList: React.FC<Props> = (props) => {
               </div>
             </div>
           </Link>
-          <div className="flex justify-center pt-1">
-            <BookButton houseId={house.id} isBooked={house.isBooked} />
-          </div>
         </li>
       ))}
     </ul>

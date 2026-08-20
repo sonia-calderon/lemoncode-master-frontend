@@ -3,9 +3,8 @@ import 'normalize.css';
 import './globals.css';
 import { Metadata } from 'next';
 import React from 'react';
-
-import Header from '#components/Header';
-import Footer from '#components/Footer';
+import Header from '#components/header.component';
+import Footer from '#components/footer.component';
 
 const inter = Inter({
   variable: '--font-inter',
@@ -18,7 +17,7 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: 'Listado Casas Rurales',
+  title: 'Rurall - Casas Rurales',
 };
 
 interface Props {
@@ -29,6 +28,7 @@ const RootLayout = (props: Props) => {
   const { children } = props;
   return (
     <html lang="es">
+      <link rel="icon" href="/favicon.ico" sizes="any" />
       <body
         className={`${inter.variable} ${playfair.variable} font-sans bg-secondary flex flex-col min-h-screen`}
       >

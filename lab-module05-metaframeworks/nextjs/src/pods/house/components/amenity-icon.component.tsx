@@ -55,8 +55,8 @@ export const AmenityIcon: React.FC<Props> = ({ amenity }) => {
           <path
             fill="none"
             stroke="currentColor"
-            stroke-linecap="round"
-            stroke-width="2"
+            strokeLinecap="round"
+            strokeWidth="2"
             d="M10 16v-3m0 0V9a1 1 0 0 1 1-1h2.5a2.5 2.5 0 0 1 0 5zm11-1a9 9 0 1 1-18 0a9 9 0 0 1 18 0Z"
           />
         </svg>
@@ -112,9 +112,9 @@ export const AmenityIcon: React.FC<Props> = ({ amenity }) => {
           <g
             fill="none"
             stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="1.5"
           >
             <path d="M18.346 4.5H5.654c-.629 0-1.154.525-1.154 1.154v5.77c0 .628.525 1.153 1.154 1.153h12.692c.629 0 1.154-.525 1.154-1.154v-5.77c0-.628-.525-1.153-1.154-1.153" />
             <path d="M16.615 12.577v-2.308c0-.628-.525-1.154-1.153-1.154H8.537c-.628 0-1.153.526-1.153 1.154v2.308m-.577 5.77c1.64 0 1.73-1.604 1.73-2.886m8.654 2.885c-1.64 0-1.73-1.603-1.73-2.885M12 19.5v-4.039" />
@@ -134,16 +134,16 @@ export const AmenityIcon: React.FC<Props> = ({ amenity }) => {
           className="size-4"
         >
           <path d="M0 0h24v24H0z" fill="none" />
-          <g fill="none" stroke="currentColor" stroke-width="1.5">
+          <g fill="none" stroke="currentColor" strokeWidth="1.5">
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               d="M8.5 14.5L5 22M8 6s1-1.061 1-2c0-1.333-1-2-1-2m4 4s1-1.061 1-2c0-1.333-1-2-1-2m4 4s1-1.061 1-2c0-1.333-1-2-1-2"
             />
-            <path stroke-linejoin="round" d="M16.5 17.5h-9" />
+            <path strokeLinejoin="round" d="M16.5 17.5h-9" />
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               d="m15.5 14.5l2.1 4.5m.9 3a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3"
             />
             <path d="M12 15a7 7 0 0 0 6.975-6.4a.563.563 0 0 0-.575-.6H5.6a.563.563 0 0 0-.575.6A7 7 0 0 0 12 15Z" />
@@ -185,12 +185,12 @@ export const AmenityIcon: React.FC<Props> = ({ amenity }) => {
           <g
             fill="none"
             stroke="currentColor"
-            stroke-linejoin="round"
-            stroke-width="1.5"
+            strokeLinejoin="round"
+            strokeWidth="1.5"
           >
             <path d="M16 20H2l3.225-9.244C6.795 6.252 7.58 4 9 4c1.337 0 2.112 2 3.512 6" />
             <path
-              stroke-linecap="round"
+              strokeLinecap="round"
               d="M6 20h16l-4.593-7.341C15.88 10.219 15.117 9 14 9c-1.118 0-1.88 1.22-3.407 3.659L9.128 15"
             />
           </g>
@@ -211,9 +211,9 @@ export const AmenityIcon: React.FC<Props> = ({ amenity }) => {
           <g
             fill="none"
             stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
           >
             <path d="M17.553 16.75a7.5 7.5 0 0 0-10.606 0M18 3.804A6 6 0 0 0 9.804 6l10.392 6A6 6 0 0 0 18 3.804" />
             <path d="M16.732 10C18.39 7.13 18.957 4.356 18 3.804S14.925 5.13 13.268 8M15 9l-3 5.196M3 19.25A2.4 2.4 0 0 1 4 19a2.4 2.4 0 0 1 2 1a2.4 2.4 0 0 0 2 1a2.4 2.4 0 0 0 2-1a2.4 2.4 0 0 1 2-1a2.4 2.4 0 0 1 2 1a2.4 2.4 0 0 0 2 1a2.4 2.4 0 0 0 2-1a2.4 2.4 0 0 1 2-1a2.4 2.4 0 0 1 1 .25" />
@@ -272,9 +272,9 @@ export const AmenityIcon: React.FC<Props> = ({ amenity }) => {
           <g
             fill="none"
             stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="1.5"
           >
             <path d="m10.9 15.225l-7.385 7.382a1.5 1.5 0 1 1-2.122-2.122L8.775 13.1" />
             <path d="m22.607 7.757l-3.182-3.182l-3.182-3.182a1.5 1.5 0 0 0-2.122 0l-3.244 3.244a8.8 8.8 0 0 0-2.144 8.424l1.1 1.1l1.1 1.1a8.8 8.8 0 0 0 8.424-2.144l3.244-3.244a1.5 1.5 0 0 0 .006-2.116M4.575 17.303l2.122 2.122m8.485-14.85L11.47 8.288m5.833-1.591l-3.712 3.712m5.834-1.591l-3.713 3.712" />

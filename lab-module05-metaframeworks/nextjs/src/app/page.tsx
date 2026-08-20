@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Alquilar Casas Rurales',
+  title: 'Rurall - Refugios Rurales',
 };
 
 const RootPage = () => {
