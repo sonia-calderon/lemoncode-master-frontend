@@ -7,7 +7,6 @@ export const Route = createFileRoute('/houses')({
 function RouteComponent() {
   return (
     <>
-      <div style={{ background: 'teal' }}>Common layout</div>
       <Outlet />
     </>
   );

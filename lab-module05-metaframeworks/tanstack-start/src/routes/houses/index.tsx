@@ -1,29 +1,41 @@
-import { createFileRoute, Link, useNavigate } from '@tanstack/react-router';
-
-const getCarList = async () =>
-  await fetch('api/houses').then((response) => response.json());
+import { createFileRoute } from '@tanstack/react-router';
+import { api, HouseList, mapHouseListFromApiToVm } from '#pods/house-list';
 
 export const Route = createFileRoute('/houses/')({
-  loader: () => getCarList(),
+  head: () => ({
+    meta: [{ title: 'Rurall - Refugios Rurales' }],
+  }),
+  loader: () => api.getHouseList(),
+  staleTime: 10_000,
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const navigate = useNavigate();
   const houses = Route.useLoaderData();
 
   return (
-    <>
-      <ul>
-        {houses.map((house) => (
-          <li key={house.id}>
-            <Link to="/houses/$id" params={{ id: house.id }}>
-              {house.name}
-            </Link>
-          </li>
-        ))}
-      </ul>
-      <button onClick={() => navigate({ to: '/' })}>Go back to home</button>
-    </>
+    <div className="flex flex-col gap-12">
+      <section className="flex flex-col gap-5">
+        <div className="flex flex-col items-center justify-center gap-2 text-center">
+          <h2 className="text-2xl font-display font-bold text-primary sm:text-3xl">
+            Encuentra tu refugio en la naturaleza
+          </h2>
+          <p className="max-w-2xl text-sm leading-relaxed sm:text-base">
+            Descubre casas rurales únicas, diseñadas para desconectar y
+            reconectar con lo esencial.
+          </p>
+        </div>
+
+        {/* <Filters /> */}
+      </section>
+
+      <section className="flex flex-col gap-5">
+        <h3 className="text-xl font-display font-bold text-primary sm:text-2xl">
+          Nuestras recomendaciones
+        </h3>
+        <HouseList houseList={mapHouseListFromApiToVm(houses)} />
+        {/* <HouseList houseList={mapHouseListFromApiToVm(filteredHouseList)} /> */}
+      </section>
+    </div>
   );
 }
