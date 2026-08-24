@@ -1,3 +1,4 @@
+import { Image } from '@unpic/react';
 import { House } from './house-list.vm';
 //import { routeConstants } from '#core/constants';
 import { Link } from '@tanstack/react-router';
@@ -19,11 +20,12 @@ export const HouseList: React.FC<Props> = (props) => {
           >
             {/* Image */}
             <div className="relative aspect-4/3 w-full overflow-hidden rounded-2xl">
-              <img
+              <Image
                 src={house.image}
                 alt={house.name}
+                layout="fullWidth"
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                className="object-cover transition-transform duration-300 hover:scale-[1.02]"
+                className="h-full w-full object-cover transition-transform duration-300 hover:scale-[1.02]"
               />
             </div>
 

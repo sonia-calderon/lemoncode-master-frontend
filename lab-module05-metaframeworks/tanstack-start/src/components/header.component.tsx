@@ -1,4 +1,5 @@
 import { Link } from '@tanstack/react-router';
+import { Image } from '@unpic/react';
 
 const Header = () => {
   return (
@@ -9,7 +10,7 @@ const Header = () => {
           className="flex items-center gap-2"
           aria-label="Rurall - Inicio"
         >
-          <img
+          <Image
             src="/house-round-svgrepo-com.svg"
             alt="Rural House Logo"
             width={40}
