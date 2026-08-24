@@ -1,15 +1,16 @@
-'use client';
-
 import React from 'react';
 import * as api from '../api';
 import * as viewModel from '../house.vm';
 import { mapHouseFromVmToApi } from '../house.mappers';
+import { useRouter } from '@tanstack/react-router';
 
 interface Props {
   house: viewModel.House;
 }
 
 export const BookButton: React.FC<Props> = (props) => {
+  const router = useRouter();
+
   const { house } = props;
   const [booked, setBooked] = React.useState(house.isBooked);
 
@@ -19,8 +20,9 @@ export const BookButton: React.FC<Props> = (props) => {
         ...house,
         isBooked: !booked,
       });
-      await api.bookHouse(apiHouse);
+      await api.bookHouse({ data: apiHouse });
       setBooked(apiHouse.isBooked);
+      await router.invalidate();
     } catch (error) {
       console.error({ error });
     }

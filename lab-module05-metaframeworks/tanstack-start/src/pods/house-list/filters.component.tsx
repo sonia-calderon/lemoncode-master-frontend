@@ -1,12 +1,18 @@
+import { useNavigate } from '@tanstack/react-router';
 import React from 'react';
 
 export const Filters: React.FC = () => {
   const [query, setQuery] = React.useState('');
-  //const router = useRouter();
+  const navigate = useNavigate();
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    //router.push(`/houses?search=${encodeURIComponent(query)}`);
+    navigate({
+      to: '/houses',
+      search: {
+        search: query,
+      },
+    });
   };
 
   return (
