@@ -9,8 +9,10 @@
   "scripts": {
     "start": "run-p -l start:dev start:api-server",
     "start:dev": "vite",
-    "start:api-server": "cd api-server && npm run mock-server",
-    "postinstall": "cd ./api-server && npm install"
+    "start:api-server": "pnpm --dir api-server run mock-server",
+    "build": "run-p -l start:api-server build:vite",
+    "build:vite": "vite build",
+    "start:prod": "node dist/server/server.js"
   },
   "author": "",
   "license": "",

@@ -6,36 +6,42 @@ export const Route = createFileRoute('/houses/')({
   head: () => ({
     meta: [{ title: 'Rurall - Refugios Rurales' }],
   }),
-  validateSearch: (search: { search?: string }) => {
-    if (!search.search) {
-      return {};
-    }
+  validateSearch: (search: Record<string, unknown>) => ({
+    search: typeof search.search === 'string' ? search.search : undefined,
+  }),
+  loaderDeps: ({ search }) => {
+    console.log('🔎 LOADER DEPS:', search);
 
     return {
-      search: search.search,
+      search: search.search ?? '',
     };
   },
-  loader: () => api.getHouseList(),
+
+  loader: async ({ deps }) => {
+    console.log('🏠 HOUSES LOADER:', deps.search, new Date().toISOString());
+
+    const houses = await api.getHouseList();
+
+    if (!deps.search) {
+      return houses;
+    }
+
+    const query = deps.search.toLowerCase();
+
+    return houses.filter(
+      (house) =>
+        house.name.toLowerCase().includes(query) ||
+        house.city.toLowerCase().includes(query) ||
+        house.country.toLowerCase().includes(query) ||
+        house.address.toLowerCase().includes(query)
+    );
+  },
   staleTime: 10_000,
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const { search } = Route.useSearch();
   const houses = Route.useLoaderData();
-
-  const filteredHouseList = houses.filter((house) => {
-    if (!search) return true;
-
-    const query = search.toLowerCase();
-
-    return (
-      house.name.toLowerCase().includes(query) ||
-      house.city.toLowerCase().includes(query) ||
-      house.country.toLowerCase().includes(query) ||
-      house.address.toLowerCase().includes(query)
-    );
-  });
 
   return (
     <div className="flex flex-col gap-12">
@@ -57,7 +63,7 @@ function RouteComponent() {
         <h3 className="text-xl font-display font-bold text-primary sm:text-2xl">
           Nuestras recomendaciones
         </h3>
-        <HouseList houseList={mapHouseListFromApiToVm(filteredHouseList)} />
+        <HouseList houseList={mapHouseListFromApiToVm(houses)} />
       </section>
     </div>
   );
