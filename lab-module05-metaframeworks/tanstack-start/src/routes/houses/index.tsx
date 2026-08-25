@@ -6,9 +6,15 @@ export const Route = createFileRoute('/houses/')({
   head: () => ({
     meta: [{ title: 'Rurall - Refugios Rurales' }],
   }),
-  validateSearch: (search: { search?: string }) => ({
-    search: search.search ?? '',
-  }),
+  validateSearch: (search: { search?: string }) => {
+    if (!search.search) {
+      return {};
+    }
+
+    return {
+      search: search.search,
+    };
+  },
   loader: () => api.getHouseList(),
   staleTime: 10_000,
   component: RouteComponent,
