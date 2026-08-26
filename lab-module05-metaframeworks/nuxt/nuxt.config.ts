@@ -7,6 +7,8 @@ export default defineNuxtConfig({
 	runtimeConfig: {
 		public: {
 			sitename: "Rurall - Casas Rurales",
+			apiBaseUrl: "http://localhost:3001",
+			picturesBaseUrl: "http://localhost:3001",
 		},
 	},
 	modules: ["@nuxt/fonts"],

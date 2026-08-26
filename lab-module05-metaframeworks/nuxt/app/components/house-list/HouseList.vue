@@ -6,6 +6,8 @@ defineProps<{
     houseList: House[]
 }>()
 
+const config = useRuntimeConfig();
+
 </script>
 
 <template>
@@ -18,7 +20,7 @@ defineProps<{
             <!-- Image -->
             <div class="relative aspect-4/3 w-full overflow-hidden rounded-2xl">
               <img
-                :src="house.image"
+                :src="`${config.public.apiBaseUrl}${house.image}`"
                 :alt="house.name"
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 class="h-full w-full object-cover transition-transform duration-300 hover:scale-[1.02]"

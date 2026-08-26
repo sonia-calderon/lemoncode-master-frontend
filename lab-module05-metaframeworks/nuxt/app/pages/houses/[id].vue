@@ -1,21 +1,24 @@
 <!-- app/pages/houses/[id].vue -->
 <script setup lang="ts">
 import HouseDetail from '~/components/house-detail/HouseDetail.vue';
-import { houses } from '~/data/houses';
+
 
 const route = useRoute();
 const config = useRuntimeConfig();
 
 const id = route.params.id;
 
-if (!id) {
+if (typeof id !== 'string') {
   throw createError({
     statusCode: 400,
-    statusMessage: '❌ Invalid house id!!',
+    statusMessage: 'Invalid house id',
+    fatal: true,
   });
 }
 
-const house = houses.find((h) => h.id === id);
+const {getHouse} = useHouseApi()
+
+const house = await getHouse(id)
 
 if (!house) {
   throw createError({

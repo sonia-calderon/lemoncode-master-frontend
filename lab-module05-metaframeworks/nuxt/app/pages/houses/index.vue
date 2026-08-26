@@ -2,10 +2,14 @@
 <script setup lang="ts">
 import Filters from '~/components/house-list/Filters.vue';
 import HouseList from '~/components/house-list/HouseList.vue';
-import { houses } from '~/data/houses';
+import { useHouseApi } from '~/composables/useHouseApi';
 
 const config = useRuntimeConfig();
 const route = useRoute();
+
+const { getHouseList } = useHouseApi()
+
+const houses = await getHouseList();
 
 const search = computed(() => {
   const value = route.query.search;
@@ -29,7 +33,7 @@ const filteredHouseList = computed(() => {
 });
 
 useSeoMeta({
-  title: `${config.public.siteName} · Refugios Rurales}`,
+  title: `${config.public.siteName} · Refugios Rurales`,
 });
 
 
