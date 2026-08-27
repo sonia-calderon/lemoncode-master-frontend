@@ -6,12 +6,11 @@ export default defineNuxtConfig({
 	devtools: { enabled: true },
 	runtimeConfig: {
 		public: {
-			sitename: "Rurall - Casas Rurales",
+			siteName: "Rurall",
 			apiBaseUrl: "http://localhost:3001",
-			picturesBaseUrl: "http://localhost:3001",
 		},
 	},
-	modules: ["@nuxt/fonts"],
+	modules: ["@nuxt/fonts", "@nuxt/image"],
 
 	css: ["normalize.css", "~/assets/css/globals.css"],
 
@@ -32,5 +31,14 @@ export default defineNuxtConfig({
 
 	vite: {
 		plugins: [tailwindcss()],
+	},
+
+	routeRules: {
+		"/houses/1": { prerender: true },
+		"/houses/2": { prerender: true },
+		"/houses/3": { prerender: true },
+		"/houses/4": { prerender: true },
+		"/houses/5": { prerender: true },
+		"/houses/6": { prerender: true },
 	},
 });

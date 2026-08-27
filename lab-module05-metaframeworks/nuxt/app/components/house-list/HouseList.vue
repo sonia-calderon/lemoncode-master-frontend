@@ -19,10 +19,10 @@ const config = useRuntimeConfig();
           >
             <!-- Image -->
             <div class="relative aspect-4/3 w-full overflow-hidden rounded-2xl">
-              <img
+              <NuxtImg
                 :src="`${config.public.apiBaseUrl}${house.image}`"
                 :alt="house.name"
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                 class="h-full w-full object-cover transition-transform duration-300 hover:scale-[1.02]"
               />
             </div>

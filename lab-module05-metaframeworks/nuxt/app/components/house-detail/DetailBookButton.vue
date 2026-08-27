@@ -1,30 +1,28 @@
 <script setup lang="ts">
-//import * as api from '../api';
 import type { House } from '~/types/house';
 
 const props = defineProps<{
     house: House
 }>()
 
-const booked = ref(false)
-const handleBook = () => console.log("handleBook")
+const { bookHouse } = useHouseApi()
 
-/*const booked = ref(props.house.isBooked)
+const booked = ref(props.house.isBooked)
 
 const handleBook = async () => {
   try {
-    const apiHouse = mapHouseFromVmToApi({
+    const apiHouse = {
       ...props.house,
       isBooked: !booked.value,
-    });
+    };
 
-    await api.bookHouse(apiHouse);
+    await bookHouse(apiHouse);
 
     booked.value = apiHouse.isBooked;
   } catch (error) {
     console.error({ error });
   }
-};*/
+};
 
 </script>
 

@@ -11,7 +11,7 @@
           class="flex items-center gap-2"
           aria-label="Rurall - Inicio"
         >
-          <img
+          <NuxtImg
             src="/house-round-svgrepo-com.svg"
             alt="Rural House Logo"
             width="40"

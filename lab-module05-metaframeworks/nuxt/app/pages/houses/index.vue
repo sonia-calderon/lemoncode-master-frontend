@@ -9,20 +9,23 @@ const route = useRoute();
 
 const { getHouseList } = useHouseApi()
 
-const houses = await getHouseList();
+const { data: houses } = await useAsyncData(
+  'houses',
+  () => getHouseList()
+)
 
 const search = computed(() => {
   const value = route.query.search;
-
   return typeof value === 'string' ? value.toLowerCase() : '';
 });
 
 const filteredHouseList = computed(() => {
+  const houseList = houses.value ?? []
   if (!search.value) {
-    return houses;
+    return houseList;
   }
 
-  return houses.filter((house) => {
+  return houseList.filter((house) => {
     return (
       house.name.toLowerCase().includes(search.value) ||
       house.city.toLowerCase().includes(search.value) ||

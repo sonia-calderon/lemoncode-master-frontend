@@ -9,8 +9,15 @@ export const useHouseApi = () => {
 	const getHouse = (id: string): Promise<House> =>
 		$fetch(`${config.public.apiBaseUrl}/api/houses/${id}`);
 
+	const bookHouse = (house: House): Promise<boolean> =>
+		$fetch(`${config.public.apiBaseUrl}/api/houses/${house.id}`, {
+			method: "PATCH",
+			body: house,
+		});
+
 	return {
 		getHouseList,
 		getHouse,
+		bookHouse,
 	};
 };
