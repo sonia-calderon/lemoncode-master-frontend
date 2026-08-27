@@ -14,9 +14,16 @@ const { data: houses } = await useAsyncData(
   () => getHouseList()
 )
 
+const normalizeText = (text: string) => {
+  return text
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase();
+};
+
 const search = computed(() => {
   const value = route.query.search;
-  return typeof value === 'string' ? value.toLowerCase() : '';
+  return typeof value === 'string' ? normalizeText(value) : '';
 });
 
 const filteredHouseList = computed(() => {
@@ -27,10 +34,10 @@ const filteredHouseList = computed(() => {
 
   return houseList.filter((house) => {
     return (
-      house.name.toLowerCase().includes(search.value) ||
-      house.city.toLowerCase().includes(search.value) ||
-      house.country.toLowerCase().includes(search.value) ||
-      house.address.toLowerCase().includes(search.value)
+      normalizeText(house.name).includes(search.value) ||
+      normalizeText(house.city).includes(search.value) ||
+      normalizeText(house.country).includes(search.value) ||
+      normalizeText(house.address).includes(search.value)
     );
   });
 });

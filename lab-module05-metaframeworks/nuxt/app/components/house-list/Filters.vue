@@ -46,7 +46,7 @@ const handleSubmit = () => {
         <input
           type="text"
           id="search"
-          placeholder="Nombre o ubicación"
+          placeholder="Buscar nombre o ubicación"
           v-model="query"
           class="w-full rounded-xl border border-neutral/20 bg-white/70 py-3 pl-11 pr-4 text-sm text-primary shadow-sm outline-none transition-all duration-200 focus:ring-2 focus:ring-primary/10 sm:text-base"
         />
