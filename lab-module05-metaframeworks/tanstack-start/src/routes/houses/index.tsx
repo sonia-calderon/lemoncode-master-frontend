@@ -2,6 +2,13 @@ import { createFileRoute } from '@tanstack/react-router';
 import { api, HouseList, mapHouseListFromApiToVm } from '#pods/house-list';
 import { Filters } from '#pods/house-list/filters.component.js';
 
+const normalizeText = (text: string) => {
+  return text
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase();
+};
+
 export const Route = createFileRoute('/houses/')({
   head: () => ({
     meta: [{ title: 'Rurall - Refugios Rurales' }],
@@ -10,30 +17,26 @@ export const Route = createFileRoute('/houses/')({
     search: typeof search.search === 'string' ? search.search : undefined,
   }),
   loaderDeps: ({ search }) => {
-    console.log('🔎 LOADER DEPS:', search);
-
     return {
       search: search.search ?? '',
     };
   },
 
   loader: async ({ deps }) => {
-    console.log('🏠 HOUSES LOADER:', deps.search, new Date().toISOString());
-
     const houses = await api.getHouseList();
 
     if (!deps.search) {
       return houses;
     }
 
-    const query = deps.search.toLowerCase();
+    const query = normalizeText(deps.search);
 
     return houses.filter(
       (house) =>
-        house.name.toLowerCase().includes(query) ||
-        house.city.toLowerCase().includes(query) ||
-        house.country.toLowerCase().includes(query) ||
-        house.address.toLowerCase().includes(query)
+        normalizeText(house.name).includes(query) ||
+        normalizeText(house.city).includes(query) ||
+        normalizeText(house.country).includes(query) ||
+        normalizeText(house.address).includes(query)
     );
   },
   staleTime: 10_000,

@@ -7,8 +7,6 @@ const url = `${ENV.BASE_API_URL}/houses`;
 export const getHouse = createServerFn()
   .validator((data: { id: string }) => data)
   .handler(async ({ data }): Promise<House> => {
-    console.log('🏡 getHouse:', data.id, new Date().toISOString());
-
     const response = await fetch(`${url}/${data.id}`);
 
     return response.json();

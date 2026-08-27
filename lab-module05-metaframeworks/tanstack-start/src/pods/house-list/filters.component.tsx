@@ -48,7 +48,7 @@ export const Filters: React.FC = () => {
         <input
           type="text"
           id="search"
-          placeholder="Nombre o ubicación"
+          placeholder="Buscar nombre o ubicación"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           className="w-full rounded-xl border border-neutral/20
