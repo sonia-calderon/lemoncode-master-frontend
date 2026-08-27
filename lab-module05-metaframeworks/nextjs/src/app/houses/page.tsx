@@ -7,9 +7,16 @@ interface Props {
   }>;
 }
 
+const normalizeText = (text: string) => {
+  return text
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase();
+};
+
 const HouseListPage = async ({ searchParams }: Props) => {
   const params = await searchParams;
-  const search = params.search ?? '';
+  const search = normalizeText(params.search ?? '');
 
   const houseList = await api.getHouseList({
     next: { revalidate: 10 },
@@ -19,10 +26,10 @@ const HouseListPage = async ({ searchParams }: Props) => {
     if (!search) return true;
 
     return (
-      house.name.toLowerCase().includes(search) ||
-      house.city.toLowerCase().includes(search) ||
-      house.country.toLowerCase().includes(search) ||
-      house.address.toLowerCase().includes(search)
+      normalizeText(house.name).includes(search) ||
+      normalizeText(house.city).includes(search) ||
+      normalizeText(house.country).includes(search) ||
+      normalizeText(house.address).includes(search)
     );
   });
   return (
