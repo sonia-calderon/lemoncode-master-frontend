@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { vi } from 'vitest';
 import { ConfirmationDialogComponent } from './confirmation-dialog.component';
 
-describe('/common/components/confirmation-dialog', () => {
+describe('/common/components/confirmation-dialog/confirmation-dialog.component', () => {
   // Everything ok
   it('should render the component given the correct props', () => {
     // Arrange
