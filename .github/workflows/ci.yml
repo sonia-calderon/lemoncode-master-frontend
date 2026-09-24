@@ -28,7 +28,7 @@ jobs:
           cache-dependency-path: lab-module06-testing/pnpm-lock.yaml
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile --dangerously-allow-built-dependencies
+        run: pnpm install --frozen-lockfile
 
       - name: Install Cypress Binary
         run: pnpm exec cypress install
