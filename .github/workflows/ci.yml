@@ -49,7 +49,7 @@ jobs:
           working-directory: ./lab-module06-testing
           install: false
           package-manager-cache: false
-          start: pnpm run start:ci -- --host 127.0.0.1
+          start: pnpm run start:ci --host 127.0.0.1 --port 5173 --strictPort
           wait-on: http://127.0.0.1:5173
           wait-on-timeout: 120
           command: pnpm exec cypress run
