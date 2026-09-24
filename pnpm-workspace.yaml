@@ -1,5 +1,0 @@
-packages:
-  - "lab-module06-testing"
-
-onlyBuiltDependencies:
-  - cypress
