@@ -12,6 +12,9 @@
     "type-check:watch": "tsc --noEmit --watch",
     "test": "vitest -c ./config/test/config.ts",
     "test:e2e": "cypress open",
+    "start:ci": "vite",
+    "test:e2e:ci": "run-p -l start:ci start:e2e:ci",
+    "start:e2e:ci": "cypress run",
     "clean": "rimraf dist"
   },
   "imports": {
