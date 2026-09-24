@@ -23,7 +23,6 @@
   "author": "Lemoncode",
   "license": "MIT",
   "packageManager": "pnpm@12.4.2",
-  "pnpm": {"onlyBuiltDependencies": ["cypress"]},
   "dependencies": {
     "@emotion/css": "^11.13.5",
     "@emotion/react": "^11.14.0",

@@ -1,0 +1,5 @@
+# Política explícita para scripts de instalación de dependencias.
+strictDepBuilds: true
+
+allowBuilds:
+  cypress: true
