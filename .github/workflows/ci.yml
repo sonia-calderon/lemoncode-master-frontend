@@ -29,6 +29,11 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+        env:
+          PNPM_ONLY_BUILT_DEPENDENCIES: "cypress"
+
+      - name: Install Cypress Binary
+        run: pnpm exec cypress install
 
       - name: Unit tests
         run: pnpm test
