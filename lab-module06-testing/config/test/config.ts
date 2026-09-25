@@ -6,5 +6,6 @@ export default defineConfig({
     restoreMocks: true,
     environment: 'jsdom',
     setupFiles: ['./config/test/setup.ts'],
+    exclude: ['cypress/**', 'node_modules/**'],
   },
 });
