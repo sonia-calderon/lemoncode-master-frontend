@@ -9,7 +9,7 @@
     "build": "run-p -l type-check build:prod",
     "build:prod": "pnpm run clean && vite build",
     "type-check": "tsc --noEmit",
-    "type-check:watch": "pnpm run type-check -- --watch",
+    "type-check:watch": "tsc --noEmit --watch",
     "test": "vitest -c ./config/test/config.ts",
     "clean": "rimraf dist"
   },
