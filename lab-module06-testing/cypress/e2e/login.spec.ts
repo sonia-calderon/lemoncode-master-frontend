@@ -50,7 +50,7 @@ describe('Login specs', () => {
     cy.findByRole('button', { name: 'Login' }).click();
 
     // Assert
-    cy.url().should('equal', 'http://127.0.0.1:5173/#/submodule-list');
+    cy.url().should('equal', 'http://localhost:5173/#/submodule-list');
     cy.location('hash').should('equal', '#/submodule-list');
   });
 });
