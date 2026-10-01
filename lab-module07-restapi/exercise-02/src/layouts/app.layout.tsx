@@ -4,6 +4,7 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import * as classes from './app.layout.styles';
+import { Typography } from '@mui/material';
 
 interface Props {
   children: React.ReactNode;

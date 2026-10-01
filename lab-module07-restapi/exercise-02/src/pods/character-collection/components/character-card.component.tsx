@@ -1,53 +1,49 @@
 import * as React from 'react';
 import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
-import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
 import { CharacterEntityVm } from '../character-collection.vm';
 import * as classes from './character-card.styles';
+import { Link } from 'react-router-dom';
+import { linkRoutes } from '#core/router/routes.js';
+import { Chip } from '@mui/material';
 
 interface Props {
   character: CharacterEntityVm;
-  onEdit: (id: string) => void;
-  onDelete: (id: string) => void;
 }
 
 export const CharacterCard: React.FunctionComponent<Props> = (props) => {
-  const { character, onEdit, onDelete } = props;
+  const { character } = props;
 
   return (
-    <Card>
-      <CardHeader
-        avatar={<Avatar aria-label="Character">{character.rating}</Avatar>}
-        title={character.name}
-        subheader={character.address}
-      />
-      <CardContent>
-        <div className={classes.content}>
-          <CardMedia
-            image={character.picture}
-            title={character.name}
-            style={{ height: 0, paddingTop: '56.25%' }}
-          />
-          <Typography variant="subtitle1" gutterBottom>
-            {character.description}
+    <Link to={linkRoutes.character(character.id)} className={classes.link}>
+      <Card className={classes.card}>
+        <CardMedia
+          component="img"
+          image={character.image}
+          title={character.name}
+          className={classes.media}
+        />
+        <CardContent className={classes.content}>
+          <Typography variant="h5" className={classes.name}>
+            {character.name}
           </Typography>
-        </div>
-      </CardContent>
-      <CardActions>
-        <IconButton onClick={() => onEdit(character.id)}>
-          <EditIcon />
-        </IconButton>
-        <IconButton onClick={() => onDelete(character.id)}>
-          <DeleteIcon />
-        </IconButton>
-      </CardActions>
-    </Card>
+          <Chip
+            label={character.status}
+            color="primary"
+            size="small"
+            className={classes.status}
+          />
+
+          <Typography variant="body2" className={classes.info}>
+            {character.species} · {character.gender}
+          </Typography>
+          <Typography variant="body2" className={classes.origin}>
+            <strong>Origin:</strong> {character.origin.name}
+          </Typography>
+        </CardContent>
+      </Card>
+    </Link>
   );
 };
