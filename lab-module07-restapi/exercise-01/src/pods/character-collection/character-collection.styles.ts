@@ -10,8 +10,7 @@ export const root = css`
 export const list = css`
   display: grid;
   grid-template-columns: repeat(1, 1fr);
-  grid-row-gap: 2rem;
-  grid-column-gap: 2rem;
+  gap: 1.5rem;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -22,5 +21,9 @@ export const list = css`
 
   @media (min-width: ${theme.breakpoints.values.md}px) {
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (min-width: ${theme.breakpoints.values.lg}px) {
+    grid-template-columns: repeat(4, 1fr);
   }
 `;

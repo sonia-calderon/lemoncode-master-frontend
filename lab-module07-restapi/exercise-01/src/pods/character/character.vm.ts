@@ -1,17 +1,21 @@
 export interface Character {
-  id: string;
+  id: number;
   name: string;
-  description: string;
-  rating: number;
-  address: string;
-  city: string;
+  status: string;
+  species: string;
+  type: string;
+  gender: string;
+  origin: Origin;
+  location: Location;
+  image: string;
 }
 
-export const createEmptyCharacter = (): Character => ({
-  id: '',
-  name: '',
-  description: '',
-  rating: 3,
-  address: '',
-  city: '',
-});
+export interface Origin {
+  name: string;
+  url: string;
+}
+
+export interface Location {
+  name: string;
+  url: string;
+}

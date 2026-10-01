@@ -6,6 +6,8 @@ import Typography from '@mui/material/Typography';
 import { CharacterEntityVm } from '../character-collection.vm';
 import * as classes from './character-card.styles';
 import { Link } from 'react-router-dom';
+import { linkRoutes } from '#core/router/routes.js';
+import { Chip } from '@mui/material';
 
 interface Props {
   character: CharacterEntityVm;
@@ -15,23 +17,31 @@ export const CharacterCard: React.FunctionComponent<Props> = (props) => {
   const { character } = props;
 
   return (
-    <Link to="" style={{ textDecoration: 'none' }}>
-      <Card>
+    <Link to={linkRoutes.character(character.id)} className={classes.link}>
+      <Card className={classes.card}>
         <CardMedia
+          component="img"
           image={character.image}
           title={character.name}
-          style={{ height: 0, paddingTop: '56.25%' }}
+          className={classes.media}
         />
-        <CardContent>
-          <div className={classes.content}>
-            <Typography variant="h5">{character.name}</Typography>
-            <Typography variant="subtitle1" gutterBottom>
-              {character.status}
-            </Typography>
-            <Typography variant="subtitle1" gutterBottom>
-              {character.species}
-            </Typography>
-          </div>
+        <CardContent className={classes.content}>
+          <Typography variant="h5" className={classes.name}>
+            {character.name}
+          </Typography>
+          <Chip
+            label={character.status}
+            color="primary"
+            size="small"
+            className={classes.status}
+          />
+
+          <Typography variant="body2" className={classes.info}>
+            {character.species} · {character.gender}
+          </Typography>
+          <Typography variant="body2" className={classes.origin}>
+            <strong>Origin:</strong> {character.origin.name}
+          </Typography>
         </CardContent>
       </Card>
     </Link>
