@@ -15,7 +15,7 @@ export const getCharacterCollection = async (): Promise<
   if (!response.ok) throw new Error(response.statusText);
 
   const data: CharacterApiResponse = await response.json();
-  allCharacters = [...allCharacters, ...data.results];
+  allCharacters = data.results;
 
   return allCharacters;
 };
