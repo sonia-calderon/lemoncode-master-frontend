@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React from 'react';
 import * as api from './api';
 import { Character } from './character.vm';
-import { mapCharacterFromApiToVm } from './character.mappers';
-import { Lookup } from '#common/models';
+import {
+  mapCharacterFromApiToVm,
+  mapCharacterFromVmToApi,
+} from './character.mappers';
 import { CharacterComponent } from './character.component';
 
 interface Props {
@@ -13,6 +14,7 @@ interface Props {
 export const CharacterContainer: React.FunctionComponent<Props> = (props) => {
   const { id } = props;
   const [character, setCharacter] = React.useState<Character>();
+  const [showSnackbar, setShowSnackbar] = React.useState(false);
 
   const handleLoadCharacter = async () => {
     const apiCharacter = await api.getCharacter(id);
@@ -25,5 +27,24 @@ export const CharacterContainer: React.FunctionComponent<Props> = (props) => {
     }
   }, [id]);
 
-  return <CharacterComponent character={character} />;
+  const handleSave = async (character: Character) => {
+    const apiCharacter = mapCharacterFromVmToApi(character);
+    const success = await api.saveBestSentence(apiCharacter);
+
+    if (success) {
+      console.log('Best sentence saved');
+      setShowSnackbar(true);
+    } else {
+      alert('Error on save best sentence');
+    }
+  };
+
+  return (
+    <CharacterComponent
+      character={character}
+      onSave={handleSave}
+      showSnackbar={showSnackbar}
+      onCloseSnackbar={() => setShowSnackbar(false)}
+    />
+  );
 };

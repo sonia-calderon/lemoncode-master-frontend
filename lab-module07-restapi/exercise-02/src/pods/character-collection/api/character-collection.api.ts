@@ -3,7 +3,7 @@ import {
   CharacterEntityApi,
 } from './character-collection.api-model';
 
-const url = `https://rickandmortyapi.com/api/character`;
+const url = `/api/character`;
 
 let allCharacters: CharacterEntityApi[] = [];
 

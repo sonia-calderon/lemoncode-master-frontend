@@ -15,8 +15,32 @@ export const mapCharacterFromApiToVm = (
     url: character.origin.url,
   },
   location: {
-    name: character.origin.name,
-    url: character.origin.url,
+    name: character.location.name,
+    url: character.location.url,
   },
   image: character.image,
+  bestSentence: character.bestSentence,
 });
+
+export const mapCharacterFromVmToApi = (
+  character: viewModel.Character
+): apiModel.Character =>
+  ({
+    ...character,
+    id: character.id,
+    name: character.name,
+    status: character.status,
+    species: character.species,
+    type: character.type,
+    gender: character.gender,
+    origin: {
+      name: character.origin.name,
+      url: character.origin.url,
+    },
+    location: {
+      name: character.location.name,
+      url: character.location.url,
+    },
+    image: character.image,
+    bestSentence: character.bestSentence,
+  }) as unknown as apiModel.Character;

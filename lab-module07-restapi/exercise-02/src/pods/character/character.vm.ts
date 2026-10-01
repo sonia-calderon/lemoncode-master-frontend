@@ -8,6 +8,7 @@ export interface Character {
   origin: Origin;
   location: Location;
   image: string;
+  bestSentence?: string;
 }
 
 export interface Origin {
