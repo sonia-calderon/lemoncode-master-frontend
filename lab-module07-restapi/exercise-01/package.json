@@ -4,14 +4,12 @@
   "description": "Rest API demos",
   "type": "module",
   "scripts": {
-    "start": "run-p -l type-check:watch start:dev start:server",
+    "start": "run-p -l type-check:watch start:dev",
     "start:dev": "vite --port 8080",
-    "start:server": "cd server && pnpm run mock-server",
     "prebuild": "pnpm run type-check",
     "build": "vite build",
     "type-check": "tsc --noEmit",
-    "type-check:watch": "tsc --noEmit --watch",
-    "postinstall": "cd ./server && pnpm install"
+    "type-check:watch": "tsc --noEmit --watch"
   },
   "imports": {
     "#*": "./src/*"

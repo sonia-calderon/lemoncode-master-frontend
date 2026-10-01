@@ -15,8 +15,8 @@ export const mapCharacterFromApiToVm = (
     url: character.origin.url,
   },
   location: {
-    name: character.origin.name,
-    url: character.origin.url,
+    name: character.location.name,
+    url: character.location.url,
   },
   image: character.image,
 });
