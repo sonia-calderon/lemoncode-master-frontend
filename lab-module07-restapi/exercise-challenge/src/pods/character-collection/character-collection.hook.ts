@@ -9,14 +9,20 @@ export const useCharacterCollection = () => {
     CharacterEntityVm[]
   >([]);
 
-  const loadCharacterCollection = () => {
-    getCharacterCollection().then((result) =>
-      setCharacterCollection(mapToCollection(result, mapFromApiToVm))
-    );
+  const [totalPages, setTotalPages] = React.useState(1);
+
+  const loadCharacterCollection = async (
+    page: number = 1,
+    searchValue?: string
+  ) => {
+    const data = await getCharacterCollection(page, searchValue);
+    setCharacterCollection(mapToCollection(data.results, mapFromApiToVm));
+    setTotalPages(data.info.pages);
   };
 
   return {
     characterCollection,
-    loadCharacterCollection: loadCharacterCollection,
+    totalPages,
+    loadCharacterCollection,
   };
 };

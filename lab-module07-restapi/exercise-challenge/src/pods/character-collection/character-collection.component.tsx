@@ -3,57 +3,48 @@ import { CharacterEntityVm } from './character-collection.vm';
 import { CharacterCard } from './components/character-card.component';
 import * as classes from './character-collection.styles';
 import { Searchbar } from './components/searchbar.component';
+import { PaginationComponent } from './components/pagination.component';
 
 interface Props {
   characterCollection: CharacterEntityVm[];
+  totalPages: number;
+  page: number;
+  searchValue: string;
+  onPageChange: (page: number) => void;
+  onSearch: (value: string) => void;
 }
 
 export const CharacterCollectionComponent: React.FunctionComponent<Props> = (
   props
 ) => {
-  const { characterCollection } = props;
+  const {
+    characterCollection,
+    totalPages,
+    page,
+    searchValue,
+    onPageChange,
+    onSearch,
+  } = props;
 
-  const [searchValue, setSearchValue] = React.useState('');
-  const [characters, setCharacters] = React.useState<CharacterEntityVm[]>([]);
-
-  React.useEffect(() => {
-    setCharacters(characterCollection);
-  }, [characterCollection]);
-
-  const handleSearch = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-
-    setSearchValue(value);
-
-    if (!value.trim()) {
-      setCharacters(characterCollection);
-      return;
-    }
-
-    const response = await fetch(
-      `https://rickandmortyapi.com/api/character/?name=${value}`
-    );
-
-    if (!response.ok) {
-      setCharacters(characterCollection);
-      return;
-    }
-
-    const data = await response.json();
-
-    setCharacters(data.results);
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    onSearch(event.target.value);
   };
 
   return (
     <div className={classes.root}>
       <Searchbar value={searchValue} onChange={handleSearch} />
       <ul className={classes.list}>
-        {characters.map((character) => (
+        {characterCollection.map((character) => (
           <li key={character.id}>
             <CharacterCard character={character} />
           </li>
         ))}
       </ul>
+      <PaginationComponent
+        count={totalPages}
+        page={page}
+        onChange={onPageChange}
+      />
     </div>
   );
 };

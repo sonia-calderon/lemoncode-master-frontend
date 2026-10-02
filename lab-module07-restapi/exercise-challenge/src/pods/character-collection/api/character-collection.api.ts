@@ -1,26 +1,24 @@
-import {
-  CharacterApiResponse,
-  CharacterEntityApi,
-} from './character-collection.api-model';
+import { CharacterApiResponse } from './character-collection.api-model';
 
 const url = `https://rickandmortyapi.com/api/character`;
 
-let allCharacters: CharacterEntityApi[] = [];
+export const getCharacterCollection = async (
+  page: number,
+  name?: string
+): Promise<CharacterApiResponse> => {
+  const params = new URLSearchParams({
+    page: page.toString(),
+  });
 
-export const getCharacterCollection = async (): Promise<
-  CharacterEntityApi[]
-> => {
-  const response = await fetch(url);
+  if (name) {
+    params.append('name', name);
+  }
+
+  const response = await fetch(`${url}?${params.toString()}`);
 
   if (!response.ok) throw new Error(response.statusText);
 
   const data: CharacterApiResponse = await response.json();
-  allCharacters = data.results;
 
-  return allCharacters;
-};
-
-export const deleteCharacter = async (id: number): Promise<boolean> => {
-  allCharacters = allCharacters.filter((character) => character.id !== id);
-  return true;
+  return data;
 };

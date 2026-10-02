@@ -3,14 +3,33 @@ import { useCharacterCollection } from './character-collection.hook';
 import { CharacterCollectionComponent } from './character-collection.component';
 
 export const CharacterCollectionContainer = () => {
-  const { characterCollection, loadCharacterCollection } =
+  const { characterCollection, totalPages, loadCharacterCollection } =
     useCharacterCollection();
 
+  const [page, setPage] = React.useState(1);
+  const [searchValue, setSearchValue] = React.useState('');
+
   React.useEffect(() => {
-    loadCharacterCollection();
-  }, []);
+    loadCharacterCollection(page, searchValue);
+  }, [page, searchValue]);
+
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
+  };
+
+  const handleSearch = async (value: string) => {
+    setSearchValue(value);
+    setPage(1);
+  };
 
   return (
-    <CharacterCollectionComponent characterCollection={characterCollection} />
+    <CharacterCollectionComponent
+      characterCollection={characterCollection}
+      totalPages={totalPages}
+      page={page}
+      onPageChange={handlePageChange}
+      searchValue={searchValue}
+      onSearch={handleSearch}
+    />
   );
 };
