@@ -13,10 +13,6 @@ export const CharacterCollectionContainer = () => {
     loadCharacterCollection(page, searchValue);
   }, [page, searchValue]);
 
-  const handlePageChange = (newPage: number) => {
-    setPage(newPage);
-  };
-
   const handleSearch = async (value: string) => {
     setSearchValue(value);
     setPage(1);
@@ -27,7 +23,7 @@ export const CharacterCollectionContainer = () => {
       characterCollection={characterCollection}
       totalPages={totalPages}
       page={page}
-      onPageChange={handlePageChange}
+      onPageChange={setPage}
       searchValue={searchValue}
       onSearch={handleSearch}
     />

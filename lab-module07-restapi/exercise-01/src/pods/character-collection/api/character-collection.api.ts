@@ -19,8 +19,3 @@ export const getCharacterCollection = async (): Promise<
 
   return allCharacters;
 };
-
-export const deleteCharacter = async (id: number): Promise<boolean> => {
-  allCharacters = allCharacters.filter((character) => character.id !== id);
-  return true;
-};

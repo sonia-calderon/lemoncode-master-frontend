@@ -26,13 +26,12 @@ export const CharacterCollectionComponent: React.FunctionComponent<Props> = (
     onSearch,
   } = props;
 
-  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    onSearch(event.target.value);
-  };
-
   return (
     <div className={classes.root}>
-      <Searchbar value={searchValue} onChange={handleSearch} />
+      <Searchbar
+        value={searchValue}
+        onChange={(e) => onSearch(e.target.value)}
+      />
       <ul className={classes.list}>
         {characterCollection.map((character) => (
           <li key={character.id}>
